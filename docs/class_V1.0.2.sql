@@ -85,10 +85,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `class`.`exam` (
   `id_exam` INT NOT NULL AUTO_INCREMENT ,
-  `date` DATE NULL ,
+  `school_no` INT NOT NULL ,
+  `date` DATE NOT NULL ,
   `grade` INT NOT NULL ,
-  `division` VARCHAR(45) NULL ,
-  `term` INT NULL ,
+  `division` VARCHAR(45) NOT NULL ,
+  `term` INT NOT NULL ,
   `subject_idsubject` INT NOT NULL ,
   `exam_type_idexam_type` INT NOT NULL ,
   PRIMARY KEY (`id_exam`) ,
