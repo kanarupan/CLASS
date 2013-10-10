@@ -40,7 +40,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `class`.`student_performance` (
   `idstudent_performance` INT NOT NULL AUTO_INCREMENT ,
-  `date` DATE NULL ,
   `student_idstudent` INT NOT NULL ,
   `performance_type_idperformance_type` INT NOT NULL ,
   PRIMARY KEY (`idstudent_performance`) ,
@@ -86,6 +85,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `class`.`exam` (
   `id_exam` INT NOT NULL AUTO_INCREMENT ,
+  `date` DATE NULL ,
   `grade` INT NOT NULL ,
   `division` VARCHAR(45) NULL ,
   `term` INT NULL ,
@@ -156,6 +156,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `class`.`attendance` (
   `student_performance_idstudent_performance` INT NOT NULL ,
+  `year` YEAR NULL ,
   `term` INT NULL ,
   `total` INT NULL ,
   `present` INT NULL ,
