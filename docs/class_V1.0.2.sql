@@ -20,7 +20,8 @@ CREATE  TABLE IF NOT EXISTS `class`.`student` (
   `father` VARCHAR(45) NULL ,
   `mother` VARCHAR(45) NULL ,
   `siblings` INT NULL ,
-  PRIMARY KEY (`idstudent`) )
+  PRIMARY KEY (`school_no`, `student_school_id`) ,
+  INDEX `id` USING BTREE (`idstudent` ASC) )
 ENGINE = InnoDB;
 
 
@@ -39,7 +40,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `class`.`student_performance` (
   `idstudent_performance` INT NOT NULL AUTO_INCREMENT ,
-  `date` DATETIME NULL ,
+  `date` DATE NULL ,
   `student_idstudent` INT NOT NULL ,
   `performance_type_idperformance_type` INT NOT NULL ,
   PRIMARY KEY (`idstudent_performance`) ,
