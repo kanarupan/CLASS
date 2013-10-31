@@ -75,7 +75,7 @@ public class CFinal {
 		marks.add(96);
 		marks.add(71);
 		marks.add(83);
-		
+		System.out.println("ssss");
 //		System.out.println(CFinal.predictNextTerm(11,5,"maths", 45455, marks));
 		
 		
