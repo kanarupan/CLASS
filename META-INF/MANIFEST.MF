@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CLASS
+Bundle-SymbolicName: CLASS
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: CLASS.jar,
+ lib/mysql-connector-java-5.1.25-bin.jar,
+ lib/weka.jar
+Export-Package: com.arima.engine
