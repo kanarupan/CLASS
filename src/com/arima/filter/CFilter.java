@@ -3,9 +3,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import weka.classifiers.Classifier;
+import weka.core.Attribute;
+import weka.core.DenseInstance;
+import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.ProtectedProperties;
 import weka.core.converters.ArffLoader;
@@ -22,6 +27,7 @@ import weka.filters.unsupervised.attribute.MathExpression;
 import weka.filters.unsupervised.attribute.NumericToNominal;
 import weka.filters.unsupervised.attribute.Remove;
 
+import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.StringUtils;
 
 public class CFilter {
@@ -45,6 +51,99 @@ public class CFilter {
 	//	private static String getPassword() {
 	//		return password;
 	//	}
+	
+
+	public static Instances createInstances(int index, ArrayList<Integer> marks){
+
+//		System.out.println(index);System.out.println(marks.size());System.exit(0);	
+		
+		ArrayList<Attribute> attributes = new ArrayList<Attribute>();
+		
+		Attribute index_no = new Attribute("index_no");
+		attributes.add(index_no);
+		
+		int terms = marks.size();
+
+		if(terms == 1){
+			Attribute subject_1_term_1 = new Attribute("subject_1_term_1");
+			attributes.add(subject_1_term_1);
+		}else if(terms == 2){
+			Attribute subject_1_term_1 = new Attribute("subject_1_term_1");
+			attributes.add(subject_1_term_1);
+			Attribute subject_1_term_2 = new Attribute("subject_1_term_2");
+			attributes.add(subject_1_term_2);
+		}else if(terms == 3){
+			Attribute subject_1_term_1 = new Attribute("subject_1_term_1");
+			attributes.add(subject_1_term_1);
+			Attribute subject_1_term_2 = new Attribute("subject_1_term_2");
+			attributes.add(subject_1_term_2);
+			Attribute subject_1_term_3 = new Attribute("subject_1_term_3");
+			attributes.add(subject_1_term_3);
+		}else if(terms == 4){
+			Attribute subject_1_term_1 = new Attribute("subject_1_term_1");
+			attributes.add(subject_1_term_1);
+			Attribute subject_1_term_2 = new Attribute("subject_1_term_2");
+			attributes.add(subject_1_term_2);
+			Attribute subject_1_term_3 = new Attribute("subject_1_term_3");
+			attributes.add(subject_1_term_3);
+			Attribute subject_1_term_4 = new Attribute("subject_1_term_4");
+			attributes.add(subject_1_term_4);
+		}else if(terms == 5){
+			Attribute subject_1_term_1 = new Attribute("subject_1_term_1");
+			attributes.add(subject_1_term_1);
+			Attribute subject_1_term_2 = new Attribute("subject_1_term_2");
+			attributes.add(subject_1_term_2);
+			Attribute subject_1_term_3 = new Attribute("subject_1_term_3");
+			attributes.add(subject_1_term_3);
+			Attribute subject_1_term_4 = new Attribute("subject_1_term_4");
+			attributes.add(subject_1_term_4);
+			Attribute subject_1_term_5 = new Attribute("subject_1_term_5");
+			attributes.add(subject_1_term_5);
+		}else if(terms == 6){
+			Attribute subject_1_term_1 = new Attribute("subject_1_term_1");
+			attributes.add(subject_1_term_1);
+			Attribute subject_1_term_2 = new Attribute("subject_1_term_2");
+			attributes.add(subject_1_term_2);
+			Attribute subject_1_term_3 = new Attribute("subject_1_term_3");
+			attributes.add(subject_1_term_3);
+			Attribute subject_1_term_4 = new Attribute("subject_1_term_4");
+			attributes.add(subject_1_term_4);
+			Attribute subject_1_term_5 = new Attribute("subject_1_term_5");
+			attributes.add(subject_1_term_5);
+			Attribute subject_1_term_6 = new Attribute("subject_1_term_6");
+			attributes.add(subject_1_term_6);
+		}else if(terms == 7){
+			Attribute subject_1_term_1 = new Attribute("subject_1_term_1");
+			attributes.add(subject_1_term_1);
+			Attribute subject_1_term_2 = new Attribute("subject_1_term_2");
+			attributes.add(subject_1_term_2);
+			Attribute subject_1_term_3 = new Attribute("subject_1_term_3");
+			attributes.add(subject_1_term_3);
+			Attribute subject_1_term_4 = new Attribute("subject_1_term_4");
+			attributes.add(subject_1_term_4);
+			Attribute subject_1_term_5 = new Attribute("subject_1_term_5");
+			attributes.add(subject_1_term_5);
+			Attribute subject_1_term_6 = new Attribute("subject_1_term_6");
+			attributes.add(subject_1_term_6);
+			Attribute subject_1_term_7 = new Attribute("subject_1_term_7");
+			attributes.add(subject_1_term_7);
+		}
+		
+		Instances dataset = new Instances("Test-dataset", attributes, 0);
+		
+		Instance inst = new DenseInstance(marks.size()+1); 
+		inst.setValue(0, index); 
+
+		for (int i = 0; i < marks.size(); i++) {
+			inst.setValue(i+1, marks.get(i));
+			System.out.println(marks.get(i));
+		}
+		inst.setDataset(dataset);
+		dataset.add(inst);
+		
+		System.out.println("The instance: " + dataset); 
+		return dataset;
+	}
 
 	public static void arff2Database(Instances data, String table_name,String URL, String username, String password)
 			throws Exception {
@@ -109,7 +208,7 @@ public class CFilter {
 			}
 
 			index_numbers = index_numbers.substring(0, index_numbers.length() - 1);
-			System.out.println(index_numbers);
+			//			System.out.println(index_numbers);
 			return index_numbers;
 
 		} else {
@@ -131,7 +230,7 @@ public class CFilter {
 
 		return train;
 	}
-	
+
 	public static Instances numeric2nominalAuto(Instances data, String indices)
 			throws Exception {
 
@@ -140,46 +239,56 @@ public class CFilter {
 		 * (35<marks<50) 1 - F (marks<35)
 		 */
 
-//		MathExpression normFilter = new MathExpression();
-//		normFilter.setIgnoreRange(indices); // Set which attributes are to be ignored
-//		normFilter.setInvertSelection(true);
-//		normFilter.setExpression("ifelse(A>35, ifelse(A>50, ifelse(A>65, ifelse(A>75, 5, 4), 3), 2), 1)");
-//		normFilter.setInputFormat(data);
-//		Instances normalizedData = Filter.useFilter(data, normFilter);
+		//		MathExpression normFilter = new MathExpression();
+		//		normFilter.setIgnoreRange(indices); // Set which attributes are to be ignored
+		//		normFilter.setInvertSelection(true);
+		//		normFilter.setExpression("ifelse(A>35, ifelse(A>50, ifelse(A>65, ifelse(A>75, 5, 4), 3), 2), 1)");
+		//		normFilter.setInputFormat(data);
+		//		Instances normalizedData = Filter.useFilter(data, normFilter);
 
 		Discretize filter = new Discretize();
-		     filter.setInputFormat(data);
-//		     filter.setAttributeIndices(indices);
-//		     filter.setAttributeIndices(indices);
-		     filter.desiredWeightOfInstancesPerIntervalTipText();
-		     filter.setBins(5);
-		     filter.setUseBinNumbers(true);
-		     System.out.println(filter.getUseBinNumbers());
-//		     System.out.println(filter.getBinRangesString(0));
-//		     System.out.println(filter.);
-		     
-		     data = Filter.useFilter(data, filter);
-		     System.out.println(filter.getBinRangesString(0));
+		filter.setInputFormat(data);
+		//		     filter.setAttributeIndices(indices);
+		//		     filter.setAttributeIndices(indices);
+		filter.desiredWeightOfInstancesPerIntervalTipText();
+		filter.setBins(5);
+		filter.setUseBinNumbers(true);
+		System.out.println(filter.getUseBinNumbers());
+		//		     System.out.println(filter.getBinRangesString(0));
+		//		     System.out.println(filter.);
+
+		data = Filter.useFilter(data, filter);
+		System.out.println(filter.getBinRangesString(0));
 
 		return data;
 	}
-	
-	
-	public static Instances numeric2nominal(Instances data, String indices)
+
+
+	public static Instances numeric2nominal(Instances data, String indices, int bins)
 			throws Exception {
 
 		/*
 		 * 5 - A (75<marks) 4 - B (65<marks<75) 3 - C (50<marks<65) 2 - S
 		 * (35<marks<50) 1 - F (marks<35)
 		 */
-		String five = "ifelse(A>35, ifelse(A>50, ifelse(A>65, ifelse(A>75, 5, 4), 3), 2), 1)";
-		String two = "ifelse(A>35, 2, 1)";
-		String three = "ifelse(A>35, ifelse(A>55, 3, 2), 1)";
-		String four = "ifelse(A>35, ifelse(A>55, ifelse(A>65, 4, 3), 2), 1)";
+		String expression;
+		switch (bins) {
+		case 2:  expression = "ifelse(A>35, 2, 1)";
+		break;
+		case 3:  expression = "ifelse(A>35, ifelse(A>55, 3, 2), 1)";
+		break;
+		case 4:  expression = "ifelse(A>35, ifelse(A>55, ifelse(A>65, 4, 3), 2), 1)";
+		break;
+		case 5:  expression = "ifelse(A>35, ifelse(A>55, ifelse(A>65, ifelse(A>75, 5, 4), 3), 2), 1)";
+		break;
+		default: expression = "ifelse(A>35, ifelse(A>55, ifelse(A>65, ifelse(A>75, 5, 4), 3), 2), 1)";
+		break;
+		}
+
 		MathExpression normFilter = new MathExpression();
 		normFilter.setIgnoreRange(indices); // Set which attributes are to be ignored
 		normFilter.setInvertSelection(true);
-		normFilter.setExpression(five);
+		normFilter.setExpression(expression);
 		normFilter.setInputFormat(data);
 		Instances normalizedData = Filter.useFilter(data, normFilter);
 
@@ -220,16 +329,16 @@ public class CFilter {
 		filter.setLabels(nominalValues);
 		filter.setSort(true);
 		filter.setInputFormat(newData);
-		
+
 		return newData = Filter.useFilter(newData, filter);
 
 	}
-	
+
 	public static Instances changeAttributesNominalValues(Instances inst, String indices, String nominalValues) throws Exception{
 
 		ArrayList<Integer> intList = String2Ints(indices);
 		int index;
-		
+
 		for (int i = 0; i < intList.size(); i++) {
 			index = intList.get(i);
 			inst = changeAttributeNominalValues(inst, index, nominalValues);
@@ -237,9 +346,9 @@ public class CFilter {
 
 		return inst;
 	}
-	
+
 	public static void saveARFF(Instances instances,String path) {
-		
+
 		BufferedWriter writer;
 		try {
 			writer = new BufferedWriter(
@@ -253,28 +362,28 @@ public class CFilter {
 			e.printStackTrace();
 		}
 
-		
+
 	}
-	
+
 	public static Instances loadARFF(){
-		
+
 		ArffLoader loader = new ArffLoader();
 		try {
 			loader.setFile(new File("/some/where/data.arff"));
 			Instances data = loader.getStructure();
-			
+
 			return data;
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
-	
+
 	public static void saveCSV(Instances instances, String path) {
-		
+
 		CSVSaver saver = new CSVSaver();
 		saver.setInstances(instances);
 		try {
@@ -284,11 +393,11 @@ public class CFilter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 	}
-	
+
 	public static Instances loadCSV(String path){
-		
+
 		Instances data;
 		try {
 			data = DataSource.read(path);
@@ -298,12 +407,12 @@ public class CFilter {
 			e.printStackTrace();
 			return null;
 		}	
-		
-		
+
+
 	}
-	
+
 	public static void saveModel(Classifier cls, String path) {
-		
+
 		try {
 			weka.core.SerializationHelper.write(path, cls);
 		} catch (Exception e) {
@@ -311,9 +420,9 @@ public class CFilter {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static Classifier loadModel(String path) {
-		
+
 		try {
 			Classifier cls = (Classifier) weka.core.SerializationHelper.read(path);
 			return cls;
@@ -324,27 +433,27 @@ public class CFilter {
 		}	
 
 	}
-	
+
 	public static ArrayList<Integer> String2Ints(String str){
 
 		ArrayList<Integer> intList = new ArrayList<Integer>(); 
-		
-			if (!StringUtils.isEmptyOrWhitespaceOnly(str)) {
 
-				String[] tokens = str.split(",");
+		if (!StringUtils.isEmptyOrWhitespaceOnly(str)) {
 
-				   
-				for (int i = 0; i < tokens.length; i++) {
-				    intList.add(Integer.parseInt(tokens[i]));
-				}
-				
-			} else {
-				System.out.println("Please Give some indices!");
+			String[] tokens = str.split(",");
+
+
+			for (int i = 0; i < tokens.length; i++) {
+				intList.add(Integer.parseInt(tokens[i]));
 			}
-			
-			return intList;
+
+		} else {
+			System.out.println("Please Give some indices!");
+		}
+
+		return intList;
 	}
-	
+
 	public static Instances renameAttributesValues(Instances inst, String indices, String oldValues, String newValues){
 
 		Instances newData = new Instances(inst);

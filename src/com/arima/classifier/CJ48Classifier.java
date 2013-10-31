@@ -4,7 +4,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-import com.arima.analyzer.CAnalyzer;
+import com.arima.core.CAnalyzer;
 import com.arima.filter.CFilter;
 
 import weka.classifiers.Classifier;
@@ -18,9 +18,9 @@ import weka.gui.treevisualizer.TreeVisualizer;
 public class CJ48Classifier implements CClassifier {
 
 	@Override
-	public Classifier  buildClassifier(Instances subject, String indices) throws Exception {
+	public Classifier  buildClassifier(Instances subject) throws Exception {
 
-		subject = CFilter.removeAttributesByIndices(subject, indices);
+//		subject = CFilter.removeAttributesByIndices(subject, indices);
 
 		if (subject.classIndex() == -1)
 			subject.setClassIndex(subject.numAttributes() - 1);
@@ -34,9 +34,12 @@ public class CJ48Classifier implements CClassifier {
 
 		Evaluation eval = new Evaluation(subject);
 		eval.crossValidateModel(j48, subject, 10, new Random(1));
+		
+		double accuracy = 100 * (eval.correct())/(eval.correct()+eval.incorrect());
+		System.out.println("Fucking Accuracy is : " + accuracy);
 
 		System.out.println(eval.toSummaryString("\nResults\nn8888", true));
-		System.out.println(eval.fMeasure(1) + " " + eval.precision(1) + " ");
+//		System.out.println(eval.fMeasure(1) + " " + eval.precision(1) + " ");
 
 		return j48;
 

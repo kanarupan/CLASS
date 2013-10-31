@@ -5,6 +5,6 @@ import weka.core.Instances;
 
 public interface CClassifier {
 	
-	Classifier buildClassifier(Instances subject, String indices) throws Exception;
+	Classifier buildClassifier(Instances subject) throws Exception;
 
 }
