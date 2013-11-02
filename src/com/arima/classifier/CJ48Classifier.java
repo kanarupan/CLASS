@@ -17,7 +17,7 @@ import weka.gui.treevisualizer.TreeVisualizer;
 
 public class CJ48Classifier implements CClassifier {
 
-	@Override
+
 	public Classifier  buildClassifier(Instances subject) throws Exception {
 
 //		subject = CFilter.removeAttributesByIndices(subject, indices);

@@ -8,7 +8,6 @@ import weka.core.Instances;
 
 public class CCrossValidateEvaluator implements CEvaluator {
 
-	@Override
 	public Evaluation evaluator(Classifier cls, Instances inst, int fold, int seed)
 			throws Exception {
 		
