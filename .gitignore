@@ -3,11 +3,14 @@
 *.lock
 *.DS_Store
 *.swp
-*.out
-*out
+/out
+/bin
+/target
 Thumbs.db
 *.iml
 *.idea
 *.classpath
 *.project
 *.settings/
+build.properties
+CLASS.iml
