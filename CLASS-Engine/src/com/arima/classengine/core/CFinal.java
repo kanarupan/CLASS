@@ -26,58 +26,13 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 
 public class CFinal {
 	
-	public static String predictNextTerm(Connection conn, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
-		
-		Statement st = (Statement) conn.createStatement();
-        ResultSet res = st.executeQuery("SELECT * FROM  class_analyzer_classifier where grade");
-        Classifier cls = null;
-        while (res.next()) {
-        int bins = res.getInt("bins");
-        InputStream is = res.getBinaryStream("model");
-        cls =  (Classifier) weka.core.SerializationHelper.read(is);
-        CALevelAnalyzer.setBinSize(bins);
-        }
-		
-		System.out.println("Retrieving dataset to be predicted");
-		Instances test = CFilter.createInstances(11, marks);
-		
-		
-//		Instances train = CFilter.retrieveDatasetFromDatabase("select * from ol_model", "root", "");
-//		System.out.println("Retrieving Instances from database");
-//		System.out.println(train);
-//		System.exit(0);
-		
-//		Classifier model = CAnalyzer.getModel(train);
-		Classifier model = cls;
-		CFilter.saveModel(model, "C:/JSF/CLASS/OL_subject_1_J48.model");
-		//		analyzer.drawTree(subject_1_model);
-//				System.exit(0);
-//		model = CFilter.loadModel("C:/JSF/CLASS/OL_subject_1_J48.model");
-		
-//		Instances test = CFilter.retrieveDatasetFromDatabase("select * from ol_maths_input", "root", "");	//retrieve by table name
-		
-		Instances predicted = CAnalyzer.predict(test, model, CAnalyzer.getBinSize());
-		System.out.println(predicted);
-
-		//		CFilter.arff2Database(predicted, "al_output","jdbc:mysql://localhost:3306/class","root",""); 	//store the predicted results (three final results with index numbers) to the data base
-//		CFilter.saveCSV(predicted, "C:/JSF/CLASS/OLevel_J48_Prediction.csv");
-		
-		return predicted.instance(0).stringValue(1);
-	}
-	
 	public static void main(String[] args) throws Exception {
 		
-		
-		
-		ArrayList<Integer> marks = new ArrayList<Integer>();
-		marks.add(93);
-		marks.add(82);
-		marks.add(96);
-		marks.add(71);
-		marks.add(83);
-		System.out.println("ssss");
-//		System.out.println(CFinal.predictNextTerm(11,5,"maths", 45455, marks));
-		
+		Instances train = CFilter.retrieveDatasetFromDatabase("select * from ol_model", "root", "");
+//		System.out.println(train);
+		CAnalyzer.getModel(train);
+		//getModel(train) will return a best model among other models to this train set
+//		Classifier model = CAnalyzer.getModel(train);
 		
 	}
 	

@@ -32,14 +32,14 @@ public class CJ48Classifier implements CClassifier {
 		j48.buildClassifier(subject);
 //		CAnalyzer.selectAttributes(subject);
 
-		Evaluation eval = new Evaluation(subject);
-		eval.crossValidateModel(j48, subject, 10, new Random(1));
-		
-		double accuracy = 100 * (eval.correct())/(eval.correct()+eval.incorrect());
-		System.out.println("Fucking Accuracy is : " + accuracy);
-
-		System.out.println(eval.toSummaryString("\nResults\nn8888", true));
-//		System.out.println(eval.fMeasure(1) + " " + eval.precision(1) + " ");
+//		Evaluation eval = new Evaluation(subject);
+//		eval.crossValidateModel(j48, subject, 10, new Random(1));
+//		
+//		double accuracy = 100 * (eval.correct())/(eval.correct()+eval.incorrect());
+//		System.out.println("Fucking Accuracy is : " + accuracy);
+//
+//		System.out.println(eval.toSummaryString("\nResults\nn8888", true));
+////		System.out.println(eval.fMeasure(1) + " " + eval.precision(1) + " ");
 
 		return j48;
 

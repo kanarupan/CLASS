@@ -32,30 +32,7 @@ import com.mysql.jdbc.StringUtils;
 
 public class CFilter {
 
-	//	private static String username = "root";
-	//	private static String password = "";
-	//	private static String URL = "jdbc:mysql://localhost:3306/class";
-
-	//	public void setUsername(String username) {
-	//		this.username = username;
-	//	}
-	//	
-	//	public void setPassword(String password) {
-	//		this.password = password;
-	//	}
-	//	
-	//	private static String getUsername() {
-	//		return username;
-	//	}
-	//	
-	//	private static String getPassword() {
-	//		return password;
-	//	}
-	
-
 	public static Instances createInstances(int index, ArrayList<Integer> marks){
-
-//		System.out.println(index);System.out.println(marks.size());System.exit(0);	
 		
 		ArrayList<Attribute> attributes = new ArrayList<Attribute>();
 		
@@ -468,4 +445,31 @@ public class CFilter {
 		}
 		return newData;
 	}
+	
+    public static boolean appendfile(String path,String textToAppend) {
+        try {
+
+
+            File file = new File(path);
+
+            //if file doesnt exists, then create it
+            if (!file.exists()) {
+                 file.createNewFile();
+            }
+
+            //true = append file
+            FileWriter fileWritter = new FileWriter(file.getCanonicalFile(), true);
+            BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            bufferWritter.write(textToAppend+"\n");
+            bufferWritter.close();
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    
+    
 }

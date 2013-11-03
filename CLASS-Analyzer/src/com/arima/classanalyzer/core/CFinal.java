@@ -67,7 +67,7 @@ public class CFinal {
 	
 	public static void main(String[] args) throws Exception {
 		
-		
+		Instances train = CFilter.retrieveDatasetFromDatabase("select * from ol_model", "root", "");
 		
 		ArrayList<Integer> marks = new ArrayList<Integer>();
 		marks.add(93);
