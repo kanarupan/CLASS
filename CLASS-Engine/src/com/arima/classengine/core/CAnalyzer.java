@@ -13,6 +13,7 @@ import com.arima.classengine.classifier.CJ48Classifier;
 import com.arima.classengine.classifier.CMultiLayerPerceptronClassifier;
 import com.arima.classengine.evaluator.CCrossValidateEvaluator;
 import com.arima.classengine.evaluator.CEvaluator;
+import com.arima.classengine.filter.CDefaultMissingValueHandler;
 import com.arima.classengine.filter.CDiscardInstancesWithMissingValues;
 import com.arima.classengine.filter.CEngineFilter;
 import com.arima.classengine.filter.CFilter;
@@ -180,13 +181,14 @@ public class CAnalyzer {
 		Instances train = CFilter.retrieveDatasetFromDatabase("select * from ol_model", "root", "");
 
 		//		System.out.println(train);
-		getModel(train);
+		CAnalyzer analyzer = getModel(train);
+		System.out.println(analyzer.getAccuracy());
 		//getModel(train) will return a best model among other models to this train set
 		//		Classifier model = CAnalyzer.getModel(train);
 
 	}	
 
-	public static Classifier getModel(Instances train) throws Exception{
+	public static CAnalyzer getModel(Instances train) throws Exception{
 
 		String header;
 		CAnalyzer analyzer = new CAnalyzer();
@@ -198,6 +200,7 @@ public class CAnalyzer {
 		classifiers.add(new CMultiLayerPerceptronClassifier());
 
 		List<CMissingValuesHandler> missingValueHandlers = new ArrayList<CMissingValuesHandler>();
+		missingValueHandlers.add(new CDefaultMissingValueHandler());
 		missingValueHandlers.add(new CReplaceMissingValuesByMean());
 		missingValueHandlers.add(new CDiscardInstancesWithMissingValues());
 
@@ -230,48 +233,44 @@ public class CAnalyzer {
 						analyzer.setModel(analyzer.classifierType.buildClassifier(train));
 						analyzer.setEval(analyzer.evaluatorType.evaluator(analyzer.model, train, 10, 1));
 
-						if(analyzer.isTest()){
+						if(analyzer.isTest() || ( (!analyzer.isTest()) && (analyzer.getAccuracy() > analyzer.getEval().pctCorrect()) )){
 							analyzer.setBinSize(bins);
 							analyzer.setModel(analyzer.model);
 							analyzer.setAccuracy(analyzer.getEval().pctCorrect());
-						}else{
-							if(analyzer.getAccuracy() > analyzer.getEval().pctCorrect()){
-								analyzer.setBinSize(bins);
-								analyzer.setModel(analyzer.model);
-								analyzer.setAccuracy(analyzer.getEval().pctCorrect());
-							}						
 						}
 
 
+						if(analyzer.isTest()){
+							header = "Classifier : " + analyzer.getModel().getClass().getName() 
+									+
+									"\n\n"
+									+
+									"Number of bins : " + analyzer.getBinSize()
+									+
+									"\n\n"
+									+
+									"Handling missing values" + analyzer.getMissingValueHandlerType().getClass().getName()
+									+
+									"\n" ;
+
+							System.out.println(header);
+							CFilter.appendfile("C:/JSF/stat.txt", header);
+							CFilter.appendfile("C:/JSF/stat.txt", analyzer.getEval().toSummaryString());
+							CFilter.appendfile("C:/JSF/stat.txt", "###################################################################" + "\n");
+						
+						}
 						//			J48 ne = (J48)model;
 						//			System.out.println("Rules" + ne.toSource(ne.toString()));
 						//			System.exit(0);
-						header = "Classifier : " + analyzer.getModel().getClass().getName() 
-								+
-								"\n\n"
-								+
-								"Number of bins : " + analyzer.getBinSize()
-								+
-								"\n\n"
-								+
-								"Handling missing values" + analyzer.getMissingValueHandlerType().getClass().getName()
-								+
-								"\n" ;
 
-						System.out.println(header);
-						CFilter.appendfile("C:/JSF/stat.txt", header);
-						CFilter.appendfile("C:/JSF/stat.txt", analyzer.getEval().toSummaryString());
-						CFilter.appendfile("C:/JSF/stat.txt", "###################################################################" + "\n");
 					}
 				}
 
-				if(!analyzer.isTest()){
-					if(analyzer.getAccuracy() >= analyzer.getAccuracyThreshold())
+				if(!analyzer.isTest() && analyzer.getAccuracy() >= analyzer.getAccuracyThreshold())
 						break binsloop;	
-				}				
 			}
 
-		return analyzer.getModel();
+		return analyzer;
 
 	}
 	public static void selectAttributes(Instances data) throws Exception {
