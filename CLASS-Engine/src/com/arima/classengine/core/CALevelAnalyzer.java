@@ -6,7 +6,7 @@ public class CALevelAnalyzer extends CAnalyzer {
 
 	public CALevelAnalyzer() {
 		super();
-		classifierType = new CJ48Classifier();
+//		classifierType = new CJ48Classifier();
 	}
 
 }

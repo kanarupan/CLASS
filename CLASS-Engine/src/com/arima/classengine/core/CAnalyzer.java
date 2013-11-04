@@ -1,15 +1,24 @@
 package com.arima.classengine.core;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JFrame;
 
 import com.arima.classengine.classifier.CClassifier;
 import com.arima.classengine.classifier.CJ48Classifier;
+import com.arima.classengine.classifier.CMultiLayerPerceptronClassifier;
 import com.arima.classengine.evaluator.CCrossValidateEvaluator;
 import com.arima.classengine.evaluator.CEvaluator;
+import com.arima.classengine.filter.CDiscardInstancesWithMissingValues;
+import com.arima.classengine.filter.CEngineFilter;
 import com.arima.classengine.filter.CFilter;
+import com.arima.classengine.filter.CMissingValuesHandler;
+import com.arima.classengine.filter.CReplaceMissingValuesByMean;
+import com.arima.classengine.classifier.CNaiveBayesClassifier;
 
 import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.InfoGainAttributeEval;
@@ -25,97 +34,246 @@ import weka.gui.treevisualizer.TreeVisualizer;
 public class CAnalyzer {
 
 
-	
-	public CClassifier classifierType;
-	public CEvaluator evaluatorType;
 
-	public void setClassifierType(CClassifier classifierType) {
+	private CClassifier classifierType;
+	private CEvaluator evaluatorType;
+	private  int binSize = 5;
+	private  Classifier model;
+	private  Instances train = null;
+	private Evaluation eval = null;	
+	private double accuracy = 0;
+	private final double accuracyThreshold = 85;
+	private CMissingValuesHandler missingValueHandlerType; 
+	private final boolean isTest = true;
+
+	/**
+	 * @return the classifierType
+	 */
+	private CClassifier getClassifierType() {
+		return classifierType;
+	}
+
+	/**
+	 * @param classifierType the classifierType to set
+	 */
+	private void setClassifierType(CClassifier classifierType) {
 		this.classifierType = classifierType;
 	}
 
-	public void setEvaluatorType(CEvaluator evaluatorType) {
+	/**
+	 * @return the evaluatorType
+	 */
+	private CEvaluator getEvaluatorType() {
+		return evaluatorType;
+	}
+
+	/**
+	 * @param evaluatorType the evaluatorType to set
+	 */
+	private void setEvaluatorType(CEvaluator evaluatorType) {
 		this.evaluatorType = evaluatorType;
 	}
 
-	private static int binSize = 5;
-
-	public static void setBinSize(int bins){
-		binSize = bins;
-	}
-
-	public static int getBinSize(){
+	/**
+	 * @return the binSize
+	 */
+	private int getBinSize() {
 		return binSize;
 	}
-	
-	private static Classifier model;
 
-	public static void setClassifier(Classifier cls){
-		model = cls;
+	/**
+	 * @param binSize the binSize to set
+	 */
+	private void setBinSize(int binSize) {
+		this.binSize = binSize;
 	}
 
-	public static Classifier getClassifier(){
+	/**
+	 * @return the model
+	 */
+	private Classifier getModel() {
 		return model;
 	}
-	
-	private static Instances train = null;
-	
-	public static void setTrain(Instances data){
-		train = data;
+
+	/**
+	 * @param model the model to set
+	 */
+	private void setModel(Classifier model) {
+		this.model = model;
 	}
-	public static Instances getTrain(){
+
+	/**
+	 * @return the train
+	 */
+	private Instances getTrain() {
 		return train;
 	}
-	
-	
 
-	public static Classifier getModel(Instances train) throws Exception{
-		
-//		double accuracy;
-		
-		CAnalyzer.setTrain(train);
-		
-		for (int bins = 5; bins > 1; bins--) {
-			
-			train = CAnalyzer.getTrain();
-			train = CFilter.removeAttributesByNames(train, "index_no");
-
-			train = CFilter.numeric2nominal(train, "first-last",bins);
-			//		train = CFinal.handleMissingValues(train);
-
-			//Changing nominal lables so that every attribute will have the same
-			train = CFinal.changeAttributeNominalRange(train, CFinal.getAttributeLables(bins, true));
-
-			//Renaming attribute values to different lables such as A,B,C,S,F
-			train = CFinal.renameAttributes(train, bins);
-
-			/*
-			 * strategy design pattern to dynamically change classifier algorithms from use case to use case
-			 * ALevelAnalyzer will run J48
-			 * OLevelAnalyzwe will run NaiveBayes
-			 */
-			
-			CAnalyzer analyzer = new CALevelAnalyzer();
-			analyzer.setClassifierType(new CJ48Classifier());
-			analyzer.setEvaluatorType(new CCrossValidateEvaluator());
-
-			model = (J48) analyzer.classifierType.buildClassifier(train);
-			Evaluation eval = analyzer.evaluatorType.evaluator(model, train, 10, 1);
-			
-			System.out.println(analyzer.classifierType.getClass());
-			
-//			System.out.println(eval.toSummaryString());
-			CFilter.appendfile("C:/JSF/stat.txt", eval.toSummaryString());
-			CAnalyzer.setBinSize(bins);
-			CAnalyzer.setClassifier(model);
-//			J48 ne = (J48)model;
-//			System.out.println("Rules" + ne.toSource(ne.toString()));
-//			System.exit(0);
-			
-		}
-		
-		return CAnalyzer.getClassifier();
+	/**
+	 * @param train the train to set
+	 */
+	private void setTrain(Instances train) {
+		this.train = train;
 	}
 
+	/**
+	 * @return the eval
+	 */
+	private Evaluation getEval() {
+		return eval;
+	}
+
+	/**
+	 * @param eval the eval to set
+	 */
+	private void setEval(Evaluation eval) {
+		this.eval = eval;
+	}
+
+
+	/**
+	 * @return the accuracy
+	 */
+	private double getAccuracy() {
+		return accuracy;
+	}
+
+	/**
+	 * @param accuracy the accuracy to set
+	 */
+	private void setAccuracy(double accuracy) {
+		this.accuracy = accuracy;
+	}
+
+	/**
+	 * @return the accuracyThreshold
+	 */
+	private double getAccuracyThreshold() {
+		return accuracyThreshold;
+	}
+
+
+	/**
+	 * @return the missingValueHandlerType
+	 */
+	private CMissingValuesHandler getMissingValueHandlerType() {
+		return missingValueHandlerType;
+	}
+
+	/**
+	 * @param missingValueHandlerType the missingValueHandlerType to set
+	 */
+	private void setMissingValueHandlerType(
+			CMissingValuesHandler missingValueHandlerType) {
+		this.missingValueHandlerType = missingValueHandlerType;
+	}
+
+	/**
+	 * @return the isTest
+	 */
+	private boolean isTest() {
+		return isTest;
+	}
+
+	public static void main(String[] args) throws Exception {
+
+		Instances train = CFilter.retrieveDatasetFromDatabase("select * from ol_model", "root", "");
+
+		//		System.out.println(train);
+		getModel(train);
+		//getModel(train) will return a best model among other models to this train set
+		//		Classifier model = CAnalyzer.getModel(train);
+
+	}	
+
+	public static Classifier getModel(Instances train) throws Exception{
+
+		String header;
+		CAnalyzer analyzer = new CAnalyzer();
+		analyzer.setTrain(train);
+
+		List<CClassifier> classifiers = new ArrayList<CClassifier>();
+		classifiers.add(new CJ48Classifier());
+		classifiers.add(new CNaiveBayesClassifier());
+		classifiers.add(new CMultiLayerPerceptronClassifier());
+
+		List<CMissingValuesHandler> missingValueHandlers = new ArrayList<CMissingValuesHandler>();
+		missingValueHandlers.add(new CReplaceMissingValuesByMean());
+		missingValueHandlers.add(new CDiscardInstancesWithMissingValues());
+
+		binsloop:
+			for (int bins = 5; bins >= 2; bins--) {
+
+				for(int i=1; i<=classifiers.size(); i++){
+
+					for(int x=1; x<=missingValueHandlers.size(); x++){
+
+						train = analyzer.getTrain();
+						train = CFilter.removeAttributesByNames(train, "index_no");
+
+						//handling missing values using different methods
+						analyzer.setMissingValueHandlerType(missingValueHandlers.get(x-1));
+						train = analyzer.missingValueHandlerType.handleMissingValues(train);
+
+						train = CFilter.numeric2nominal(train, "first-last",bins);
+						//			train = CEngineFilter.handleMissingValues(train);
+
+						//Changing nominal lables so that every attribute will have the same
+						train = CEngineFilter.changeAttributeNominalRange(train, CEngineFilter.getAttributeLables(bins, true));
+
+						//Renaming attribute values to different lables such as A,B,C,S,F
+						train = CEngineFilter.renameAttributes(train, bins);
+
+						analyzer.setClassifierType(classifiers.get(i-1));
+						analyzer.setEvaluatorType(new CCrossValidateEvaluator());
+
+						analyzer.setModel(analyzer.classifierType.buildClassifier(train));
+						analyzer.setEval(analyzer.evaluatorType.evaluator(analyzer.model, train, 10, 1));
+
+						if(analyzer.isTest()){
+							analyzer.setBinSize(bins);
+							analyzer.setModel(analyzer.model);
+							analyzer.setAccuracy(analyzer.getEval().pctCorrect());
+						}else{
+							if(analyzer.getAccuracy() > analyzer.getEval().pctCorrect()){
+								analyzer.setBinSize(bins);
+								analyzer.setModel(analyzer.model);
+								analyzer.setAccuracy(analyzer.getEval().pctCorrect());
+							}						
+						}
+
+
+						//			J48 ne = (J48)model;
+						//			System.out.println("Rules" + ne.toSource(ne.toString()));
+						//			System.exit(0);
+						header = "Classifier : " + analyzer.getModel().getClass().getName() 
+								+
+								"\n\n"
+								+
+								"Number of bins : " + analyzer.getBinSize()
+								+
+								"\n\n"
+								+
+								"Handling missing values" + analyzer.getMissingValueHandlerType().getClass().getName()
+								+
+								"\n" ;
+
+						System.out.println(header);
+						CFilter.appendfile("C:/JSF/stat.txt", header);
+						CFilter.appendfile("C:/JSF/stat.txt", analyzer.getEval().toSummaryString());
+						CFilter.appendfile("C:/JSF/stat.txt", "###################################################################" + "\n");
+					}
+				}
+
+				if(!analyzer.isTest()){
+					if(analyzer.getAccuracy() >= analyzer.getAccuracyThreshold())
+						break binsloop;	
+				}				
+			}
+
+		return analyzer.getModel();
+
+	}
 	public static void selectAttributes(Instances data) throws Exception {
 
 		// setup attribute selection
@@ -147,7 +305,7 @@ public class CAnalyzer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		JFrame jf = new JFrame("Weka Classifier Tree Visualizer: J48");
 		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jf.setSize(800, 600);

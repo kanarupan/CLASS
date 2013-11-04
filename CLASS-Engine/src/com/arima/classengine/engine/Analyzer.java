@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.arima.classengine.core.CAnalyzer;
-import com.arima.classengine.core.CFinal;
+import com.arima.classengine.filter.CEngineFilter;
 import com.mysql.jdbc.Connection;
 
 public class Analyzer {
@@ -100,7 +100,7 @@ public class Analyzer {
 	 */
 //	public  String predictNext(Connection conn, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
 //
-////		return CFinal.predictNextTerm(conn, grade, term, subject, index_no, marks);
+////		return CEngineFilter.predictNextTerm(conn, grade, term, subject, index_no, marks);
 //	}
 
 	/**Returns marks ranges of results

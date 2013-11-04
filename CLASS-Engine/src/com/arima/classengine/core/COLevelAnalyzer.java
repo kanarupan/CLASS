@@ -7,6 +7,6 @@ public class COLevelAnalyzer extends CAnalyzer {
 	public COLevelAnalyzer() {
 		
 		super();
-		classifierType = new CJ48Classifier();
+//		classifierType = new CJ48Classifier();
 	}
 }

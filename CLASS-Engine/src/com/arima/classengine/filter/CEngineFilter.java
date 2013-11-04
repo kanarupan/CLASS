@@ -1,4 +1,4 @@
-package com.arima.classengine.core;
+package com.arima.classengine.filter;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import javax.print.CancelablePrintJob;
 import org.omg.PortableInterceptor.INACTIVE;
 
 import com.arima.classengine.classifier.CJ48Classifier;
-import com.arima.classengine.filter.CFilter;
+import com.arima.classengine.core.CAnalyzer;
 import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -24,17 +24,7 @@ import weka.experiment.InstanceQuery;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 
-public class CFinal {
-	
-	public static void main(String[] args) throws Exception {
-		
-		Instances train = CFilter.retrieveDatasetFromDatabase("select * from ol_model", "root", "");
-//		System.out.println(train);
-		CAnalyzer.getModel(train);
-		//getModel(train) will return a best model among other models to this train set
-//		Classifier model = CAnalyzer.getModel(train);
-		
-	}
+public class CEngineFilter {
 	
 	public static String getAttributeLables(int bins, boolean isLetter){
        
@@ -72,17 +62,6 @@ public class CFinal {
         }
         
         return lables;
-	}
-
-	public static Instances handleMissingValues(Instances data) throws Exception{
-
-		System.out.println("Handling missing values");
-		ReplaceMissingValues rmv = new ReplaceMissingValues();
-		rmv.setInputFormat(data);
-		data = Filter.useFilter(data, rmv);
-		System.out.println("Number of instances in dataset : " + data.numInstances());
-
-		return data;
 	}
 	
 	public static Instances renameAttributes(Instances train, int bins){
