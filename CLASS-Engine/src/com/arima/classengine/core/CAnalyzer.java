@@ -64,7 +64,7 @@ public class CAnalyzer {
 	private  Instances train = null;
 	private Evaluation eval = null;	
 	private double accuracy = 0;
-	private final double accuracyThreshold = 85;
+	private final double accuracyThreshold = 50;
 	private CMissingValuesHandler missingValueHandlerType; 
 	private final boolean isTest = false;
 	private Classifier tempModel;
