@@ -1,4 +1,4 @@
-package com.arima.classanalyzer.engine;
+package com.arima.classanalyzer.analyzer;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import com.arima.classanalyzer.core.CAnalyzer;
 import com.arima.classanalyzer.core.CFinal;
 import com.mysql.jdbc.Connection;
 
-public class Analyzer {
+public class Predictor {
 
 	String url = "jdbc:mysql://localhost:3306/";
 	String dbName = "class_analyzer";

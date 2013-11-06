@@ -14,3 +14,11 @@ Thumbs.db
 *.settings/
 build.properties
 CLASS.iml
+CLASS-Analyzer/target
+CLASS-Engine/target
+CLASS-Analyzer/.idea
+CLASS-Engine/.idea
+CLASS-Analyzer/.project
+CLASS-Engine/.project
+CLASS-Analyzer/.settings
+CLASS-Engine/.settings

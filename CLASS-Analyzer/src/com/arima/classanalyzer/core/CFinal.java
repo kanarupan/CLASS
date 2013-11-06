@@ -29,7 +29,7 @@ public class CFinal {
 	public static String predictNextTerm(Connection conn, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
 		
 		Statement st = (Statement) conn.createStatement();
-        ResultSet res = st.executeQuery("SELECT * FROM  class_analyzer_classifier where grade");
+        ResultSet res = st.executeQuery("SELECT * FROM  class_analyzer_classifier");
         Classifier cls = null;
         while (res.next()) {
         int bins = res.getInt("bins");
@@ -37,6 +37,8 @@ public class CFinal {
         cls =  (Classifier) weka.core.SerializationHelper.read(is);
         CALevelAnalyzer.setBinSize(bins);
         }
+        
+        System.out.println(cls); System.exit(0);
 		
 		System.out.println("Retrieving dataset to be predicted");
 		Instances test = CFilter.createInstances(11, marks);

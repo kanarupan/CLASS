@@ -124,4 +124,17 @@ public class CEngineFilter {
 		
 		return train;
 	}
+	
+	public static String createPredictionQuery(int grade, int term, String subject){
+		//ex.school_no = 11089 and
+		String query = "select st.idstudent, mk.makrs as makrs"+String.valueOf(grade)+term +
+				" from " +
+				"(exam ex  join subject sub on (sub.idsubject=ex.subject_idsubject)) " +
+				"join marks mk on (mk.exam_id_exam=ex.id_exam) " +
+				"join student_performance stpe on (mk.student_performance_idstudent_performance=stpe.idstudent_performance) " +
+				"join student st on (st.idstudent=stpe.student_idstudent) " +
+				"where  ex.grade="+ grade+" and ex.term="+ term +" and sub.subject_name='"+subject+"' ";
+
+		return query;
+	}
 }
