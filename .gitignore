@@ -3,9 +3,9 @@
 *.lock
 *.DS_Store
 *.swp
-*./out/
-*./bin/
-*./target/
+*./*/out/
+*./*/bin/
+*./*/target/
 Thumbs.db
 *.iml
 *.idea
@@ -13,12 +13,3 @@ Thumbs.db
 *.project
 *.settings/
 build.properties
-CLASS.iml
-CLASS-Analyzer/src
-CLASS-Engine/target/
-CLASS-Analyzer/.idea
-CLASS-Engine/.idea
-CLASS-Analyzer/.project
-CLASS-Engine/.project
-CLASS-Analyzer/.settings
-CLASS-Engine/.settings

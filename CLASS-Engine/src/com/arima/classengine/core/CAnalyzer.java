@@ -61,7 +61,7 @@ public class CAnalyzer {
 	private CEvaluator evaluatorType;
 	private  int binSize = 5;
 	private  Classifier model;
-	private  Instances train = null;
+	private  Instances train = null;;;
 	private Evaluation eval = null;	
 	private double accuracy = 0;
 	private final double accuracyThreshold = 50;
