@@ -24,11 +24,7 @@ public class CVoteClassifier implements CClassifier {
 		nb.buildClassifier(subject);
 		
 		Vote vote = new Vote();
-		vote.addPreBuiltClassifier(j48);
-		vote.addPreBuiltClassifier(nb);
-		vote.buildClassifier(subject);
-		
-//		SelectedTag st = new Selected
+		vote.setClassifiers(new Classifier[]{j48, nb});
 		
 		return vote;
 	}

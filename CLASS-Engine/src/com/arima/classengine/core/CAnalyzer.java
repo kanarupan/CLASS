@@ -26,6 +26,7 @@ import com.arima.classengine.classifier.CClassifier;
 import com.arima.classengine.classifier.CJ48Classifier;
 import com.arima.classengine.classifier.CLinearRegressionClassifier;
 import com.arima.classengine.classifier.CMultiLayerPerceptronClassifier;
+import com.arima.classengine.classifier.CVoteClassifier;
 import com.arima.classengine.evaluator.CCrossValidateEvaluator;
 import com.arima.classengine.evaluator.CEvaluator;
 import com.arima.classengine.filter.CDefaultMissingValueHandler;
@@ -55,8 +56,6 @@ import weka.gui.treevisualizer.TreeVisualizer;
 
 public class CAnalyzer {
 
-
-
 	private CClassifier classifierType;
 	private CEvaluator evaluatorType;
 	private  int binSize = 5;
@@ -64,7 +63,7 @@ public class CAnalyzer {
 	private  Instances train = null;;;
 	private Evaluation eval = null;	
 	private double accuracy = 0;
-	private final double accuracyThreshold = 50;
+	private final double accuracyThreshold = 75;
 	private CMissingValuesHandler missingValueHandlerType; 
 	private final boolean isTest = false;
 	private Classifier tempModel;
@@ -213,40 +212,117 @@ public class CAnalyzer {
 	}
 
 	public static void main(String[] args) throws Exception {
+
+//		System.out.println(prepareTrainData(11, 2, "SCIENCE & TECHNOLOGY"));
+		updateModel(2008, 10, 2, "SCIENCE & TECHNOLOGY");
+		updateModel(2008, 10, 3, "SCIENCE & TECHNOLOGY");
+		updateModel(2008, 11, 1, "SCIENCE & TECHNOLOGY");
+		updateModel(2008, 11, 2, "SCIENCE & TECHNOLOGY");
+		updateModel(2008, 11, 3, "SCIENCE & TECHNOLOGY");
 		
-//		saveModelToDatabase("jdbc:mysql://localhost:3306/class", "root", "", 2009, 9, 2, "fuck", CFilter.loadModel("some.model"), "J48", 4);
-
-
-//System.out.println(loadModelFromDatabase(2009, 9, 2, "fuck"));
-//System.exit(0);
-		Instances train1 = CFilter.retrieveDatasetFromDatabase(
-				CEngineFilter.createPredictionQuery(10, 1, "SCIENCE & TECHNOLOGY"), "root", "");
-
-		Instances train2 = CFilter.retrieveDatasetFromDatabase(
-				CEngineFilter.createPredictionQuery(10, 2, "SCIENCE & TECHNOLOGY"), "root", "");
-
-		Instances train3 = CFilter.retrieveDatasetFromDatabase(
-				CEngineFilter.createPredictionQuery(10, 3, "SCIENCE & TECHNOLOGY"), "root", "");
-		Instances train4 = CFilter.retrieveDatasetFromDatabase(
-				CEngineFilter.createPredictionQuery(11, 1, "SCIENCE & TECHNOLOGY"), "root", "");
-		Instances train5 = CFilter.retrieveDatasetFromDatabase(
-				CEngineFilter.createPredictionQuery(11, 2, "SCIENCE & TECHNOLOGY"), "root", "");
-
-		train2 = CFilter.removeAttributesByIndices(train2, "1");
-		train3 = CFilter.removeAttributesByIndices(train3, "1");
-		train4 = CFilter.removeAttributesByIndices(train4, "1");
-		train5 = CFilter.removeAttributesByIndices(train5, "1");
-		System.out.println(train1.numInstances());
-		System.out.println(train2.numInstances());
-		train1 = Instances.mergeInstances(train1, train2);
-		train1 = Instances.mergeInstances(train1, train3);
-		train1 = Instances.mergeInstances(train1, train4);
-		train1 = Instances.mergeInstances(train1, train5);
+		updateModel(2008, 10, 2, "SAIVISM");
+		updateModel(2008, 10, 3, "SAIVISM");
+		updateModel(2008, 11, 1, "SAIVISM");
+		updateModel(2008, 11, 2, "SAIVISM");
+		updateModel(2008, 11, 3, "SAIVISM");
 		
-		getModel(train1);
+		updateModel(2008, 10, 2, "TAMIL LANGUAGE");
+		updateModel(2008, 10, 3, "TAMIL LANGUAGE");
+		updateModel(2008, 11, 1, "TAMIL LANGUAGE");
+		updateModel(2008, 11, 2, "TAMIL LANGUAGE");
+		updateModel(2008, 11, 3, "TAMIL LANGUAGE");
+		
+		updateModel(2008, 10, 2, "ENGLISH LANGUAGE");
+		updateModel(2008, 10, 3, "ENGLISH LANGUAGE");
+		updateModel(2008, 11, 1, "ENGLISH LANGUAGE");
+		updateModel(2008, 11, 2, "ENGLISH LANGUAGE");
+		updateModel(2008, 11, 3, "ENGLISH LANGUAGE");
+		
+		updateModel(2008, 10, 2, "MATHEMATICS");
+		updateModel(2008, 10, 3, "MATHEMATICS");
+		updateModel(2008, 11, 1, "MATHEMATICS");
+		updateModel(2008, 11, 2, "MATHEMATICS");
+		updateModel(2008, 11, 3, "MATHEMATICS");
+		
+		updateModel(2008, 10, 2, "HISTORY");
+		updateModel(2008, 10, 3, "HISTORY");
+		updateModel(2008, 11, 1, "HISTORY");
+		updateModel(2008, 11, 2, "HISTORY");
+		updateModel(2008, 11, 3, "HISTORY");
+
+		updateModel(2008, 10, 2, "BUSSINESS & ACCOUNTING");
+		updateModel(2008, 10, 3, "BUSSINESS & ACCOUNTING");
+		updateModel(2008, 11, 1, "BUSSINESS & ACCOUNTING");
+		updateModel(2008, 11, 2, "BUSSINESS & ACCOUNTING");
+		updateModel(2008, 11, 3, "BUSSINESS & ACCOUNTING");
+		
+		updateModel(2008, 10, 2, "INFORMATION AND COMMUNICATION TECHNOLOGY");
+		updateModel(2008, 10, 3, "INFORMATION AND COMMUNICATION TECHNOLOGY");
+		updateModel(2008, 11, 1, "INFORMATION AND COMMUNICATION TECHNOLOGY");
+		updateModel(2008, 11, 2, "INFORMATION AND COMMUNICATION TECHNOLOGY");
+		updateModel(2008, 11, 3, "INFORMATION AND COMMUNICATION TECHNOLOGY");
+		//		saveModelToDatabase("jdbc:mysql://localhost:3306/class", "root", "", 2009, 9, 2, "fuck", CFilter.loadModel("some.model"), "J48", 4);
+
+
+		//System.out.println(loadModelFromDatabase(2009, 9, 2, "fuck"));
+		//System.exit(0);
+
 	}
 
-		public static Classifier loadModelFromDatabase(int year, int grade, int term, String subject) throws Exception{
+	public static Instances prepareTrainData(int grade, int term, String subject) throws Exception{
+
+		Instances train = CFilter.retrieveDatasetFromDatabase(
+				CEngineFilter.createPredictionQuery(10, 1, subject), "root", "");
+
+		if(grade == 11 || grade == 13){
+			term = term + 3;
+		}
+
+		int tempGrade = grade, tempTerm = term;
+
+		for (int i = 2; i <= term; i++) {
+			tempTerm = i;
+
+			if(grade == 11 || grade == 13){
+				if(i<=3){
+					tempGrade = grade-1;
+					tempTerm = i;
+				}
+
+				if(i >3){
+					tempGrade = grade;
+					tempTerm = i-3;
+				}
+
+			}
+
+			train = Instances.mergeInstances(train, 
+					CFilter.removeAttributesByIndices(CFilter.retrieveDatasetFromDatabase(
+							CEngineFilter.createPredictionQuery(tempGrade, tempTerm, subject), "root", ""), "1"));
+
+		}
+		return train;
+	}
+
+	public static void updateModel(int year, int grade, int term, String subject) throws Exception{
+
+		//SCIENCE & TECHNOLOGY
+		CAnalyzer analyzer = getModel(prepareTrainData(grade, term, subject));
+		Classifier cls = loadModelFromDatabase(year, grade, term, subject);
+		if(cls == null){
+			boolean b = saveModelToDatabase("jdbc:mysql://localhost:3306/class", "root", "", year, grade, term, subject, analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
+			System.out.println("done " + b);
+		}else{
+			boolean b = updateModelInDatabase("jdbc:mysql://localhost:3306/class", "root", "", year, grade, term, subject, analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
+			System.out.println("done " + b);
+		}
+
+	}
+
+
+
+
+	public static Classifier loadModelFromDatabase(int year, int grade, int term, String subject) throws Exception{
 
 		int bins=-1;
 		Classifier cls=null;
@@ -255,11 +331,11 @@ public class CAnalyzer {
 		dc.setUsername("root");
 		dc.setPassword("");
 		dc.connectToDatabase();
-		
+
 		dc.execute("SELECT model, bins, type FROM  class_analyzer_classifier where year = "+ year +" and grade = " + grade
-					+" and term = " 
-					+term+ " and subject = '" +subject+"'");
-		
+				+" and term = " 
+				+term+ " and subject = '" +subject+"'");
+
 		ResultSet rs = dc.getResultSet();;
 		while(rs.next()){
 			bins = rs.getInt("bins");
@@ -303,6 +379,43 @@ public class CAnalyzer {
 
 		return re;
 	}	
+	
+	public static boolean updateModelInDatabase(String dbURL, String username,String password, int year, int grade, int term, String subject,Classifier cls,String type,int bins ) throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException{
+		Boolean re=true;
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(baos);
+		oos.writeObject(cls);
+		byte[] tableAsBytes = baos.toByteArray();
+		ByteArrayInputStream bais =
+				new ByteArrayInputStream(tableAsBytes);
+
+
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		Connection connection = null;
+		try {
+
+			connection = DriverManager.getConnection(dbURL, username, password);
+			PreparedStatement statement = (PreparedStatement) connection.prepareStatement("UPDATE class_analyzer_classifier SET model = ? , type = ? ,  bins = ? WHERE year = ? AND grade = ? AND term = ? AND subject = ?");
+			
+			statement.setBinaryStream(1,bais, (long) tableAsBytes.length);
+			statement.setString(2, type);
+			statement.setInt(3,bins);
+			statement.setInt(4,year);
+			statement.setInt(5,grade);
+			statement.setInt(6,term);
+			statement.setString(7, subject);			
+		
+			statement.executeUpdate();
+			connection.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			re= false;
+		}
+
+		return re;
+	}
 
 	public static CAnalyzer getModel(Instances train) throws Exception{
 
@@ -346,20 +459,33 @@ public class CAnalyzer {
 
 						analyzer.setClassifierType(classifiers.get(i-1));
 						analyzer.setEvaluatorType(new CCrossValidateEvaluator());
-						
-	
+
+
 						analyzer.setTempModel(analyzer.classifierType.buildClassifier(train));
 						analyzer.setEval(analyzer.evaluatorType.evaluator(analyzer.getTempModel(), train, 10, 1));
 
-						
+
 						if(analyzer.isTest() || ( (!analyzer.isTest()) && (analyzer.getAccuracy() < analyzer.getEval().pctCorrect()) )){
 							analyzer.setBinSize(bins);
 							analyzer.setModel(analyzer.getTempModel());
 							analyzer.setAccuracy(analyzer.getEval().pctCorrect());
 						}
 
+						if(!analyzer.isTest()){
+							System.out.println("#########################################################");
+							System.out.println("Current bins : "+ bins);
+							System.out.println("Current model : "+ analyzer.getTempModel().getClass());
+							System.out.println("Current model's accuracy : "+ analyzer.getEval().pctCorrect());
+							System.out.println("Selected bins : "+ analyzer.getBinSize());
+							System.out.println("Selected model upto now : "+ analyzer.getModel().getClass());
+							System.out.println("Selected model's accuracy : "+ analyzer.getAccuracy());
+							System.out.println("#########################################################");
+							System.out.println();
+							System.out.println();
+						}
 
-						if(!analyzer.isTest() || analyzer.isTest()){
+
+						if(analyzer.isTest()){
 							header = "Classifier : " + analyzer.getTempModel().getClass().getName() 
 									+
 									"\n\n"
@@ -371,21 +497,16 @@ public class CAnalyzer {
 									"Handling missing values" + analyzer.getMissingValueHandlerType().getClass().getName()
 									+
 									"\n" ;
-
 							System.out.println(header);
 							System.out.println(analyzer.getAccuracy());
 							CFilter.appendfile("C:/JSF/stat.txt", header);
 							CFilter.appendfile("C:/JSF/stat.txt", analyzer.getEval().toSummaryString());
 							CFilter.appendfile("C:/JSF/stat.txt", "###################################################################" + "\n");
-
 						}
 					}
 				}
 
 				if(!analyzer.isTest() && analyzer.getAccuracy() >= analyzer.getAccuracyThreshold()){
-					
-					boolean b = saveModelToDatabase("jdbc:mysql://localhost:3306/class", "root", "", 2009, 9, 2, "suck", analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
-					System.out.println("done " + b);
 					break binsloop;
 				}
 

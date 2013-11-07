@@ -127,6 +127,7 @@ public class CEngineFilter {
 	
 	public static String createPredictionQuery(int grade, int term, String subject){
 		//ex.school_no = 11089 and
+		
 		String query = "select st.idstudent, mk.makrs as makrs"+String.valueOf(grade)+term +
 				" from " +
 				"(exam ex  join subject sub on (sub.idsubject=ex.subject_idsubject)) " +

@@ -98,10 +98,10 @@ public class Analyzer {
 	 * @return
 	 * @throws Exception
 	 */
-//	public  String predictNext(Connection conn, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
-//
-////		return CEngineFilter.predictNextTerm(conn, grade, term, subject, index_no, marks);
-//	}
+	//	public  String predictNext(Connection conn, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
+	//
+	////		return CEngineFilter.predictNextTerm(conn, grade, term, subject, index_no, marks);
+	//	}
 
 	/**Returns marks ranges of results
 	 * @param grade
@@ -130,7 +130,7 @@ public class Analyzer {
 			return null;
 		}
 	}
-	
+
 	public boolean close(Connection conn){
 		try {
 			conn.close();
@@ -139,6 +139,10 @@ public class Analyzer {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public void updateModel(int year, int grade, int term, String subject) throws Exception{
+		CAnalyzer.updateModel(year, grade, term, subject);
 	}
 
 
