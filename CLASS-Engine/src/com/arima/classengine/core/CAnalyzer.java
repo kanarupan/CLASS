@@ -27,6 +27,7 @@ import com.arima.classengine.classifier.CJ48Classifier;
 import com.arima.classengine.classifier.CLinearRegressionClassifier;
 import com.arima.classengine.classifier.CMultiLayerPerceptronClassifier;
 import com.arima.classengine.classifier.CVoteClassifier;
+import com.arima.classengine.engine.Model;
 import com.arima.classengine.evaluator.CCrossValidateEvaluator;
 import com.arima.classengine.evaluator.CEvaluator;
 import com.arima.classengine.filter.CDefaultMissingValueHandler;
@@ -212,8 +213,7 @@ public class CAnalyzer {
 	}
 
 	public static void main(String[] args) throws Exception {
-
-//		System.out.println(prepareTrainData(11, 2, "SCIENCE & TECHNOLOGY"));
+		
 		updateModel(2008, 10, 2, "SCIENCE & TECHNOLOGY");
 		updateModel(2008, 10, 3, "SCIENCE & TECHNOLOGY");
 		updateModel(2008, 11, 1, "SCIENCE & TECHNOLOGY");
@@ -308,22 +308,23 @@ public class CAnalyzer {
 
 		//SCIENCE & TECHNOLOGY
 		CAnalyzer analyzer = getModel(prepareTrainData(grade, term, subject));
-		Classifier cls = loadModelFromDatabase(year, grade, term, subject);
-		if(cls == null){
-			boolean b = saveModelToDatabase("jdbc:mysql://localhost:3306/class", "root", "", year, grade, term, subject, analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
-			System.out.println("done " + b);
-		}else{
-			boolean b = updateModelInDatabase("jdbc:mysql://localhost:3306/class", "root", "", year, grade, term, subject, analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
-			System.out.println("done " + b);
-		}
+//		Classifier cls = loadModelFromDatabase(year, grade, term, subject);
+//		if(cls == null){
+//			boolean b = saveModelToDatabase("jdbc:mysql://localhost:3306/class", "root", "", year, grade, term, subject, analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
+//			System.out.println("done " + b);
+//		}else{
+//			boolean b = updateModelInDatabase("jdbc:mysql://localhost:3306/class", "root", "", year, grade, term, subject, analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
+//			System.out.println("done " + b);
+//		}
 
 	}
 
 
 
 
-	public static Classifier loadModelFromDatabase(int year, int grade, int term, String subject) throws Exception{
+	public static Model loadModelFromDatabase(int year, int grade, int term, String subject) throws Exception{
 
+		Model model = new Model();
 		int bins=-1;
 		Classifier cls=null;
 		DatabaseConnection dc = new DatabaseConnection();
@@ -338,12 +339,20 @@ public class CAnalyzer {
 
 		ResultSet rs = dc.getResultSet();;
 		while(rs.next()){
-			bins = rs.getInt("bins");
+
 			InputStream is = rs.getBinaryStream("model");
 			cls =  (Classifier) weka.core.SerializationHelper.read(is);
+			
+			model.setYear(year);
+			model.setGrade(grade);
+			model.setTerm(term);
+			model.setSubject(subject);
+			model.setClassifier(cls);
+			model.setType(rs.getString("type"));
+			model.setBins(rs.getInt("bins"));
 		}
 		dc.close();
-		return cls;
+		return model;
 	}
 
 	public static boolean saveModelToDatabase(String dbURL, String username,String password, int year, int grade, int term, String subject,Classifier cls,String type,int bins ) throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException{
@@ -425,9 +434,9 @@ public class CAnalyzer {
 
 		List<CClassifier> classifiers = new ArrayList<CClassifier>();
 		classifiers.add(new CJ48Classifier());
-		classifiers.add(new CNaiveBayesClassifier());
-		classifiers.add(new CMultiLayerPerceptronClassifier());
-		classifiers.add(new CBaggingClassifier());
+//		classifiers.add(new CNaiveBayesClassifier());
+//		classifiers.add(new CMultiLayerPerceptronClassifier());
+//		classifiers.add(new CBaggingClassifier());
 
 		List<CMissingValuesHandler> missingValueHandlers = new ArrayList<CMissingValuesHandler>();
 		missingValueHandlers.add(new CDefaultMissingValueHandler());

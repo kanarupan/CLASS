@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import weka.classifiers.Classifier;
+
 import com.arima.classengine.core.CAnalyzer;
 import com.arima.classengine.filter.CEngineFilter;
 import com.mysql.jdbc.Connection;
@@ -145,5 +147,8 @@ public class Analyzer {
 		CAnalyzer.updateModel(year, grade, term, subject);
 	}
 
+	public Model getModel(int year, int grade, int term, String subject) throws Exception{
+		return CAnalyzer.loadModelFromDatabase(year, grade, term, subject);
+	}
 
 }
