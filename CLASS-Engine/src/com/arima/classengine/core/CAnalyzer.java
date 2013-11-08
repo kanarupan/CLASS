@@ -3,44 +3,17 @@ package com.arima.classengine.core;
 import java.awt.BorderLayout;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.JFrame;
-
-import com.arima.classengine.classifier.CBaggingClassifier;
-import com.arima.classengine.classifier.CClassifier;
-import com.arima.classengine.classifier.CJ48Classifier;
-import com.arima.classengine.classifier.CLinearRegressionClassifier;
-import com.arima.classengine.classifier.CMultiLayerPerceptronClassifier;
-import com.arima.classengine.classifier.CVoteClassifier;
-import com.arima.classengine.engine.Model;
-import com.arima.classengine.evaluator.CCrossValidateEvaluator;
-import com.arima.classengine.evaluator.CEvaluator;
-import com.arima.classengine.filter.CDefaultMissingValueHandler;
-import com.arima.classengine.filter.CDiscardInstancesWithMissingValues;
-import com.arima.classengine.filter.CEngineFilter;
-import com.arima.classengine.filter.CFilter;
-import com.arima.classengine.filter.CMissingValuesHandler;
-import com.arima.classengine.filter.CReplaceMissingValuesByMean;
-import com.arima.classengine.classifier.CNaiveBayesClassifier;
-
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
-
 
 import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.InfoGainAttributeEval;
@@ -49,11 +22,25 @@ import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
-import weka.core.Utils;
 import weka.core.converters.DatabaseConnection;
-import weka.core.converters.DatabaseSaver;
 import weka.gui.treevisualizer.PlaceNode2;
 import weka.gui.treevisualizer.TreeVisualizer;
+
+import com.arima.classengine.classifier.CBaggingClassifier;
+import com.arima.classengine.classifier.CClassifier;
+import com.arima.classengine.classifier.CJ48Classifier;
+import com.arima.classengine.classifier.CMultiLayerPerceptronClassifier;
+import com.arima.classengine.classifier.CNaiveBayesClassifier;
+import com.arima.classengine.engine.Model;
+import com.arima.classengine.evaluator.CCrossValidateEvaluator;
+import com.arima.classengine.evaluator.CEvaluator;
+import com.arima.classengine.filter.CDefaultMissingValueHandler;
+import com.arima.classengine.filter.CDiscardInstancesWithMissingValues;
+import com.arima.classengine.filter.CFilter;
+import com.arima.classengine.filter.CMissingValuesHandler;
+import com.arima.classengine.filter.CReplaceMissingValuesByMean;
+import com.arima.classengine.utils.Utils;
+import com.mysql.jdbc.PreparedStatement;
 
 public class CAnalyzer {
 
@@ -66,7 +53,7 @@ public class CAnalyzer {
 	private double accuracy = 0;
 	private final double accuracyThreshold = 75;
 	private CMissingValuesHandler missingValueHandlerType; 
-	private final boolean isTest = false;
+	private final boolean isTest = true;
 	private Classifier tempModel;
 
 	/**
@@ -214,11 +201,11 @@ public class CAnalyzer {
 
 	public static void main(String[] args) throws Exception {
 		
-		updateModel(2008, 10, 2, "SCIENCE & TECHNOLOGY");
-		updateModel(2008, 10, 3, "SCIENCE & TECHNOLOGY");
-		updateModel(2008, 11, 1, "SCIENCE & TECHNOLOGY");
-		updateModel(2008, 11, 2, "SCIENCE & TECHNOLOGY");
-		updateModel(2008, 11, 3, "SCIENCE & TECHNOLOGY");
+		updateModel(2008, 10, 2, "SCIENCE TECHNOLOGY");
+		updateModel(2008, 10, 3, "SCIENCE TECHNOLOGY");
+		updateModel(2008, 11, 1, "SCIENCE TECHNOLOGY");
+		updateModel(2008, 11, 2, "SCIENCE TECHNOLOGY");
+		updateModel(2008, 11, 3, "SCIENCE TECHNOLOGY");
 		
 		updateModel(2008, 10, 2, "SAIVISM");
 		updateModel(2008, 10, 3, "SAIVISM");
@@ -250,11 +237,11 @@ public class CAnalyzer {
 		updateModel(2008, 11, 2, "HISTORY");
 		updateModel(2008, 11, 3, "HISTORY");
 
-		updateModel(2008, 10, 2, "BUSSINESS & ACCOUNTING");
-		updateModel(2008, 10, 3, "BUSSINESS & ACCOUNTING");
-		updateModel(2008, 11, 1, "BUSSINESS & ACCOUNTING");
-		updateModel(2008, 11, 2, "BUSSINESS & ACCOUNTING");
-		updateModel(2008, 11, 3, "BUSSINESS & ACCOUNTING");
+		updateModel(2008, 10, 2, "BUSSINESS ACCOUNTING");
+		updateModel(2008, 10, 3, "BUSSINESS ACCOUNTING");
+		updateModel(2008, 11, 1, "BUSSINESS ACCOUNTING");
+		updateModel(2008, 11, 2, "BUSSINESS ACCOUNTING");
+		updateModel(2008, 11, 3, "BUSSINESS ACCOUNTING");
 		
 		updateModel(2008, 10, 2, "INFORMATION AND COMMUNICATION TECHNOLOGY");
 		updateModel(2008, 10, 3, "INFORMATION AND COMMUNICATION TECHNOLOGY");
@@ -269,53 +256,28 @@ public class CAnalyzer {
 
 	}
 
-	public static Instances prepareTrainData(int grade, int term, String subject) throws Exception{
 
-		Instances train = CFilter.retrieveDatasetFromDatabase(
-				CEngineFilter.createPredictionQuery(10, 1, subject), "root", "");
-
-		if(grade == 11 || grade == 13){
-			term = term + 3;
-		}
-
-		int tempGrade = grade, tempTerm = term;
-
-		for (int i = 2; i <= term; i++) {
-			tempTerm = i;
-
-			if(grade == 11 || grade == 13){
-				if(i<=3){
-					tempGrade = grade-1;
-					tempTerm = i;
-				}
-
-				if(i >3){
-					tempGrade = grade;
-					tempTerm = i-3;
-				}
-
-			}
-
-			train = Instances.mergeInstances(train, 
-					CFilter.removeAttributesByIndices(CFilter.retrieveDatasetFromDatabase(
-							CEngineFilter.createPredictionQuery(tempGrade, tempTerm, subject), "root", ""), "1"));
-
-		}
-		return train;
-	}
 
 	public static void updateModel(int year, int grade, int term, String subject) throws Exception{
 
-		//SCIENCE & TECHNOLOGY
-		CAnalyzer analyzer = getModel(prepareTrainData(grade, term, subject));
-//		Classifier cls = loadModelFromDatabase(year, grade, term, subject);
-//		if(cls == null){
-//			boolean b = saveModelToDatabase("jdbc:mysql://localhost:3306/class", "root", "", year, grade, term, subject, analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
-//			System.out.println("done " + b);
-//		}else{
-//			boolean b = updateModelInDatabase("jdbc:mysql://localhost:3306/class", "root", "", year, grade, term, subject, analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
-//			System.out.println("done " + b);
-//		}
+		
+		String statFileName = "F:/Projects/CLASS/CLASS-Engine/data/Classifiers-Stats/"+ 
+								year + " " + subject + " grade " + grade + " term " + term +  ".txt";
+		
+		CAnalyzer analyzer = getModel(Utils.prepareTrainData(grade, term, subject), statFileName);
+		
+		if(!analyzer.isTest()){
+			
+		Model model = loadModelFromDatabase(year, grade, term, subject);
+		if(model.getClassifier() == null){
+			boolean b = saveModelToDatabase("jdbc:mysql://localhost:3306/class", "root", "", year, grade, term, subject, analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
+			System.out.println("done " + b);
+		}else{
+			boolean b = updateModelInDatabase("jdbc:mysql://localhost:3306/class", "root", "", year, grade, term, subject, analyzer.getModel(), analyzer.getModel().getClass().getName(), analyzer.getBinSize());
+			System.out.println("done " + b);
+		}
+		
+		}
 
 	}
 
@@ -426,7 +388,9 @@ public class CAnalyzer {
 		return re;
 	}
 
-	public static CAnalyzer getModel(Instances train) throws Exception{
+	//for stats file naming only , subject parameter is there
+	
+	public static CAnalyzer getModel(Instances train, String statFileName) throws Exception{
 
 		String header;
 		CAnalyzer analyzer = new CAnalyzer();
@@ -434,9 +398,9 @@ public class CAnalyzer {
 
 		List<CClassifier> classifiers = new ArrayList<CClassifier>();
 		classifiers.add(new CJ48Classifier());
-//		classifiers.add(new CNaiveBayesClassifier());
+		classifiers.add(new CNaiveBayesClassifier());
 //		classifiers.add(new CMultiLayerPerceptronClassifier());
-//		classifiers.add(new CBaggingClassifier());
+		classifiers.add(new CBaggingClassifier());
 
 		List<CMissingValuesHandler> missingValueHandlers = new ArrayList<CMissingValuesHandler>();
 		missingValueHandlers.add(new CDefaultMissingValueHandler());
@@ -458,13 +422,13 @@ public class CAnalyzer {
 						train = analyzer.missingValueHandlerType.handleMissingValues(train);
 
 						train = CFilter.numeric2nominal(train, "first-last",bins);
-						//			train = CEngineFilter.handleMissingValues(train);
+						//			train = Utils.handleMissingValues(train);
 
 						//Changing nominal lables so that every attribute will have the same
-						train = CEngineFilter.changeAttributeNominalRange(train, CEngineFilter.getAttributeLables(bins, true));
+						train = Utils.changeAttributeNominalRange(train, Utils.getAttributeLables(bins, true));
 
 						//Renaming attribute values to different lables such as A,B,C,S,F
-						train = CEngineFilter.renameAttributes(train, bins);
+						train = Utils.renameAttributes(train, bins);
 
 						analyzer.setClassifierType(classifiers.get(i-1));
 						analyzer.setEvaluatorType(new CCrossValidateEvaluator());
@@ -508,9 +472,9 @@ public class CAnalyzer {
 									"\n" ;
 							System.out.println(header);
 							System.out.println(analyzer.getAccuracy());
-							CFilter.appendfile("C:/JSF/stat.txt", header);
-							CFilter.appendfile("C:/JSF/stat.txt", analyzer.getEval().toSummaryString());
-							CFilter.appendfile("C:/JSF/stat.txt", "###################################################################" + "\n");
+							CFilter.appendfile(statFileName, header);
+							CFilter.appendfile(statFileName, analyzer.getEval().toSummaryString());
+							CFilter.appendfile(statFileName, "###################################################################" + "\n");
 						}
 					}
 				}
@@ -539,11 +503,10 @@ public class CAnalyzer {
 		attsel.setSearch(search);
 		attsel.SelectAttributes(data);
 		attsel.setRanking(true);
-		System.out.println(Utils.arrayToString(attsel.rankedAttributes()));
+//		System.out.println(Utils.arrayToString(attsel.rankedAttributes()));
 		System.out.println(attsel.toResultsString());
-
 		int[] indices = attsel.selectedAttributes();
-		System.out.println("selected attribute indices (starting with 0):\n" + Utils.arrayToString(indices));
+//		System.out.println("selected attribute indices (starting with 0):\n" + java.utils.arrayToString(indices));
 	}
 
 	public void drawTree(J48 j48) {

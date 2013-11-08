@@ -1,0 +1,26 @@
+Number of rules : 10
+
+[makrs101=C, makrs103=C, makrs111=C]: 88 ==> [makrs102=C]: 87   <conf:(0.99)> lift:(1.92) lev:(0.1) conv:(21.35) 
+[makrs101=C, makrs111=C, makrs112=C]: 85 ==> [makrs102=C]: 84   <conf:(0.99)> lift:(1.92) lev:(0.1) conv:(20.62) 
+[makrs101=C, makrs111=C]: 95 ==> [makrs102=C]: 93   <conf:(0.98)> lift:(1.9) lev:(0.11) conv:(15.37) 
+[makrs101=C, makrs103=C]: 94 ==> [makrs102=C]: 92   <conf:(0.98)> lift:(1.91) lev:(0.11) conv:(15.28) 
+[makrs101=C, makrs112=C]: 89 ==> [makrs102=C]: 87   <conf:(0.98)> lift:(1.91) lev:(0.1) conv:(14.47) 
+[makrs101=C, makrs102=C, makrs112=C]: 87 ==> [makrs111=C]: 84   <conf:(0.97)> lift:(2.11) lev:(0.11) conv:(11.79) 
+[makrs101=C]: 111 ==> [makrs102=C]: 107   <conf:(0.96)> lift:(1.87) lev:(0.12) conv:(10.77) 
+[makrs101=C, makrs112=C]: 89 ==> [makrs111=C]: 85   <conf:(0.96)> lift:(2.08) lev:(0.11) conv:(9.65) 
+[makrs103=C, makrs111=C, makrs112=C]: 105 ==> [makrs102=C]: 100   <conf:(0.95)> lift:(1.86) lev:(0.11) conv:(8.53) 
+[makrs101=C, makrs102=C, makrs103=C]: 92 ==> [makrs111=C]: 87   <conf:(0.95)> lift:(2.06) lev:(0.11) conv:(8.31) 
+
+Number of rules : 10
+
+[makrs101=C, makrs103=C, makrs111=C]: 88 ==> [makrs102=C]: 87   <conf:(0.99)> lift:(1.92) lev:(0.1) conv:(21.35) 
+[makrs101=C, makrs111=C, makrs112=C]: 85 ==> [makrs102=C]: 84   <conf:(0.99)> lift:(1.92) lev:(0.1) conv:(20.62) 
+[makrs101=C, makrs111=C]: 95 ==> [makrs102=C]: 93   <conf:(0.98)> lift:(1.9) lev:(0.11) conv:(15.37) 
+[makrs101=C, makrs103=C]: 94 ==> [makrs102=C]: 92   <conf:(0.98)> lift:(1.91) lev:(0.11) conv:(15.28) 
+[makrs101=C, makrs112=C]: 89 ==> [makrs102=C]: 87   <conf:(0.98)> lift:(1.91) lev:(0.1) conv:(14.47) 
+[makrs101=C, makrs102=C, makrs112=C]: 87 ==> [makrs111=C]: 84   <conf:(0.97)> lift:(2.11) lev:(0.11) conv:(11.79) 
+[makrs101=C]: 111 ==> [makrs102=C]: 107   <conf:(0.96)> lift:(1.87) lev:(0.12) conv:(10.77) 
+[makrs101=C, makrs112=C]: 89 ==> [makrs111=C]: 85   <conf:(0.96)> lift:(2.08) lev:(0.11) conv:(9.65) 
+[makrs103=C, makrs111=C, makrs112=C]: 105 ==> [makrs102=C]: 100   <conf:(0.95)> lift:(1.86) lev:(0.11) conv:(8.53) 
+[makrs101=C, makrs102=C, makrs103=C]: 92 ==> [makrs111=C]: 87   <conf:(0.95)> lift:(2.06) lev:(0.11) conv:(8.31) 
+

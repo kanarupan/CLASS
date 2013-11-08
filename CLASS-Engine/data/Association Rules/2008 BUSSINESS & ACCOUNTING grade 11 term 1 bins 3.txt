@@ -1,0 +1,6 @@
+Number of rules : 3
+
+[makrs101=C, makrs103=C]: 192 ==> [makrs102=C]: 177   <conf:(0.92)> lift:(1.5) lev:(0.14) conv:(4.61) 
+[makrs101=C, makrs103=C, makrs111=C]: 170 ==> [makrs102=C]: 156   <conf:(0.92)> lift:(1.48) lev:(0.13) conv:(4.33) 
+[makrs101=C, makrs111=C]: 192 ==> [makrs102=C]: 175   <conf:(0.91)> lift:(1.47) lev:(0.14) conv:(4.07) 
+
