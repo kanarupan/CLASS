@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.arima.classanalyzer.core.CAnalyzer;
 import com.arima.classanalyzer.core.CFinal;
+import com.arima.classanalyzer.webs.client.localhost._7070.class_wsdl.Hello;
+import com.arima.classanalyzer.webs.client.localhost._7070.class_wsdl.HelloClassService;
 import com.mysql.jdbc.Connection;
 
 public class Predictor {
@@ -142,4 +144,9 @@ public class Predictor {
 	}
 
 
+    public static void main(String[] args) {
+        HelloClassService helloClassService=new HelloClassService();
+        Hello hello= helloClassService.getHelloClassPort();
+        System.out.println(hello.getmodel());
+    }
 }
