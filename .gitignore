@@ -3,10 +3,9 @@
 *.lock
 *.DS_Store
 *.swp
-*./*/out/
-*./*/bin/
-CLASS-Engine/target/
-CLASS-Analyzer/target/
+out/
+bin/
+target/
 Thumbs.db
 *.iml
 *.idea
