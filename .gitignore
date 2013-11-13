@@ -3,9 +3,9 @@
 *.lock
 *.DS_Store
 *.swp
-*./*/out/
-*./*/bin/
-*./*/target/
+out/
+bin/
+target/
 Thumbs.db
 *.iml
 *.idea
