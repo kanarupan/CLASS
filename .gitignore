@@ -5,7 +5,8 @@
 *.swp
 *./*/out/
 *./*/bin/
-*/target/
+CLASS-Engine/target/
+CLASS-Analyzer/target/
 Thumbs.db
 *.iml
 *.idea
