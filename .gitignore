@@ -5,7 +5,7 @@
 *.swp
 *./*/out/
 *./*/bin/
-*./*/target/
+target/
 Thumbs.db
 *.iml
 *.idea
