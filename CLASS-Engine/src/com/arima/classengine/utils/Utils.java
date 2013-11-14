@@ -1,5 +1,7 @@
 package com.arima.classengine.utils;
 
+import java.util.List;
+
 import weka.core.Instances;
 
 import com.arima.classengine.filter.CFilter;
@@ -325,6 +327,26 @@ public static Instances prepareStandardizedAndNormalizedTrainDataAcrossSchoolsAn
 				" and sub.subject_name='"+subject+"' "+
 				"and mk.makrs BETWEEN  "+lower+" AND "+upper;
 		return query;
+	}
+	
+	public static Instances prepareProfileMatcherData(int schoolNo, int grade, int term, List<String> subjects) throws Exception{
+		
+		 
+		Instances instances = CFilter.retrieveDatasetFromDatabase(
+									Utils.createPredictionQuery(schoolNo, grade, term, subjects.get(0)),"root", "");
+//		instances = CFilter.removeAttributesByIndices(instances, "1");
+		
+		Instances instance = null;
+		
+		for(int i=1; i< subjects.size(); i++){
+			instance = CFilter.retrieveDatasetFromDatabase(
+							Utils.createPredictionQuery(schoolNo, grade, term, subjects.get(i)),"root", "");
+			instance = CFilter.removeAttributesByIndices(instance, "1");
+			instances = Instances.mergeInstances(instances, instance);
+		}
+		
+		return instances;
+		
 	}
 	
 }

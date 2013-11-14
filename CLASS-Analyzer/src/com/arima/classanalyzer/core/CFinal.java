@@ -50,12 +50,8 @@ public class CFinal {
 		Instances test = CFilter.createInstances(11, marks);
 		
 		Model model = loadModelFromDatabase(year, grade, term, subject);
-//		System.out.println(model.getBins());
-//		System.out.println(model.getClassifier());
-//		System.exit(0);
 		Instances predicted = CAnalyzer.predict(test, model.getClassifier(), model.getBins());
 		System.out.println(predicted);
-
 
 		return predicted.instance(0).stringValue(1);
 	}

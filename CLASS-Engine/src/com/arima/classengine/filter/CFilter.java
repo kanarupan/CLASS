@@ -508,4 +508,33 @@ public class CFilter {
     	return train;
     }
     
+public static Instances createInstance(int index, ArrayList<Integer> marks){
+		
+		ArrayList<Attribute> attributes = new ArrayList<Attribute>();
+		
+		Attribute index_no = new Attribute("index_no");
+		attributes.add(index_no);
+		
+		Attribute temp;
+		
+		for (int i = 0; i < marks.size(); i++) {
+			
+			temp = new Attribute("attribute_"+(i+1));
+			attributes.add(temp);
+		}
+		
+		Instances dataset = new Instances("Test-dataset", attributes, 0);
+		
+		Instance inst = new DenseInstance(marks.size()+1); 
+		inst.setValue(0, index); 
+
+		for (int i = 0; i < marks.size(); i++) {
+			inst.setValue(i+1, marks.get(i));
+		}
+		inst.setDataset(dataset);
+		dataset.add(inst);
+		
+		return dataset;
+	}
+    
 }
