@@ -8,32 +8,37 @@ import weka.core.Instances;
 import weka.gui.streams.InstanceJoiner;
 
 import com.arima.classengine.filter.CFilter;
+import com.arima.classengine.utils.Utils;
 
 
 class JaccardIndex {
 
     
     public static void main(String[] args) throws Exception {
-
-		String five = "1,2,3,4,5";
-		String fives = "F,S,C,B,A";
-		Instances term = CFilter.retrieveDatasetFromDatabase("select * from term_exam", "root", "");
-		Instances general = CFilter.retrieveDatasetFromDatabase("select * from general_exam", "root", "");
+    			getJaccardIndexSimilarity(11089, 11, 3, 11, 2, "HISTORY");
+    }
+    
+    public static void getJaccardIndexSimilarity(int schoolNo, int grade1, int term1, int grade2, int term2, String subject) throws Exception{
+    	
+		Instances train = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade1, term1, subject), "root", "");
+		Instances train2 = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade2, term2, subject), "root", "");
 		
-		term = CFilter.removeAttributesByNames(term, "index_no");
-		term = CFilter.numeric2nominal(term, "first",5);
-		term = CFilter.changeAttributesNominalValues(term, "1", five);
-		term = CFilter.renameAttributesValues(term, "1", five, fives);
+		train2 = CFilter.removeAttributesByIndices(train2, "1");
+		train = Instances.mergeInstances(train, train2);
+		train.deleteWithMissing(1);
+		train.deleteWithMissing(2);
 		
-		general = CFilter.removeAttributesByNames(general, "index_no");
-		general = CFilter.numeric2nominal(general, "first",5);
-		general = CFilter.changeAttributesNominalValues(general, "1", five);
-		general = CFilter.renameAttributesValues(general, "1", five, fives);
+		int bins = 5;
+		train = CFilter.removeAttributesByIndices(train, "1");
+		train = CFilter.numeric2nominal(train, "first-last",bins);
+		train = Utils.changeAttributeNominalRange(train, Utils.getAttributeLables(bins, true));
+		train = Utils.renameAttributes(train, bins);
 		
-//		Instances ok = Instances.mergeInstances(term, general);
-//		System.out.println(ok);System.exit(0);
+		Instances general = new Instances(train);
+		train.deleteAttributeAt(1);
+		general.deleteAttributeAt(0);
 		
-		JaccardIndex.getSimilarity(general,term);
+		JaccardIndex.getSimilarity(general,train);
 		
     }
     
