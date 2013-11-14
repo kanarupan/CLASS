@@ -53,7 +53,7 @@ public class CAnalyzer {
 	private double accuracy = 0;
 	private final double accuracyThreshold = 75;
 	private CMissingValuesHandler missingValueHandlerType; 
-	private final boolean isTest = true;
+	private final boolean isTest = false;
 	private Classifier tempModel;
 	private double timeToBuild = 0;
 
@@ -206,7 +206,7 @@ public class CAnalyzer {
 //		updateModel(2008, 10, 3, "SCIENCE AND TECHNOLOGY");
 //		updateModel(2008, 11, 1, "SCIENCE AND TECHNOLOGY");
 //		updateModel(2008, 11, 2, "SCIENCE AND TECHNOLOGY");
-		updateModel(2008, 11, 3, "SCIENCE AND TECHNOLOGY");
+//		updateModel(2008, 11, 3, "SCIENCE AND TECHNOLOGY");
 //		
 //		updateModel(2008, 10, 2, "SAIVISM");
 //		updateModel(2008, 10, 3, "SAIVISM");
@@ -226,11 +226,11 @@ public class CAnalyzer {
 //		updateModel(2008, 11, 2, "ENGLISH LANGUAGE");
 //		updateModel(2008, 11, 3, "ENGLISH LANGUAGE");
 //		
-//		updateModel(2008, 10, 2, "MATHEMATICS");
-//		updateModel(2008, 10, 3, "MATHEMATICS");
-//		updateModel(2008, 11, 1, "MATHEMATICS");
-//		updateModel(2008, 11, 2, "MATHEMATICS");
-//		updateModel(2008, 11, 3, "MATHEMATICS");
+		updateModel(2008, 10, 2, "MATHEMATICS");
+		updateModel(2008, 10, 3, "MATHEMATICS");
+		updateModel(2008, 11, 1, "MATHEMATICS");
+		updateModel(2008, 11, 2, "MATHEMATICS");
+		updateModel(2008, 11, 3, "MATHEMATICS");
 //		
 //		updateModel(2008, 10, 2, "HISTORY");
 //		updateModel(2008, 10, 3, "HISTORY");

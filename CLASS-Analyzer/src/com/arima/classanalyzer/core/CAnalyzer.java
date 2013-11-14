@@ -66,110 +66,34 @@ public class CAnalyzer {
 	}
 	
 	
-
-	public static Classifier getModel(Instances train) throws Exception{
-		
-//		double accuracy;
-		CAnalyzer.setTrain(train);
-		
-		for (int bins = 5; bins > 4; bins--) {
-			train = CAnalyzer.getTrain();
-			System.out.println(train);
-			System.out.println();
-
-			System.out.println("Number of attributes in dataset : " + train.numAttributes());
-
-			System.out.println("Removing index_no from dataset . . .");
-			train = CFilter.removeAttributesByNames(train, "index_no");
-
-			
-			
-			System.out.println("Number of attributes  in dataset : " + train.numAttributes());
-
-			System.out.println("Change all attributes from numeric to nominal");
-			train = CFilter.numeric2nominal(train, "first-last",bins);
-			System.out.println("Number of instances in dataset : " + train.numInstances());
-
-			//		train = CFinal.handleMissingValues(train);
-
-			System.out.println(train);
-			System.out.println();
-
-			System.out.println("Changing nominal lables so that every attribute will have the same");
-
-			train = CFinal.changeAttributeNominalRange(train, CFinal.getAttributeLables(bins, true));
-			System.out.println(train);
-			System.out.println();
-
-			System.out.println("Renaming attribute values to different lables");
-
-			train = CFinal.renameAttributes(train, bins);
-
-			System.out.println("Dataset to be trained");
-			System.out.println();
-			System.out.println(train);
-			System.out.println();
-
-			/*
-			 * strategy design pattern to dynamically change classifier algorithms from use case to use case
-			 * ALevelAnalyzer will run J48
-			 * OLevelAnalyzwe will run NaiveBayes
-			 */
-			
-			CAnalyzer analyzer = new CALevelAnalyzer();
-			analyzer.setClassifierType(new CJ48Classifier());	
-
-			model = (J48) analyzer.classifierType.buildClassifier(train);
-			CAnalyzer.setBinSize(bins);
-			CAnalyzer.setClassifier(model);
-//			J48 ne = (J48)model;
-//			System.out.println("Rules" + ne.toSource(ne.toString()));
-//			System.exit(0);
-			
-		}
-		
-		return CAnalyzer.getClassifier();
-	}
-
-
 	public static Instances predict(Instances test, Classifier model, int bins ) throws Exception{
-
-		System.out.println(test);
-		System.out.println("Number of attribues in the dataset : " + test.numAttributes());
 
 
 		Instances toPredict = new Instances(test);
-		System.out.println("Removing index_no from dataset . . .");
 		toPredict = CFilter.removeAttributesByNames(toPredict, "index_no");
 		toPredict = CFilter.addAttributes(toPredict, "final", "nominal", "last", CFinal.getAttributeLables(bins, true));
 		toPredict = CFilter.numeric2nominal(toPredict, "first-last",bins);
 
-		System.out.println();
-		System.out.println("Changing nominal lables so that every attribute will have the same");
-
 		toPredict = CFinal.changeAttributeNominalRange(toPredict, CFinal.getAttributeLables(bins, true));
-		System.out.println(toPredict);
-		System.out.println();
 
 		toPredict = CFinal.renameAttributes(toPredict, bins);
-		System.out.println("Dataset to be predicted");
-		System.out.println(toPredict);
-		System.out.println();
-
-
+		
+		
 
 		Instances subject_test = new Instances(toPredict);
 		subject_test.setClassIndex(subject_test.numAttributes() - 1);
-		System.out.print(subject_test);
+		
+		
 
 		test = CFilter.removeAttributesByIndices(test, "2-last");			//now "test" will contain only the index numbers
 		test = CFilter.addAttributes(test, "final","nominal", "last", CFinal.getAttributeLables(bins, false));
 
+//		System.out.println(test);System.exit(0);
+		
 		Instances predicted = new Instances(test);		//"predicted" will hold the index numbers with their  final results=null (predicted)
 
 		predicted.setClassIndex(predicted.numAttributes()-1);
-		System.out.println(predicted);
-
+		
 		return CAnalyzer.predict(subject_test, model, predicted);
 
 	}
@@ -177,7 +101,6 @@ public class CAnalyzer {
 
 
 	public static Instances predict(Instances toPredict, Classifier classifier, Instances predicted) throws Exception {
-
 
 		for (int i = 0; i < toPredict.numInstances(); i++) {
 

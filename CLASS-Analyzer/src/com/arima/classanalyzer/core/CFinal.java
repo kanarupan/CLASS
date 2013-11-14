@@ -9,6 +9,7 @@ import org.omg.PortableInterceptor.INACTIVE;
 
 import com.arima.classanalyzer.classifier.CJ48Classifier;
 import com.arima.classanalyzer.filter.CFilter;
+import com.arima.classanalyzer.core.Model;
 import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -18,7 +19,9 @@ import weka.classifiers.bayes.NaiveBayes;
 import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.classifiers.trees.J48;
+import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.converters.DatabaseConnection;
 import weka.core.converters.ConverterUtils.DataSource;
 import weka.experiment.InstanceQuery;
 import weka.filters.Filter;
@@ -26,50 +29,7 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 
 public class CFinal {
 	
-	public static String predictNextTerm(Connection conn, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
-		
-		Statement st = (Statement) conn.createStatement();
-        ResultSet res = st.executeQuery("SELECT * FROM  class_analyzer_classifier");
-        Classifier cls = null;
-        while (res.next()) {
-        int bins = res.getInt("bins");
-        InputStream is = res.getBinaryStream("model");
-        cls =  (Classifier) weka.core.SerializationHelper.read(is);
-        CALevelAnalyzer.setBinSize(bins);
-        }
-        
-        System.out.println(cls); System.exit(0);
-		
-		System.out.println("Retrieving dataset to be predicted");
-		Instances test = CFilter.createInstances(11, marks);
-		
-		
-//		Instances train = CFilter.retrieveDatasetFromDatabase("select * from ol_model", "root", "");
-//		System.out.println("Retrieving Instances from database");
-//		System.out.println(train);
-//		System.exit(0);
-		
-//		Classifier model = CAnalyzer.getModel(train);
-		Classifier model = cls;
-		CFilter.saveModel(model, "C:/JSF/CLASS/OL_subject_1_J48.model");
-		//		analyzer.drawTree(subject_1_model);
-//				System.exit(0);
-//		model = CFilter.loadModel("C:/JSF/CLASS/OL_subject_1_J48.model");
-		
-//		Instances test = CFilter.retrieveDatasetFromDatabase("select * from ol_maths_input", "root", "");	//retrieve by table name
-		
-		Instances predicted = CAnalyzer.predict(test, model, CAnalyzer.getBinSize());
-		System.out.println(predicted);
-
-		//		CFilter.arff2Database(predicted, "al_output","jdbc:mysql://localhost:3306/class","root",""); 	//store the predicted results (three final results with index numbers) to the data base
-//		CFilter.saveCSV(predicted, "C:/JSF/CLASS/OLevel_J48_Prediction.csv");
-		
-		return predicted.instance(0).stringValue(1);
-	}
-	
 	public static void main(String[] args) throws Exception {
-		
-		Instances train = CFilter.retrieveDatasetFromDatabase("select * from ol_model", "root", "");
 		
 		ArrayList<Integer> marks = new ArrayList<Integer>();
 		marks.add(93);
@@ -77,11 +37,29 @@ public class CFinal {
 		marks.add(96);
 		marks.add(71);
 		marks.add(83);
-		System.out.println("ssss");
-//		System.out.println(CFinal.predictNextTerm(11,5,"maths", 45455, marks));
+
+		System.out.println(predictNextTerm(null, 2008, 11, 3, "MATHEMATICS", 4545, marks));
+		
 		
 		
 	}
+	
+	public static String predictNextTerm(Connection conn, int year, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
+		
+		System.out.println("Retrieving dataset to be predicted");
+		Instances test = CFilter.createInstances(11, marks);
+		
+		Model model = loadModelFromDatabase(year, grade, term, subject);
+//		System.out.println(model.getBins());
+//		System.out.println(model.getClassifier());
+//		System.exit(0);
+		Instances predicted = CAnalyzer.predict(test, model.getClassifier(), model.getBins());
+		System.out.println(predicted);
+
+
+		return predicted.instance(0).stringValue(1);
+	}
+	
 	
 	public static String getAttributeLables(int bins, boolean isLetter){
        
@@ -104,11 +82,11 @@ public class CFinal {
         else{
         	
             switch (bins) {
-            case 2:  lables = "F,A";
+            case 2:  lables = "F,S";
                      break;
-            case 3:  lables = "F,S,A";
+            case 3:  lables = "F,S,C";
                      break;
-            case 4:  lables = "F,S,C,A";
+            case 4:  lables = "F,S,C,B";
                      break;
             case 5:  lables = "F,S,C,B,A";
                      break;
@@ -191,5 +169,39 @@ public class CFinal {
 		}
 		
 		return train;
+	}
+	
+	public static Model loadModelFromDatabase(int year, int grade, int term, String subject) throws Exception{
+
+		Model model = new Model();
+		int bins=-1;
+		Classifier cls=null;
+		DatabaseConnection dc = new DatabaseConnection();
+		dc.setDatabaseURL("jdbc:mysql://localhost:3306/class");
+		dc.setUsername("root");
+		dc.setPassword("");
+		dc.connectToDatabase();
+		
+		dc.execute("SELECT model, bins, type FROM  class_analyzer_classifier where year = "+ year +" and grade = " + grade
+				+" and term = " 
+				+term+ " and subject = '" +subject+"'");
+
+		ResultSet rs = dc.getResultSet();
+		
+		while(rs.next()){
+
+			InputStream is = rs.getBinaryStream("model");
+			cls =  (Classifier) weka.core.SerializationHelper.read(is);
+			
+			model.setYear(year);
+			model.setGrade(grade);
+			model.setTerm(term);
+			model.setSubject(subject);
+			model.setClassifier(cls);
+			model.setType(rs.getString("type"));
+			model.setBins(rs.getInt("bins"));
+		}
+		dc.close();
+		return model;
 	}
 }

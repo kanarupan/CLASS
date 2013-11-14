@@ -100,9 +100,9 @@ public class Predictor {
 	 * @return
 	 * @throws Exception
 	 */
-	public  String predictNext(Connection conn, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
+	public  String predictNext(Connection conn, int year, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
 
-		return CFinal.predictNextTerm(conn, grade, term, subject, index_no, marks);
+		return CFinal.predictNextTerm(conn, year, grade, term, subject, index_no, marks);
 	}
 
 	/**Returns marks ranges of results

@@ -203,11 +203,11 @@ public static Instances prepareStandardizedAndNormalizedTrainDataAcrossSchoolsAn
 		else{
 
 			switch (bins) {
-			case 2:  lables = "F,A";
+			case 2:  lables = "F,S";
 			break;
-			case 3:  lables = "F,S,A";
+			case 3:  lables = "F,S,C";
 			break;
-			case 4:  lables = "F,S,C,A";
+			case 4:  lables = "F,S,C,B";
 			break;
 			case 5:  lables = "F,S,C,B,A";
 			break;
