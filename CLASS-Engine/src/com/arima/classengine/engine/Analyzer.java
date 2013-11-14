@@ -18,6 +18,7 @@ public class Analyzer {
 	
 	/**Usage Example
 	 * 	
+	 * 
 	 * List<String> subjects = new ArrayList<String>();
 		subjects.add("SAIVISM");
 		subjects.add("MATHEMATICS");
@@ -50,7 +51,13 @@ public class Analyzer {
 	 * @throws Exception
 	 */
 
+	//it will return nearest profiles from same school (ySchool DB index numbers)
 	public static ArrayList<Integer> getNearestProfiles(int schoolNo, int grade, int term, List<String> subjects, List<Integer> marks) throws Exception{	
 		return NearestProfile.getNearestProfiles(schoolNo, grade, term, subjects, marks);
+	}
+	
+	//it will return nearest profiles from all schools (central DB index numbers)
+	public static ArrayList<Integer> getNearestProfiles(int grade, int term, List<String> subjects, List<Integer> marks) throws Exception{	
+		return NearestProfile.getNearestProfiles(grade, term, subjects, marks);
 	}
 }

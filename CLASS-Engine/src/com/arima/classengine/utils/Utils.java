@@ -329,24 +329,58 @@ public static Instances prepareStandardizedAndNormalizedTrainDataAcrossSchoolsAn
 		return query;
 	}
 	
-	public static Instances prepareProfileMatcherData(int schoolNo, int grade, int term, List<String> subjects) throws Exception{
+	public static Instances prepareProfileMatcherData(int grade, int term, List<String> subjects) throws Exception{
 		
 		 
 		Instances instances = CFilter.retrieveDatasetFromDatabase(
-									Utils.createPredictionQuery(schoolNo, grade, term, subjects.get(0)),"root", "");
+									Utils.createPredictionQuery(grade, term, subjects.get(0)),"root", "");
 //		instances = CFilter.removeAttributesByIndices(instances, "1");
 		
 		Instances instance = null;
 		
 		for(int i=1; i< subjects.size(); i++){
 			instance = CFilter.retrieveDatasetFromDatabase(
-							Utils.createPredictionQuery(schoolNo, grade, term, subjects.get(i)),"root", "");
+							Utils.createPredictionQuery(grade, term, subjects.get(i)),"root", "");
 			instance = CFilter.removeAttributesByIndices(instance, "1");
 			instances = Instances.mergeInstances(instances, instance);
 		}
 		
 		return instances;
 		
+	}
+	
+	public static Instances prepareProfileMatcherData(int schoolNo, int grade, int term, List<String> subjects) throws Exception{
+		
+		 
+		Instances instances = CFilter.retrieveDatasetFromDatabase(
+									Utils.createProfileMatchingQuery(schoolNo, grade, term, subjects.get(0)),"root", "");
+		instances = CFilter.removeAttributesByIndices(instances, "1");
+		
+		Instances instance = null;
+		
+		for(int i=1; i< subjects.size(); i++){
+			instance = CFilter.retrieveDatasetFromDatabase(
+							Utils.createProfileMatchingQuery(schoolNo, grade, term, subjects.get(i)),"root", "");
+			instance = CFilter.removeAttributesByIndices(instance, "1,2");
+			instances = Instances.mergeInstances(instances, instance);
+		}
+		
+		return instances;
+		
+	}
+	
+	public static String createProfileMatchingQuery(int school_no, int grade, int term, String subject){
+		//ex.school_no = 11089 and
+
+
+		String query = "select st.idstudent, st.student_school_id, mk.makrs as " + subject.replaceAll(" ", "_") + "_" + grade + "_" + term +
+				" from " +
+				"(exam ex  join subject sub on (sub.idsubject=ex.subject_idsubject)) " +
+				"join marks mk on (mk.exam_id_exam=ex.id_exam) " +
+				"join student_performance stpe on (mk.student_performance_idstudent_performance=stpe.idstudent_performance) " +
+				"join student st on (st.idstudent=stpe.student_idstudent) " +
+				"where ex.school_no = "+ school_no + " and ex.grade="+ grade+" and ex.term="+ term +" and sub.subject_name='"+subject+"' ";
+		return query;
 	}
 	
 }

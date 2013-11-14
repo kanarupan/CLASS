@@ -19,21 +19,6 @@ public class NearestProfile {
 	
 	public static void main(String[] args) throws Exception{
 		
-		
-//		ArrayList<Integer> marks = new ArrayList<Integer>();
-//		marks.add(90);
-//		marks.add(82);
-//		marks.add(96);
-//		marks.add(90);
-//		marks.add(82);
-//		marks.add(96);
-//		marks.add(82);
-//		marks.add(96);
-//
-//		Instances test = CFilter.createInstance(11, marks);
-		
-//		System.exit(0);
-		
 		List<String> subjects = new ArrayList<String>();
 		subjects.add("SAIVISM");
 		subjects.add("MATHEMATICS");
@@ -46,21 +31,35 @@ public class NearestProfile {
 		
 		ArrayList<Integer> marks = new ArrayList<Integer>();
 		marks.add(90);
-		marks.add(82);
-		marks.add(96);
 		marks.add(90);
-		marks.add(82);
-		marks.add(96);
-		marks.add(82);
-		marks.add(96);
+		marks.add(90);
+		marks.add(90);
+		marks.add(90);
+		marks.add(90);
+		marks.add(90);
+		marks.add(90);
+//		
+//		System.out.println(Utils.prepareProfileMatcherData(11086, 11, 3, subjects));
+//		System.exit(0);
 
 		ArrayList<Integer> indexNumbers = getNearestProfiles(11089, 11, 3, subjects, marks);
 		System.out.println(indexNumbers);
 	}
 	
 	public static ArrayList<Integer> getNearestProfiles(int schoolNo, int grade, int term, List<String> subjects, List<Integer> marks) throws Exception{
-	
 		Instances inst = Utils.prepareProfileMatcherData(schoolNo, grade, term, subjects);
+		return getProfiles(inst, marks);
+	}
+	
+	public static ArrayList<Integer> getNearestProfiles(int grade, int term, List<String> subjects, List<Integer> marks) throws Exception{
+		Instances inst = Utils.prepareProfileMatcherData(grade, term, subjects);
+		return getProfiles(inst, marks);
+	}
+	
+	
+	public static ArrayList<Integer> getProfiles(Instances inst, List<Integer> marks) throws Exception{
+	
+//		Instances inst = Utils.prepareProfileMatcherData(schoolNo, grade, term, subjects);
 		
 //		ReplaceMissingValues rmv = new ReplaceMissingValues();
 //		rmv.setInputFormat(inst);
@@ -71,7 +70,8 @@ public class NearestProfile {
 		}
 		
 		KDTree tree = new KDTree();   
-		 
+		tree.setMeasurePerformance(true);
+		
 		try
 		{ 
 		    tree.setInstances(inst);
@@ -80,9 +80,13 @@ public class NearestProfile {
 		    df.setDontNormalize(true);
 		    df.setAttributeIndices("2-last");
 		     
-		    tree.setDistanceFunction(df);           
+		    tree.setDistanceFunction(df);    
+		    
 		} 
 		catch (Exception e) { e.printStackTrace();}
+		
+		
+		
 		
 		Instances neighbors = null;
 
@@ -97,7 +101,9 @@ public class NearestProfile {
 		catch (Exception e) { 
 			e.printStackTrace();
 		}
-		 
+//		System.out.println(tree.getPerformanceStats().getTotalPointsVisited());
+		
+		
 //		System.out.println(nn1 + " is the nearest neigbor for " + p);
 //		System.out.println(nn2 + " is the second nearest neigbor for " + p);
 		
