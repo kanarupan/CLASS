@@ -1,5 +1,8 @@
 package com.arima.classengine.webs;
 
+import com.arima.classengine.data.ExamSync;
+import org.json.JSONException;
+
 import javax.jws.WebService;
 
 /**
@@ -14,8 +17,14 @@ public class HelloClass implements Hello{
 
 	public String getmodel() {
 		// TODO Auto-generated method stub
-		return "Fukcing service";
-	}
+        ExamSync examSync=new ExamSync();
+
+        try {
+            return examSync.getjson();
+        } catch (JSONException e) {
+            return "hoho not working:(";
+        }
+    }
 
 
 }
