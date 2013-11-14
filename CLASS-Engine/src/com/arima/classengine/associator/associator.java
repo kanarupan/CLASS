@@ -29,7 +29,7 @@ public class associator {
 	public static void main(String[] args) throws Exception {
 		
 		int schoolNo = 11086;
-		int grade = 10;
+		int grade = 11;
 		int term = 1;
 		int bins=3;
 		List<String> subjects = new ArrayList<String>();
