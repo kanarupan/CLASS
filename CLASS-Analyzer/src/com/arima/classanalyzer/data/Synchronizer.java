@@ -1,5 +1,6 @@
 package com.arima.classanalyzer.data;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,10 +16,17 @@ import java.util.List;
  */
 public class Synchronizer {
 
-    public String SyncStudents(List<CStudent> cStudentList) throws JSONException {
+    /**
+     * Sends students to CLASS-Engine as JSON objects and calls the CLASS-Engine's insertStudents method.
+     *
+     * @param cStudentList List of CStudent objects to be synced with central CLASS database
+     * @return  A four digits string message code representing the status of the action.
+     * @throws JSONException
+     */
+    public String pushStudents(List<CStudent> cStudentList) throws JSONException {
 
-        JSONObject jsonCStudentList = new JSONObject();
-        int noOfstudents = 0;
+        JSONArray jsonCStudentList = new JSONArray();
+
         Iterator<CStudent> cStudentIterator = cStudentList.iterator();
 
         while (cStudentIterator.hasNext()) {
@@ -35,11 +43,10 @@ public class Synchronizer {
             jsonCStudent.put("mother", cStudent.getMother());
             jsonCStudent.put("noOfSiblings", cStudent.getNoOfSiblings());
 
-            noOfstudents++;
-            jsonCStudentList.put(String.valueOf(noOfstudents), jsonCStudent);
+            jsonCStudentList.put(jsonCStudent);
         }
-         // have
-        //return Engine.updateStudents(jsonCStudentList);
+        //uncomment after add webservice method in Engine.
+        //return Engine.insertStudents(jsonCStudentList.toString());
           return null;
     }
 }
