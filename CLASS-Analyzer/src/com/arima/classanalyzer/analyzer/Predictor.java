@@ -9,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Predictor {
 
@@ -19,6 +18,41 @@ public class Predictor {
     String userName = "root";
     String password = "";
 
+    /**
+     * TODO: Need to remove the main and arrange things.
+     *
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {                                  //predictorViaWeb
+        List<String> subjects = new ArrayList<String>();
+        List<Integer> marks = new ArrayList<Integer>();
+        List<Integer> indexNoList = new ArrayList<Integer>();
+
+        subjects.add("SAIVISM");
+        subjects.add("MATHEMATICS");
+//        subjects.add("SCIENCE AND TECHNOLOGY");
+        subjects.add("TAMIL LANGUAGE");
+        subjects.add("ENGLISH LANGUAGE");
+        subjects.add("HISTORY");
+        subjects.add("INFORMATION AND COMMUNICATION TECHNOLOGY");
+        //       subjects.add("BUSSINESS AND ACCOUNTING");
+
+        marks.add(90);
+        marks.add(82);
+//        marks.add(96);
+        marks.add(90);
+        marks.add(82);
+        marks.add(96);
+        marks.add(82);
+//        marks.add(96);
+
+        EngineService engineService = new EngineService();
+        IEngine engine = engineService.getEnginePort();
+        System.out.println(ProfileMatcher.getNearestGlobalProfiles(11, 3, subjects, marks));
+        System.out.println(ProfileMatcher.getNearestLocalProfiles(11086, 11, 3, subjects, marks));
+        System.out.println(engine.getmodel());
+    }
 
     /**
      * @return the url
@@ -102,9 +136,9 @@ public class Predictor {
      * @return
      * @throws Exception
      */
-    public String predictNext(Connection conn, int year, int grade, int term, String subject, int index_no, ArrayList<Integer> marks) throws Exception {
+    public String predictNextAsResults(Connection conn, int year, int grade, int term, String subject, int index_no, ArrayList<Integer> marks) throws Exception {
 
-        return CFinal.predictNextTerm(conn, year, grade, term, subject, index_no, marks);
+        return CFinal.predictNextTermAsResults(conn, year, grade, term, subject, index_no, marks);
     }
 
     /**
@@ -115,8 +149,10 @@ public class Predictor {
      * @param subject
      * @return
      */
-    public Map<String, Integer> getResultsRange(int grade, int term, String subject) {
-        return null;
+    public ArrayList<Integer> predictNext(Connection conn, int year, int grade, int term, String subject, int index_no, ArrayList<Integer> marks) throws Exception {
+
+        return CFinal.predictNextTerm(conn, year, grade, term, subject, index_no, marks);
+
     }
 
     /**
@@ -148,46 +184,6 @@ public class Predictor {
             return false;
         }
     }
-
-
-    /**
-     * TODO: Need to remove the main and arrange things.
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Exception {                                  //predictorViaWeb
-        List<String> subjects = new ArrayList<String>();
-        List<Integer> marks = new ArrayList<Integer>();
-        List<Integer> indexNoList = new ArrayList<Integer>();
-
-        subjects.add("SAIVISM");
-        subjects.add("MATHEMATICS");
-//        subjects.add("SCIENCE AND TECHNOLOGY");
-        subjects.add("TAMIL LANGUAGE");
-        subjects.add("ENGLISH LANGUAGE");
-        subjects.add("HISTORY");
-        subjects.add("INFORMATION AND COMMUNICATION TECHNOLOGY");
-        //       subjects.add("BUSSINESS AND ACCOUNTING");
-
-        marks.add(90);
-        marks.add(82);
-//        marks.add(96);
-        marks.add(90);
-        marks.add(82);
-        marks.add(96);
-        marks.add(82);
-//        marks.add(96);
-
-        EngineService engineService = new EngineService();
-        IEngine engine = engineService.getEnginePort();
-        System.out.println(ProfileMatcher.getNearestGlobalProfiles(11,3,subjects,marks));
-        System.out.println(ProfileMatcher.getNearestLocalProfiles(11086,11,3,subjects,marks));
-        System.out.println(engine.getmodel());
-    }
-
-
-
-
 
 
 }
