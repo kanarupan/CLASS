@@ -25,18 +25,18 @@ public class Utils {
         }
         else{
         	
-            switch (bins) {
-            case 2:  lables = "F,A";
-                     break;
-            case 3:  lables = "F,S,A";
-                     break;
-            case 4:  lables = "F,S,C,A";
-                     break;
-            case 5:  lables = "F,S,C,B,A";
-                     break;
-            default: lables = "F,S,C,B,A";
-                     break;
-        }
+			switch (bins) {
+			case 2:  lables = "F,S";
+			break;
+			case 3:  lables = "F,S,C";
+			break;
+			case 4:  lables = "F,S,C,B";
+			break;
+			case 5:  lables = "F,S,C,B,A";
+			break;
+			default: lables = "F,S,C,B,A";
+			break;
+			}
         	
         }
         

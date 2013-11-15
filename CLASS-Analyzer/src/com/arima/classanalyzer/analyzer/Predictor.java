@@ -100,20 +100,16 @@ public class Predictor {
 	 * @return
 	 * @throws Exception
 	 */
-	public  String predictNext(Connection conn, int year, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
+	public  String predictNextAsResults(Connection conn, int year, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
+
+		return CFinal.predictNextTermAsResults(conn, year, grade, term, subject, index_no, marks);
+	}
+
+	public  ArrayList<Integer> predictNext(Connection conn, int year, int grade,int term, String subject,  int index_no, ArrayList<Integer> marks) throws Exception{
 
 		return CFinal.predictNextTerm(conn, year, grade, term, subject, index_no, marks);
 	}
-
-	/**Returns marks ranges of results
-	 * @param grade
-	 * @param term
-	 * @param subject
-	 * @return
-	 */
-	public  Map<String, Integer> getResultsRange(int grade,int term, String subject){
-		return null;
-	}
+	
 
 	/**Initiate connection to CLASS Database
 	 * @param url
