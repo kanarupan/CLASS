@@ -17,12 +17,6 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-
-/*  public static void main (String[]args) {                                  //predictorViaWeb
-        EngineService engineService = new EngineService();
-        IEngine engine = engineService.getEnginePort();
-        System.out.println(engine.getmodel());
-    }*/
 @WebServiceClient(name = "EngineService", targetNamespace = "http://localhost:7070/class?wsdl", wsdlLocation = "http://localhost:7070/class?wsdl")
 public class EngineService
     extends Service

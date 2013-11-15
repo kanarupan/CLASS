@@ -25,7 +25,11 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _GetmodelResponse_QNAME = new QName("http://webs.classengine.arima.com/", "getmodelResponse");
+    private final static QName _GetNearestGlobalProfiles_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestGlobalProfiles");
     private final static QName _Getmodel_QNAME = new QName("http://webs.classengine.arima.com/", "getmodel");
+    private final static QName _GetNearestGlobalProfilesResponse_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestGlobalProfilesResponse");
+    private final static QName _GetNearestLocalProfiles_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestLocalProfiles");
+    private final static QName _GetNearestLocalProfilesResponse_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestLocalProfilesResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.arima.classengine.webs
@@ -43,11 +47,43 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetNearestGlobalProfiles }
+     * 
+     */
+    public GetNearestGlobalProfiles createGetNearestGlobalProfiles() {
+        return new GetNearestGlobalProfiles();
+    }
+
+    /**
+     * Create an instance of {@link GetNearestLocalProfiles }
+     * 
+     */
+    public GetNearestLocalProfiles createGetNearestLocalProfiles() {
+        return new GetNearestLocalProfiles();
+    }
+
+    /**
+     * Create an instance of {@link GetNearestGlobalProfilesResponse }
+     * 
+     */
+    public GetNearestGlobalProfilesResponse createGetNearestGlobalProfilesResponse() {
+        return new GetNearestGlobalProfilesResponse();
+    }
+
+    /**
      * Create an instance of {@link Getmodel }
      * 
      */
     public Getmodel createGetmodel() {
         return new Getmodel();
+    }
+
+    /**
+     * Create an instance of {@link GetNearestLocalProfilesResponse }
+     * 
+     */
+    public GetNearestLocalProfilesResponse createGetNearestLocalProfilesResponse() {
+        return new GetNearestLocalProfilesResponse();
     }
 
     /**
@@ -60,12 +96,48 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link GetNearestGlobalProfiles }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "getNearestGlobalProfiles")
+    public JAXBElement<GetNearestGlobalProfiles> createGetNearestGlobalProfiles(GetNearestGlobalProfiles value) {
+        return new JAXBElement<GetNearestGlobalProfiles>(_GetNearestGlobalProfiles_QNAME, GetNearestGlobalProfiles.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link Getmodel }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "getmodel")
     public JAXBElement<Getmodel> createGetmodel(Getmodel value) {
         return new JAXBElement<Getmodel>(_Getmodel_QNAME, Getmodel.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link GetNearestGlobalProfilesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "getNearestGlobalProfilesResponse")
+    public JAXBElement<GetNearestGlobalProfilesResponse> createGetNearestGlobalProfilesResponse(GetNearestGlobalProfilesResponse value) {
+        return new JAXBElement<GetNearestGlobalProfilesResponse>(_GetNearestGlobalProfilesResponse_QNAME, GetNearestGlobalProfilesResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link GetNearestLocalProfiles }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "getNearestLocalProfiles")
+    public JAXBElement<GetNearestLocalProfiles> createGetNearestLocalProfiles(GetNearestLocalProfiles value) {
+        return new JAXBElement<GetNearestLocalProfiles>(_GetNearestLocalProfiles_QNAME, GetNearestLocalProfiles.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link GetNearestLocalProfilesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "getNearestLocalProfilesResponse")
+    public JAXBElement<GetNearestLocalProfilesResponse> createGetNearestLocalProfilesResponse(GetNearestLocalProfilesResponse value) {
+        return new JAXBElement<GetNearestLocalProfilesResponse>(_GetNearestLocalProfilesResponse_QNAME, GetNearestLocalProfilesResponse.class, null, value);
     }
 
 }
