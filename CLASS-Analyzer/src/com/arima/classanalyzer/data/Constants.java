@@ -1,4 +1,4 @@
-package com.arima.classengine.data;
+package com.arima.classanalyzer.data;
 
 /**
  * Created with IntelliJ IDEA.

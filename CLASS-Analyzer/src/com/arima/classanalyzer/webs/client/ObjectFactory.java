@@ -29,6 +29,8 @@ public class ObjectFactory {
     private final static QName _Getmodel_QNAME = new QName("http://webs.classengine.arima.com/", "getmodel");
     private final static QName _GetNearestGlobalProfilesResponse_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestGlobalProfilesResponse");
     private final static QName _GetNearestLocalProfiles_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestLocalProfiles");
+    private final static QName _InsertStudents_QNAME = new QName("http://webs.classengine.arima.com/", "insertStudents");
+    private final static QName _InsertStudentsResponse_QNAME = new QName("http://webs.classengine.arima.com/", "insertStudentsResponse");
     private final static QName _GetNearestLocalProfilesResponse_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestLocalProfilesResponse");
 
     /**
@@ -76,6 +78,22 @@ public class ObjectFactory {
      */
     public Getmodel createGetmodel() {
         return new Getmodel();
+    }
+
+    /**
+     * Create an instance of {@link InsertStudentsResponse }
+     * 
+     */
+    public InsertStudentsResponse createInsertStudentsResponse() {
+        return new InsertStudentsResponse();
+    }
+
+    /**
+     * Create an instance of {@link InsertStudents }
+     * 
+     */
+    public InsertStudents createInsertStudents() {
+        return new InsertStudents();
     }
 
     /**
@@ -129,6 +147,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "getNearestLocalProfiles")
     public JAXBElement<GetNearestLocalProfiles> createGetNearestLocalProfiles(GetNearestLocalProfiles value) {
         return new JAXBElement<GetNearestLocalProfiles>(_GetNearestLocalProfiles_QNAME, GetNearestLocalProfiles.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link InsertStudents }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "insertStudents")
+    public JAXBElement<InsertStudents> createInsertStudents(InsertStudents value) {
+        return new JAXBElement<InsertStudents>(_InsertStudents_QNAME, InsertStudents.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link InsertStudentsResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "insertStudentsResponse")
+    public JAXBElement<InsertStudentsResponse> createInsertStudentsResponse(InsertStudentsResponse value) {
+        return new JAXBElement<InsertStudentsResponse>(_InsertStudentsResponse_QNAME, InsertStudentsResponse.class, null, value);
     }
 
     /**

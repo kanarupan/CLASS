@@ -29,6 +29,33 @@ public interface IEngine {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "insertStudents", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertStudents")
+    @ResponseWrapper(localName = "insertStudentsResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertStudentsResponse")
+    @Action(input = "http://webs.classengine.arima.com/IEngine/insertStudentsRequest", output = "http://webs.classengine.arima.com/IEngine/insertStudentsResponse")
+    public String insertStudents(
+            @WebParam(name = "arg0", targetNamespace = "")
+            String arg0);
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getmodel", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.Getmodel")
+    @ResponseWrapper(localName = "getmodelResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.GetmodelResponse")
+    @Action(input = "http://webs.classengine.arima.com/IEngine/getmodelRequest", output = "http://webs.classengine.arima.com/IEngine/getmodelResponse")
+    public String getmodel();
+
+    /**
+     * 
      * @param arg4
      * @param arg3
      * @param arg2
@@ -53,18 +80,6 @@ public interface IEngine {
             List<String> arg3,
             @WebParam(name = "arg4", targetNamespace = "")
             List<Integer> arg4);
-
-    /**
-     * 
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getmodel", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.Getmodel")
-    @ResponseWrapper(localName = "getmodelResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.GetmodelResponse")
-    @Action(input = "http://webs.classengine.arima.com/IEngine/getmodelRequest", output = "http://webs.classengine.arima.com/IEngine/getmodelResponse")
-    public String getmodel();
 
     /**
      * 

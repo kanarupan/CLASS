@@ -1,6 +1,7 @@
 package com.arima.classanalyzer.analyzer;
 
 import com.arima.classanalyzer.core.CFinal;
+import com.arima.classanalyzer.data.Synchronizer;
 import com.arima.classanalyzer.webs.client.localhost._7070.class_wsdl.EngineService;
 import com.arima.classanalyzer.webs.client.localhost._7070.class_wsdl.IEngine;
 import com.mysql.jdbc.Connection;
@@ -183,6 +184,8 @@ public class Predictor {
         System.out.println(ProfileMatcher.getNearestGlobalProfiles(11,3,subjects,marks));
         System.out.println(ProfileMatcher.getNearestLocalProfiles(11086,11,3,subjects,marks));
         System.out.println(engine.getmodel());
+
+        //engine.insertStude
     }
 
 
