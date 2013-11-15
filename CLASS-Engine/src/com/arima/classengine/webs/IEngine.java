@@ -13,7 +13,7 @@ import javax.jws.soap.SOAPBinding;
  */
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT,use= SOAPBinding.Use.LITERAL)
-public interface Hello {
+public interface IEngine {
      @WebMethod
     public String getmodel();
 }

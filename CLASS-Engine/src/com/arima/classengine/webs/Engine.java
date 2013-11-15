@@ -12,8 +12,8 @@ import javax.jws.WebService;
  * Time: 1:34 AM
  * To change this template use File | Settings | File Templates.
  */
-@WebService(endpointInterface = "com.arima.classengine.webs.Hello",targetNamespace = "http://localhost:7070/class?wsdl")
-public class HelloClass implements Hello{
+@WebService(endpointInterface = "com.arima.classengine.webs.IEngine",targetNamespace = "http://localhost:7070/class?wsdl")
+public class Engine implements IEngine {
 
 	public String getmodel() {
 		// TODO Auto-generated method stub
@@ -22,7 +22,7 @@ public class HelloClass implements Hello{
         try {
             return examSync.getjson();
         } catch (JSONException e) {
-            return "hoho not working:(";
+            return "Sorry, couldn't make it at the moment. We'll look into ASAP!";
         }
     }
 

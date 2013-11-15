@@ -17,11 +17,10 @@ import javax.xml.ws.ResponseWrapper;
  * JAX-WS RI 2.2.4-b01
  * Generated source version: 2.2
  */
-@WebService(name = "Hello", targetNamespace = "http://webs.classengine.arima.com/")
-@XmlSeeAlso({
-        ObjectFactory.class
-})
-public interface Hello {
+@WebService(name = "IEngine", targetNamespace = "http://webs.classengine.arima.com/")
+@XmlSeeAlso({ObjectFactory.class})
+
+public interface IEngine {
 
 
     /**
@@ -31,7 +30,7 @@ public interface Hello {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getmodel", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.Getmodel")
     @ResponseWrapper(localName = "getmodelResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.GetmodelResponse")
-    @Action(input = "http://webs.classengine.arima.com/Hello/getmodelRequest", output = "http://webs.classengine.arima.com/Hello/getmodelResponse")
+    @Action(input = "http://webs.classengine.arima.com/IEngine/getmodelRequest", output = "http://webs.classengine.arima.com/IEngine/getmodelResponse")
     public String getmodel();
 
 }
