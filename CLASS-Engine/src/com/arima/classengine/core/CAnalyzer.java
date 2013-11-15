@@ -53,8 +53,9 @@ public class CAnalyzer {
 	private double accuracy = 0;
 	private final double accuracyThreshold = 75;
 	private CMissingValuesHandler missingValueHandlerType; 
-	private final boolean isTest = true;
+	private final boolean isTest = false;
 	private Classifier tempModel;
+	private double timeToBuild = 0;
 
 	/**
 	 * @return the classifierType
@@ -201,53 +202,53 @@ public class CAnalyzer {
 
 	public static void main(String[] args) throws Exception {
 		
-		updateModel(2008, 10, 2, "SCIENCE TECHNOLOGY");
-		updateModel(2008, 10, 3, "SCIENCE TECHNOLOGY");
-		updateModel(2008, 11, 1, "SCIENCE TECHNOLOGY");
-		updateModel(2008, 11, 2, "SCIENCE TECHNOLOGY");
-		updateModel(2008, 11, 3, "SCIENCE TECHNOLOGY");
+//		updateModel(2008, 10, 2, "SCIENCE AND TECHNOLOGY");
+//		updateModel(2008, 10, 3, "SCIENCE AND TECHNOLOGY");
+//		updateModel(2008, 11, 1, "SCIENCE AND TECHNOLOGY");
+//		updateModel(2008, 11, 2, "SCIENCE AND TECHNOLOGY");
+//		updateModel(2008, 11, 3, "SCIENCE AND TECHNOLOGY");
+//		
+//		updateModel(2008, 10, 2, "SAIVISM");
+//		updateModel(2008, 10, 3, "SAIVISM");
+//		updateModel(2008, 11, 1, "SAIVISM");
+//		updateModel(2008, 11, 2, "SAIVISM");
+//		updateModel(2008, 11, 3, "SAIVISM");
 		
-		updateModel(2008, 10, 2, "SAIVISM");
-		updateModel(2008, 10, 3, "SAIVISM");
-		updateModel(2008, 11, 1, "SAIVISM");
-		updateModel(2008, 11, 2, "SAIVISM");
-		updateModel(2008, 11, 3, "SAIVISM");
+//		updateModel(2008, 10, 2, "TAMIL LANGUAGE");
+//		updateModel(2008, 10, 3, "TAMIL LANGUAGE");
+//		updateModel(2008, 11, 1, "TAMIL LANGUAGE");
+//		updateModel(2008, 11, 2, "TAMIL LANGUAGE");
+//		updateModel(2008, 11, 3, "TAMIL LANGUAGE");
 		
-		updateModel(2008, 10, 2, "TAMIL LANGUAGE");
-		updateModel(2008, 10, 3, "TAMIL LANGUAGE");
-		updateModel(2008, 11, 1, "TAMIL LANGUAGE");
-		updateModel(2008, 11, 2, "TAMIL LANGUAGE");
-		updateModel(2008, 11, 3, "TAMIL LANGUAGE");
-		
-		updateModel(2008, 10, 2, "ENGLISH LANGUAGE");
-		updateModel(2008, 10, 3, "ENGLISH LANGUAGE");
-		updateModel(2008, 11, 1, "ENGLISH LANGUAGE");
-		updateModel(2008, 11, 2, "ENGLISH LANGUAGE");
-		updateModel(2008, 11, 3, "ENGLISH LANGUAGE");
-		
+//		updateModel(2008, 10, 2, "ENGLISH LANGUAGE");
+//		updateModel(2008, 10, 3, "ENGLISH LANGUAGE");
+//		updateModel(2008, 11, 1, "ENGLISH LANGUAGE");
+//		updateModel(2008, 11, 2, "ENGLISH LANGUAGE");
+//		updateModel(2008, 11, 3, "ENGLISH LANGUAGE");
+//		
 		updateModel(2008, 10, 2, "MATHEMATICS");
 		updateModel(2008, 10, 3, "MATHEMATICS");
 		updateModel(2008, 11, 1, "MATHEMATICS");
 		updateModel(2008, 11, 2, "MATHEMATICS");
 		updateModel(2008, 11, 3, "MATHEMATICS");
-		
-		updateModel(2008, 10, 2, "HISTORY");
-		updateModel(2008, 10, 3, "HISTORY");
-		updateModel(2008, 11, 1, "HISTORY");
-		updateModel(2008, 11, 2, "HISTORY");
-		updateModel(2008, 11, 3, "HISTORY");
-
-		updateModel(2008, 10, 2, "BUSSINESS ACCOUNTING");
-		updateModel(2008, 10, 3, "BUSSINESS ACCOUNTING");
-		updateModel(2008, 11, 1, "BUSSINESS ACCOUNTING");
-		updateModel(2008, 11, 2, "BUSSINESS ACCOUNTING");
-		updateModel(2008, 11, 3, "BUSSINESS ACCOUNTING");
-		
-		updateModel(2008, 10, 2, "INFORMATION AND COMMUNICATION TECHNOLOGY");
-		updateModel(2008, 10, 3, "INFORMATION AND COMMUNICATION TECHNOLOGY");
-		updateModel(2008, 11, 1, "INFORMATION AND COMMUNICATION TECHNOLOGY");
-		updateModel(2008, 11, 2, "INFORMATION AND COMMUNICATION TECHNOLOGY");
-		updateModel(2008, 11, 3, "INFORMATION AND COMMUNICATION TECHNOLOGY");
+//		
+//		updateModel(2008, 10, 2, "HISTORY");
+//		updateModel(2008, 10, 3, "HISTORY");
+//		updateModel(2008, 11, 1, "HISTORY");
+//		updateModel(2008, 11, 2, "HISTORY");
+//		updateModel(2008, 11, 3, "HISTORY");
+//
+//		updateModel(2008, 10, 2, "BUSSINESS AND ACCOUNTING");
+//		updateModel(2008, 10, 3, "BUSSINESS AND ACCOUNTING");
+//		updateModel(2008, 11, 1, "BUSSINESS AND ACCOUNTING");
+//		updateModel(2008, 11, 2, "BUSSINESS AND ACCOUNTING");
+//		updateModel(2008, 11, 3, "BUSSINESS AND ACCOUNTING");
+//		
+//		updateModel(2008, 10, 2, "INFORMATION AND COMMUNICATION TECHNOLOGY");
+//		updateModel(2008, 10, 3, "INFORMATION AND COMMUNICATION TECHNOLOGY");
+//		updateModel(2008, 11, 1, "INFORMATION AND COMMUNICATION TECHNOLOGY");
+//		updateModel(2008, 11, 2, "INFORMATION AND COMMUNICATION TECHNOLOGY");
+//		updateModel(2008, 11, 3, "INFORMATION AND COMMUNICATION TECHNOLOGY");
 		//		saveModelToDatabase("jdbc:mysql://localhost:3306/class", "root", "", 2009, 9, 2, "fuck", CFilter.loadModel("some.model"), "J48", 4);
 
 
@@ -264,7 +265,7 @@ public class CAnalyzer {
 		String statFileName = "F:/Projects/CLASS/CLASS-Engine/data/Classifiers-Stats/"+ 
 								year + " " + subject + " grade " + grade + " term " + term +  ".txt";
 		
-		CAnalyzer analyzer = getModel(Utils.prepareTrainData(grade, term, subject), statFileName);
+		CAnalyzer analyzer = getModel(Utils.prepareStandardizedAndNormalizedTrainDataAcrossSchoolsAndTerms(11089, grade, term, subject), statFileName);
 		
 		if(!analyzer.isTest()){
 			
@@ -391,7 +392,10 @@ public class CAnalyzer {
 	//for stats file naming only , subject parameter is there
 	
 	public static CAnalyzer getModel(Instances train, String statFileName) throws Exception{
-
+		
+		
+//		System.out.println(train);System.exit(0);
+		
 		String header;
 		CAnalyzer analyzer = new CAnalyzer();
 		analyzer.setTrain(train);
@@ -399,7 +403,7 @@ public class CAnalyzer {
 		List<CClassifier> classifiers = new ArrayList<CClassifier>();
 		classifiers.add(new CJ48Classifier());
 		classifiers.add(new CNaiveBayesClassifier());
-//		classifiers.add(new CMultiLayerPerceptronClassifier());
+		classifiers.add(new CMultiLayerPerceptronClassifier());
 		classifiers.add(new CBaggingClassifier());
 
 		List<CMissingValuesHandler> missingValueHandlers = new ArrayList<CMissingValuesHandler>();
@@ -414,6 +418,7 @@ public class CAnalyzer {
 
 					for(int x=1; x<=missingValueHandlers.size(); x++){
 
+						analyzer.timeToBuild = 0;
 						train = analyzer.getTrain();
 						train = CFilter.removeAttributesByNames(train, "idstudent");
 
@@ -433,10 +438,10 @@ public class CAnalyzer {
 						analyzer.setClassifierType(classifiers.get(i-1));
 						analyzer.setEvaluatorType(new CCrossValidateEvaluator());
 
-
+						analyzer.timeToBuild = System.nanoTime();
 						analyzer.setTempModel(analyzer.classifierType.buildClassifier(train));
 						analyzer.setEval(analyzer.evaluatorType.evaluator(analyzer.getTempModel(), train, 10, 1));
-
+						analyzer.timeToBuild = (System.nanoTime() - analyzer.timeToBuild)/1e6;
 
 						if(analyzer.isTest() || ( (!analyzer.isTest()) && (analyzer.getAccuracy() < analyzer.getEval().pctCorrect()) )){
 							analyzer.setBinSize(bins);
@@ -469,7 +474,12 @@ public class CAnalyzer {
 									+
 									"Handling missing values" + analyzer.getMissingValueHandlerType().getClass().getName()
 									+
-									"\n" ;
+									"\n\n" 
+									+
+									"Time to build the model : " + analyzer.timeToBuild + " ms"
+									+
+									"\n"
+									;
 							System.out.println(header);
 							System.out.println(analyzer.getAccuracy());
 							CFilter.appendfile(statFileName, header);

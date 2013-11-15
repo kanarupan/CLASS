@@ -3,82 +3,82 @@ package com.arima.classengine.comparator;
 import weka.core.Instances;
 
 import com.arima.classengine.filter.CFilter;
+import com.arima.classengine.utils.Utils;
 
 public class HammingDistance {
-
+	
 	private String s1,s2;
-	private float distance;
+	private double distance;
 	
-	/*
-	 * A -> 75 or more
-	 * B -> 65-75
-	 * C -> 55-65
-	 * S -> 35-55
-	 * F -> 0-35 
-	 */
+	private static double AtoB;
+	private static double AtoC;
+	private static double AtoS;
+	private static double AtoF;
 	
-	//penalties
-	private float AtoB = (75+100)/2 - (65+75)/2 ;
-	private float AtoC = (75+100)/2 - (55+65)/2 ;
-	private float AtoS = (75+100)/2 - (35+55)/2 ;
-	private float AtoF = (75+100)/2 - (0+35)/2 ;
+	private static double BtoA;
+	private static double BtoC;
+	private static double BtoS ;
+	private static double BtoF;
 	
-	private float BtoA = (75+100)/2 - (65+75)/2 ;
-	private float BtoC = (65+75)/2 - (55+65)/2 ;
-	private float BtoS = (65+75)/2 - (35+55)/2 ;
-	private float BtoF = (65+75)/2 - (0+35)/2 ;
+	private static double CtoA;
+	private static double CtoB;
+	private static double CtoS;
+	private static double CtoF ;
 	
-	private float CtoA = (75+100)/2 - (55+65)/2 ;
-	private float CtoB = (65+75)/2 - (55+65)/2 ;
-	private float CtoS = (55+65)/2 - (35+55)/2 ;
-	private float CtoF = (55+65)/2 - (0+35)/2 ;
+	private static double StoA;
+	private static double StoB;
+	private static double StoC;
+	private static double StoF;
 	
-	private float StoA = (75+100)/2 - (35+55)/2 ;
-	private float StoB = (65+75)/2 - (35+55)/2 ;
-	private float StoC = (55+65)/2 - (35+55)/2 ;
-	private float StoF = (35+55)/2 - (0+35)/2 ;
+	private static double FtoA;
+	private static double FtoB;
+	private static double FtoC;
+	private static double FtoS;
 	
-	private float FtoA = (75+100)/2 - (0+35)/2 ;
-	private float FtoB = (65+75)/2 - (0+35)/2 ;
-	private float FtoC = (55+65)/2 - (0+35)/2 ;
-	private float FtoS = (35+55)/2 - (0+35)/2 ;
+	public static void main(String args[]) throws Exception{
 
-	public HammingDistance(String s1, String s2){
-		this.s1 = s1;
-		this.s2 = s2;
+		initializeMeans(11089, "HISTORY");
+		getHammingSimilarity(11089, 11, 3, 11, 2, "HISTORY");
 	}
 
-	public static void main(String args[]) throws Exception{
+	public HammingDistance(String s1, String s2) throws Exception{
+		this.s1 = s1;
+		this.s2 = s2;
 		
-		String five = "1,2,3,4,5";
-		String fives = "F,S,C,B,A";
-		Instances term = CFilter.retrieveDatasetFromDatabase("select * from term_exam", "root", "");
-		Instances general = CFilter.retrieveDatasetFromDatabase("select * from general_exam", "root", "");
+		}
+
 	
+	public static void getHammingSimilarity(int schoolNo, int grade1, int term1, int grade2, int term2, String subject) throws Exception {
 		
-		term = CFilter.removeAttributesByNames(term, "index_no");		
-		term = CFilter.numeric2nominal(term, "first",5);
-		term = CFilter.changeAttributesNominalValues(term, "1", five);
-		term = CFilter.renameAttributesValues(term, "1", five, fives);
-	
-		general = CFilter.removeAttributesByNames(general, "index_no");
-		general = CFilter.numeric2nominal(general, "first",5);
-		general = CFilter.changeAttributesNominalValues(general, "1", five);
-		general = CFilter.renameAttributesValues(general, "1", five, fives);
-	
+		Instances train = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade1, term1, subject), "root", "");
+		Instances train2 = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade2, term2, subject), "root", "");
+		
+		
+		
+		train2 = CFilter.removeAttributesByIndices(train2, "1");
+		train = Instances.mergeInstances(train, train2);
+		train.deleteWithMissing(1);
+		train.deleteWithMissing(2);
+		
+		
+		
+		int bins = 5;
+		train = CFilter.removeAttributesByIndices(train, "1");
+		train = CFilter.numeric2nominal(train, "first-last",bins);
+		train = Utils.changeAttributeNominalRange(train, Utils.getAttributeLables(bins, true));
+		train = Utils.renameAttributes(train, bins);
+		
+		System.out.println(train);
 		String term_sequence = "";
 		String general_sequence = "";
 		
-		for (int i = 0; i < term.size(); i++) {
-			term_sequence = term_sequence + term.instance(i).stringValue(0);
+		for (int i = 0; i < train.size(); i++) {
+			term_sequence = term_sequence + train.instance(i).stringValue(0);
+			general_sequence = general_sequence + train.instance(i).stringValue(1);
 		}
 		
-		for (int i = 0; i < general.size(); i++) {
-			general_sequence = general_sequence + general.instance(i).stringValue(0);			
-		}
-		
-		System.out.println(term);
-		System.out.println(general);
+		System.out.println(term_sequence);
+		System.out.println(general_sequence);
 		
 		HammingDistance hd = new HammingDistance(term_sequence, general_sequence);
 		System.out.println("Distance is : " + hd.getDistance());
@@ -86,13 +86,14 @@ public class HammingDistance {
 	}
 	
 	
-	public float getSimilarity(){
+	public double getSimilarity(){
 		return 100-getDistance();
 	}
 	
-	public float getDistance() {
+	public double getDistance() {
 		
 		distance = 0;
+		
 		
 		// check preconditions
 		if (s1 == null || s2 == null || s1.length() != s2.length()) {
@@ -176,5 +177,70 @@ public class HammingDistance {
 		}
 		return (distance)/(s1.length());
 
+	}
+	
+	public static void initializeMeans(int schoolNo, String subject) throws Exception{
+		
+		  double A = CFilter.retrieveDatasetFromDatabase(
+				Utils.createComparisionQuery(
+						schoolNo, 11, 3, subject, 75, 100), "root", "").attributeStats(1).numericStats.mean;
+
+		  double B = CFilter.retrieveDatasetFromDatabase(
+				Utils.createComparisionQuery(
+						schoolNo, 11, 3, subject, 65, 74), "root", "").attributeStats(1).numericStats.mean;
+
+		  double C = CFilter.retrieveDatasetFromDatabase(
+				Utils.createComparisionQuery(
+						schoolNo, 11, 3, subject, 55, 64), "root", "").attributeStats(1).numericStats.mean;
+
+		  double S = CFilter.retrieveDatasetFromDatabase(
+				Utils.createComparisionQuery(
+						schoolNo, 11, 3, subject, 35, 54), "root", "").attributeStats(1).numericStats.mean;
+
+		  double F = CFilter.retrieveDatasetFromDatabase(
+				Utils.createComparisionQuery(
+						schoolNo, 11, 3, subject, 0, 34), "root", "").attributeStats(1).numericStats.mean;
+
+			
+							
+							
+			if(A==0 || Double.isNaN(A))
+				A = (75+100)/2;
+			if(B==0 || Double.isNaN(B))
+				B = (74+65)/2;
+			if(C==0 || Double.isNaN(C))
+				C = (64+55)/2;
+			if(S==0 || Double.isNaN(S))
+				S = (54+35)/2;
+			if(F==0 || Double.isNaN(F))
+				F = (34+0)/2;
+			
+			AtoB = A-B;
+			AtoC = A-C;
+			AtoS = A-S;
+			AtoF = A-F;
+			
+			BtoA = A-B;
+			BtoC = B-C;
+			BtoS = B-S;
+			BtoF = B-F;
+			
+			CtoA = A-C;
+			CtoB = B-C;
+			CtoS = C-S;
+			CtoF = C-F;
+			
+			StoA = A-S;
+			StoB = B-S;
+			StoC = C-S;
+			StoF = S-F;
+			
+			FtoA = A-F;
+			FtoB = B-F;
+			FtoC = C-F;
+			FtoS = S-F;
+			
+
+			
 	}
 }

@@ -30,6 +30,7 @@ public class CJ48Classifier implements CClassifier {
 		J48 j48 = new J48();
 		j48.setUnpruned(true);
 		j48.buildClassifier(subject);
+		
 //		CAnalyzer.selectAttributes(subject);
 
 //		Evaluation eval = new Evaluation(subject);

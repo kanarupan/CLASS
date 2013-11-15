@@ -24,9 +24,12 @@ import weka.filters.unsupervised.attribute.Discretize;
 import weka.filters.unsupervised.attribute.Add;
 import weka.filters.unsupervised.attribute.AddValues;
 import weka.filters.unsupervised.attribute.MathExpression;
+import weka.filters.unsupervised.attribute.Normalize;
 import weka.filters.unsupervised.attribute.NumericToNominal;
 import weka.filters.unsupervised.attribute.Remove;
+import weka.filters.unsupervised.attribute.Standardize;
 
+import com.arima.classengine.utils.Utils;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.StringUtils;
 
@@ -471,5 +474,67 @@ public class CFilter {
         return true;
     }
     
+    public static void main(String[] args) throws Exception{
+    	
+    	Instances train = Utils.prepareStandardizedAndNormalizedTrainDataAcrossSchools(10, 2, "MATHEMATICS");
+
+    	System.out.println(train);
+    }
+    
+    public static Instances standardize(Instances train) throws Exception{
+    	
+    	train.setClassIndex(0);
+    	
+    	Standardize std = new Standardize();
+    	std.setInputFormat(train);
+    	train = Filter.useFilter(train, std);
+    	
+    	train.setClassIndex(-1);
+    	
+    	return train;
+    }
+    
+    public static Instances normalize(Instances train) throws Exception{
+    	
+    	train.setClassIndex(0);
+    	
+    	Normalize norm = new Normalize();
+    	norm.setInputFormat(train);
+    	norm.setScale(100);
+    	train = Filter.useFilter(train, norm);
+    	
+    	train.setClassIndex(-1);
+    	
+    	return train;
+    }
+    
+public static Instances createInstance(int index, ArrayList<Integer> marks){
+		
+		ArrayList<Attribute> attributes = new ArrayList<Attribute>();
+		
+		Attribute index_no = new Attribute("index_no");
+		attributes.add(index_no);
+		
+		Attribute temp;
+		
+		for (int i = 0; i < marks.size(); i++) {
+			
+			temp = new Attribute("attribute_"+(i+1));
+			attributes.add(temp);
+		}
+		
+		Instances dataset = new Instances("Test-dataset", attributes, 0);
+		
+		Instance inst = new DenseInstance(marks.size()+1); 
+		inst.setValue(0, index); 
+
+		for (int i = 0; i < marks.size(); i++) {
+			inst.setValue(i+1, marks.get(i));
+		}
+		inst.setDataset(dataset);
+		dataset.add(inst);
+		
+		return dataset;
+	}
     
 }
