@@ -15,23 +15,50 @@ import java.sql.SQLException;
  * Time: 12:44 AM
  * To change this template use File | Settings | File Templates.
  */
+
 public class Synchronizer {
 
     Connection connection = null;
+
+    /**
+     * TODO: Change main to unittests.
+     *
+     * @param args
+     * @throws JSONException
+     */
+    public static void main(String[] args) throws JSONException {
+        JSONArray jsonCStudentList = new JSONArray();
+
+
+        JSONObject jsonCStudent = new JSONObject();
+        jsonCStudent.put("schoolNo", 1);
+        jsonCStudent.put("studentAdmissionNo", "FIANLTEST");
+        jsonCStudent.put("gender", "malefe");
+        jsonCStudent.put("religion", "teriyaa");
+        jsonCStudent.put("language", "teriyaa");
+        jsonCStudent.put("father", "ammada husbend");
+        jsonCStudent.put("mother", "appanda manisi");
+        jsonCStudent.put("noOfSiblings", 11);
+
+        jsonCStudentList.put(jsonCStudent);
+        Synchronizer synchronizer = new Synchronizer();
+        System.out.println(synchronizer.insertStudents(jsonCStudentList.toString()));
+
+    }
+
     /**
      * Insert given students into CLASS Student table.
      *
      * @param jsonCStudentListString A String of JSONArray containing collection of JSONObjects of CStudents.
      * @return A four digits string message code representing the status of the action.
-     * @throws JSONException
      */
-    public String insertStudents(String jsonCStudentListString) throws JSONException {
+    public String insertStudents(String jsonCStudentListString) {
 
         String returnCode = Constants.SUCCESS_MSG;
-        JSONArray jsonCStudentList = new JSONArray(jsonCStudentListString);
-
-
         try {
+            JSONArray jsonCStudentList = new JSONArray(jsonCStudentListString);
+
+
             connection = CLASSJDBCConnector.openConnection();
             connection.setAutoCommit(false); //transaction block start
             for (int i = 0; i < jsonCStudentList.length(); i++) {
@@ -64,37 +91,12 @@ public class Synchronizer {
             returnCode = Constants.ERROR_INSTANTIATION;
         } catch (IllegalAccessException e) {
             returnCode = Constants.ERROR_ILLEGAL_ACCESS;
+        } catch (JSONException e) {
+            returnCode = Constants.ERROR_JSON;
         } catch (Exception e) {
             returnCode = Constants.ERROR_UNKNOWN;
         } finally {
             return returnCode;
         }
-    }
-
-
-    /**
-     * TODO: Change main to unittests.
-     *
-     * @param args
-     * @throws JSONException
-     */
-    public static void main(String[] args) throws JSONException {
-        JSONArray jsonCStudentList = new JSONArray();
-
-
-        JSONObject jsonCStudent = new JSONObject();
-        jsonCStudent.put("schoolNo", 1);
-        jsonCStudent.put("studentAdmissionNo", "FIANLTEST");
-        jsonCStudent.put("gender", "malefe");
-        jsonCStudent.put("religion", "teriyaa");
-        jsonCStudent.put("language", "teriyaa");
-        jsonCStudent.put("father", "ammada husbend");
-        jsonCStudent.put("mother", "appanda manisi");
-        jsonCStudent.put("noOfSiblings", 11);
-
-        jsonCStudentList.put(jsonCStudent);
-        Synchronizer synchronizer = new Synchronizer();
-        System.out.println(synchronizer.insertStudents(jsonCStudentList.toString()));
-
     }
 }

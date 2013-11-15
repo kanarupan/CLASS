@@ -1,5 +1,7 @@
 package com.arima.classanalyzer.data;
 
+import com.arima.classanalyzer.webs.client.localhost._7070.class_wsdl.EngineService;
+import com.arima.classanalyzer.webs.client.localhost._7070.class_wsdl.IEngine;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,9 +23,9 @@ public class Synchronizer {
      *
      * @param cStudentList List of CStudent objects to be synced with central CLASS database
      * @return  A four digits string message code representing the status of the action.
-     * @throws JSONException
+     *
      */
-    public String pushStudents(List<CStudent> cStudentList) throws JSONException {
+    public String pushStudents(List<CStudent> cStudentList)  {
 
         JSONArray jsonCStudentList = new JSONArray();
 
@@ -33,20 +35,30 @@ public class Synchronizer {
             CStudent cStudent = cStudentIterator.next();
 
             JSONObject jsonCStudent = new JSONObject();
-            jsonCStudent.put("schoolNo", cStudent.getSchoolNo());
-            jsonCStudent.put("studentAdmissionNo", cStudent.getStudentAdmissionNo());
-            jsonCStudent.put("gender", cStudent.getGender());
-            jsonCStudent.put("from", cStudent.getFrom());
-            jsonCStudent.put("to", cStudent.getTo());
-            jsonCStudent.put("religion", cStudent.getReligion());
-            jsonCStudent.put("father", cStudent.getFather());
-            jsonCStudent.put("mother", cStudent.getMother());
-            jsonCStudent.put("noOfSiblings", cStudent.getNoOfSiblings());
+            try {
+                jsonCStudent.put("schoolNo", cStudent.getSchoolNo());
+                jsonCStudent.put("studentAdmissionNo", cStudent.getStudentAdmissionNo());
+                jsonCStudent.put("gender", cStudent.getGender());
+                jsonCStudent.put("from", cStudent.getFrom());
+                jsonCStudent.put("to", cStudent.getTo());
+                jsonCStudent.put("religion", cStudent.getReligion());
+                jsonCStudent.put("father", cStudent.getFather());
+                jsonCStudent.put("mother", cStudent.getMother());
+                jsonCStudent.put("noOfSiblings", cStudent.getNoOfSiblings());
 
-            jsonCStudentList.put(jsonCStudent);
+                jsonCStudentList.put(jsonCStudent);
+
+
+
+            } catch (JSONException e) {
+                return Constants.ERROR_JSON;
+            }
+
+
         }
-        //uncomment after add webservice method in Engine.
-        //return Engine.insertStudents(jsonCStudentList.toString());
-          return null;
-    }
+        EngineService engineService = new EngineService();
+        IEngine engine = engineService.getEnginePort();
+        return engine.insertStudents(jsonCStudentList.toString());
+}
+
 }

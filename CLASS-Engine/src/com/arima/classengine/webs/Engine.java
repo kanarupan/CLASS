@@ -1,6 +1,7 @@
 package com.arima.classengine.webs;
 
 import com.arima.classengine.data.ExamSync;
+import com.arima.classengine.data.Synchronizer;
 import com.arima.classengine.engine.Analyzer;
 import org.json.JSONException;
 
@@ -17,6 +18,13 @@ import java.util.List;
  */
 @WebService(endpointInterface = "com.arima.classengine.webs.IEngine", targetNamespace = "http://localhost:7070/class?wsdl")
 public class Engine implements IEngine {
+
+    public String insertStudents(String jsonCStudentListString) {
+        Synchronizer synchronizer = new Synchronizer();
+
+        return synchronizer.insertStudents(jsonCStudentListString);
+
+    }
 
     public String getmodel() {
         ExamSync examSync = new ExamSync();

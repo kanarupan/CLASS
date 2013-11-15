@@ -16,6 +16,21 @@ import java.util.List;
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL)
 public interface IEngine {
+
+    /**
+     * Insert given students into CLASS Student table.
+     *
+     * @param jsonCStudentListString A String of JSONArray containing collection of JSONObjects of CStudents.
+     * @return A four digits string message code representing the status of the action.
+     *
+     */
+    @WebMethod
+    public String insertStudents(String jsonCStudentListString);
+
+    /**
+     *
+     * @return
+     */
     @WebMethod
     public String getmodel();
 
@@ -40,6 +55,7 @@ public interface IEngine {
      */
     @WebMethod
     public ArrayList<Integer> getNearestGlobalProfiles(int grade, int term, List<String> subjects, List<Integer> marks);
+
 
 
 }
