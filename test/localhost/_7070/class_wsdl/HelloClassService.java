@@ -1,5 +1,5 @@
 
-package com.arima.classanalyzer.webs.client.localhost._7070.class_wsdl;
+package localhost._7070.class_wsdl;
 
 import java.net.MalformedURLException;
 import java.net.URL;
