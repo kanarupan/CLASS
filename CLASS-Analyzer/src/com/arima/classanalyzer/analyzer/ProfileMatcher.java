@@ -19,14 +19,14 @@ public class ProfileMatcher {
     public static List<Integer> getNearestLocalProfiles(int schoolNo, int grade, int term, List<String> subjects, List<Integer> marks) throws Exception{
         EngineService engineService = new EngineService();
         IEngine engine = engineService.getEnginePort();
-        return engine.getNearestLocalProfiles(11086,11,3,subjects,marks);
+        return engine.getNearestLocalProfiles(schoolNo,grade,term,subjects,marks);
     }
 
     //it will return nearest profiles from all schools (central DB index numbers)
     public static ArrayList<Integer> getNearestGlobalProfiles(int grade, int term, List<String> subjects, List<Integer> marks) throws Exception{
         EngineService engineService = new EngineService();
         IEngine engine = engineService.getEnginePort();
-        return (ArrayList<Integer>) engine.getNearestGlobalProfiles(11, 3, subjects, marks);
+        return (ArrayList<Integer>) engine.getNearestGlobalProfiles(grade,term,subjects,marks);
 
     }
 
