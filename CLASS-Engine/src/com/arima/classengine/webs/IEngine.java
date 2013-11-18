@@ -35,23 +35,26 @@ public interface IEngine {
     public String getmodel();
 
     /**
-     * @param schoolNo
-     * @param grade
-     * @param term
-     * @param subjects
-     * @param marks
-     * @return
+     * find nearest profiles within the given school
+     *
+     * @param schoolNo the school number
+     * @param grade the grade
+     * @param term the term
+     * @param subjects the list of subjects to consider
+     * @param marks the list of marks for the student
+     * @return the list of nearest profiles' index numbers
      */
     @WebMethod
     public ArrayList<Integer> getNearestLocalProfiles(int schoolNo, int grade, int term, List<String> subjects, List<Integer> marks);
 
     /**
+     * find nearest profiles globally
      *
-     * @param grade
-     * @param term
-     * @param subjects
-     * @param marks
-     * @return
+     * @param grade the grade
+     * @param term the term
+     * @param subjects the list of subjects to consider
+     * @param marks the list of marks for the student
+     * @return the list of nearest profiles' index numbers
      */
     @WebMethod
     public ArrayList<Integer> getNearestGlobalProfiles(int grade, int term, List<String> subjects, List<Integer> marks);

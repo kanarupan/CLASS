@@ -12,4 +12,6 @@ Thumbs.db
 *.classpath
 *.project
 *.settings/
+.sonar/
 build.properties
+sonar-project.properties
