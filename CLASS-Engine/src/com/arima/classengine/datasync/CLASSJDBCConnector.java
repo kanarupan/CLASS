@@ -1,4 +1,4 @@
-package com.arima.classengine.data;
+package com.arima.classengine.datasync;
 
 import java.sql.Connection;
 
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 /**
  * Created with IntelliJ IDEA.
- * User: jayrksih
+ * User: jaykrish
  * Date: 11/15/13
  * Time: 1:00 PM
  * To change this template use File | Settings | File Templates.
@@ -20,6 +20,7 @@ public class CLASSJDBCConnector {
      */
     private static CLASSJDBCConnector instance = null;
     private static Connection jdbConnection;
+    private String databaseName = Constants.CLASS_DB_NAME;
 
 
     protected CLASSJDBCConnector() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {

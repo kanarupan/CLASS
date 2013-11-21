@@ -1,4 +1,4 @@
-package com.arima.classanalyzer.data;
+package com.arima.classanalyzer.datasync;
 
 import java.util.Date;
 

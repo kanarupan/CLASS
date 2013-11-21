@@ -1,9 +1,7 @@
 package com.arima.classengine.webs;
 
-import com.arima.classengine.data.ExamSync;
-import com.arima.classengine.data.Synchronizer;
+import com.arima.classengine.datasync.Synchronizer;
 import com.arima.classengine.engine.Analyzer;
-import org.json.JSONException;
 
 import javax.jws.WebService;
 import java.util.ArrayList;
@@ -19,21 +17,23 @@ import java.util.List;
 @WebService(endpointInterface = "com.arima.classengine.webs.IEngine", targetNamespace = "http://localhost:7070/class?wsdl")
 public class Engine implements IEngine {
 
-    public String insertStudents(String jsonCStudentListString) {
-        Synchronizer synchronizer = new Synchronizer();
 
+    public String sayHelloCLASS() {
+        return "HelloUser!";
+    }
+
+    public String insertStudents(String jsonCStudentListString) {
+
+        Synchronizer synchronizer = new Synchronizer();
         return synchronizer.insertStudents(jsonCStudentListString);
 
     }
 
-    public String getmodel() {
-        ExamSync examSync = new ExamSync();
+    public String insertExamPerformance(String jsonCExamString) {
 
-        try {
-            return examSync.getjson();
-        } catch (JSONException e) {
-            return "Sorry, couldn't make it at the moment. We'll look into ASAP!";
-        }
+        Synchronizer synchronizer = new Synchronizer();
+        return synchronizer.insertExamPerformance(jsonCExamString);
+
     }
 
     public ArrayList<Integer> getNearestLocalProfiles(int schoolNo, int grade, int term, List<String> subjects, List<Integer> marks) {
