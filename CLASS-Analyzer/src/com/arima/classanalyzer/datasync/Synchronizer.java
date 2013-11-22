@@ -107,7 +107,7 @@ public class Synchronizer {
 
         EngineService engineService = new EngineService();
         IEngine engine = engineService.getEnginePort();
-        //return engine.insertExamPerformance(jsonCExam.toString());
-        return null;
+        return engine.insertExamPerformance(jsonCExam.toString());
+
     }
 }
