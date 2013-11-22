@@ -24,13 +24,15 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _GetmodelResponse_QNAME = new QName("http://webs.classengine.arima.com/", "getmodelResponse");
     private final static QName _GetNearestGlobalProfiles_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestGlobalProfiles");
-    private final static QName _Getmodel_QNAME = new QName("http://webs.classengine.arima.com/", "getmodel");
+    private final static QName _InsertExamPerformanceResponse_QNAME = new QName("http://webs.classengine.arima.com/", "insertExamPerformanceResponse");
+    private final static QName _SayHelloCLASSResponse_QNAME = new QName("http://webs.classengine.arima.com/", "sayHelloCLASSResponse");
     private final static QName _GetNearestGlobalProfilesResponse_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestGlobalProfilesResponse");
     private final static QName _GetNearestLocalProfiles_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestLocalProfiles");
+    private final static QName _SayHelloCLASS_QNAME = new QName("http://webs.classengine.arima.com/", "sayHelloCLASS");
     private final static QName _InsertStudents_QNAME = new QName("http://webs.classengine.arima.com/", "insertStudents");
     private final static QName _InsertStudentsResponse_QNAME = new QName("http://webs.classengine.arima.com/", "insertStudentsResponse");
+    private final static QName _InsertExamPerformance_QNAME = new QName("http://webs.classengine.arima.com/", "insertExamPerformance");
     private final static QName _GetNearestLocalProfilesResponse_QNAME = new QName("http://webs.classengine.arima.com/", "getNearestLocalProfilesResponse");
 
     /**
@@ -41,11 +43,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetmodelResponse }
+     * Create an instance of {@link InsertExamPerformanceResponse }
      * 
      */
-    public GetmodelResponse createGetmodelResponse() {
-        return new GetmodelResponse();
+    public InsertExamPerformanceResponse createInsertExamPerformanceResponse() {
+        return new InsertExamPerformanceResponse();
     }
 
     /**
@@ -54,6 +56,14 @@ public class ObjectFactory {
      */
     public GetNearestGlobalProfiles createGetNearestGlobalProfiles() {
         return new GetNearestGlobalProfiles();
+    }
+
+    /**
+     * Create an instance of {@link SayHelloCLASSResponse }
+     * 
+     */
+    public SayHelloCLASSResponse createSayHelloCLASSResponse() {
+        return new SayHelloCLASSResponse();
     }
 
     /**
@@ -73,19 +83,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Getmodel }
-     * 
-     */
-    public Getmodel createGetmodel() {
-        return new Getmodel();
-    }
-
-    /**
      * Create an instance of {@link InsertStudentsResponse }
      * 
      */
     public InsertStudentsResponse createInsertStudentsResponse() {
         return new InsertStudentsResponse();
+    }
+
+    /**
+     * Create an instance of {@link InsertExamPerformance }
+     * 
+     */
+    public InsertExamPerformance createInsertExamPerformance() {
+        return new InsertExamPerformance();
+    }
+
+    /**
+     * Create an instance of {@link SayHelloCLASS }
+     * 
+     */
+    public SayHelloCLASS createSayHelloCLASS() {
+        return new SayHelloCLASS();
     }
 
     /**
@@ -105,15 +123,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link GetmodelResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "getmodelResponse")
-    public JAXBElement<GetmodelResponse> createGetmodelResponse(GetmodelResponse value) {
-        return new JAXBElement<GetmodelResponse>(_GetmodelResponse_QNAME, GetmodelResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link GetNearestGlobalProfiles }{@code >}}
      * 
      */
@@ -123,12 +132,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link Getmodel }{@code >}}
+     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link InsertExamPerformanceResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "getmodel")
-    public JAXBElement<Getmodel> createGetmodel(Getmodel value) {
-        return new JAXBElement<Getmodel>(_Getmodel_QNAME, Getmodel.class, null, value);
+    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "insertExamPerformanceResponse")
+    public JAXBElement<InsertExamPerformanceResponse> createInsertExamPerformanceResponse(InsertExamPerformanceResponse value) {
+        return new JAXBElement<InsertExamPerformanceResponse>(_InsertExamPerformanceResponse_QNAME, InsertExamPerformanceResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link SayHelloCLASSResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "sayHelloCLASSResponse")
+    public JAXBElement<SayHelloCLASSResponse> createSayHelloCLASSResponse(SayHelloCLASSResponse value) {
+        return new JAXBElement<SayHelloCLASSResponse>(_SayHelloCLASSResponse_QNAME, SayHelloCLASSResponse.class, null, value);
     }
 
     /**
@@ -150,6 +168,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link SayHelloCLASS }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "sayHelloCLASS")
+    public JAXBElement<SayHelloCLASS> createSayHelloCLASS(SayHelloCLASS value) {
+        return new JAXBElement<SayHelloCLASS>(_SayHelloCLASS_QNAME, SayHelloCLASS.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link InsertStudents }{@code >}}
      * 
      */
@@ -165,6 +192,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "insertStudentsResponse")
     public JAXBElement<InsertStudentsResponse> createInsertStudentsResponse(InsertStudentsResponse value) {
         return new JAXBElement<InsertStudentsResponse>(_InsertStudentsResponse_QNAME, InsertStudentsResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link InsertExamPerformance }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webs.classengine.arima.com/", name = "insertExamPerformance")
+    public JAXBElement<InsertExamPerformance> createInsertExamPerformance(InsertExamPerformance value) {
+        return new JAXBElement<InsertExamPerformance>(_InsertExamPerformance_QNAME, InsertExamPerformance.class, null, value);
     }
 
     /**

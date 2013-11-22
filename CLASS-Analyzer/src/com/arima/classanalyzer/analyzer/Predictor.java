@@ -51,7 +51,7 @@ public class Predictor {
         IEngine engine = engineService.getEnginePort();
         System.out.println(ProfileMatcher.getNearestGlobalProfiles(11, 3, subjects, marks));
         System.out.println(ProfileMatcher.getNearestLocalProfiles(11086, 11, 3, subjects, marks));
-        System.out.println(engine.getmodel());
+        System.out.println(engine.sayHelloCLASS());
     }
 
     /**
