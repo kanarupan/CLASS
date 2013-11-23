@@ -46,7 +46,7 @@ public class JaccardIndex {
 		
     }
     
-    public static double getSimilarity(Instances general, Instances term){
+    private static double getSimilarity(Instances general, Instances term){
     	
 		int[] term_nominalCounts = term.attributeStats(0).nominalCounts;
 		int[] general_nominalCounts = general.attributeStats(0).nominalCounts;
@@ -66,7 +66,7 @@ public class JaccardIndex {
 		return similiarity;
     }
     
-    public static Instances validate(Instances data1, Instances data2){    	
+    private static Instances validate(Instances data1, Instances data2){
     	Instances train1 = new Instances(data1);
     	Instances train2 = new Instances(data2);
     	Instances train;

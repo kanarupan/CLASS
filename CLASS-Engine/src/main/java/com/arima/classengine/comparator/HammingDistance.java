@@ -97,11 +97,11 @@ public class HammingDistance {
 	}
 	
 	
-	public double getSimilarity(){
+	private double getSimilarity(){
 		return 100-getDistance();
 	}
 	
-	public double getDistance() {
+	private double getDistance() {
 		
 		distance = 0;
 		
@@ -190,7 +190,7 @@ public class HammingDistance {
 
 	}
 	
-	public static void initializeMeans(int schoolNo, int year, String subject) throws Exception{
+	private static void initializeMeans(int schoolNo, int year, String subject) throws Exception{
 
 		  double A = CFilter.retrieveDatasetFromDatabase(
 				Utils.createComparisionQuery(
