@@ -37,8 +37,8 @@ public class HammingDistance {
 	
 	public static void main(String args[]) throws Exception{
 
-		initializeMeans(11089, "HISTORY");
-		getHammingSimilarity(11089, 11, 3, 11, 2, "HISTORY");
+
+		getHammingSimilarity(11089, 2008, 11, "HISTORY");
 	}
 
 	public HammingDistance(String s1, String s2) throws Exception{
@@ -48,8 +48,17 @@ public class HammingDistance {
 		}
 
 	
-	public static void getHammingSimilarity(int schoolNo, int grade1, int term1, int grade2, int term2, String subject) throws Exception {
-		
+	public static double getHammingSimilarity(int schoolNo, int year, int grade, String subject) throws Exception {
+
+        initializeMeans(schoolNo, year, subject);
+
+
+        int grade1 = grade;
+        int term1 = 3;
+        int grade2 = 11;
+        int term2 = 2;
+
+
 		Instances train = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade1, term1, subject), "root", "");
 		Instances train2 = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade2, term2, subject), "root", "");
 		
@@ -83,6 +92,8 @@ public class HammingDistance {
 		HammingDistance hd = new HammingDistance(term_sequence, general_sequence);
 		System.out.println("Distance is : " + hd.getDistance());
 		System.out.println("Similarity is : " + (hd.getSimilarity()));
+
+        return hd.getSimilarity();
 	}
 	
 	
@@ -179,8 +190,8 @@ public class HammingDistance {
 
 	}
 	
-	public static void initializeMeans(int schoolNo, String subject) throws Exception{
-		
+	public static void initializeMeans(int schoolNo, int year, String subject) throws Exception{
+
 		  double A = CFilter.retrieveDatasetFromDatabase(
 				Utils.createComparisionQuery(
 						schoolNo, 11, 3, subject, 75, 100), "root", "").attributeStats(1).numericStats.mean;

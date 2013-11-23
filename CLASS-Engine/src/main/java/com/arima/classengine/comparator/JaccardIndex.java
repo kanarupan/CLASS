@@ -11,15 +11,19 @@ import com.arima.classengine.filter.CFilter;
 import com.arima.classengine.utils.Utils;
 
 
-class JaccardIndex {
-
+public class JaccardIndex {
     
     public static void main(String[] args) throws Exception {
-    			getJaccardIndexSimilarity(11089, 11, 3, 11, 2, "HISTORY");
+    			getJaccardIndexSimilarity(11089, 2008, 11, "HISTORY");
     }
     
-    public static void getJaccardIndexSimilarity(int schoolNo, int grade1, int term1, int grade2, int term2, String subject) throws Exception{
-    	
+    public static double getJaccardIndexSimilarity(int schoolNo, int year, int grade, String subject) throws Exception{
+
+        int grade1 = grade;
+        int term1 = 3;
+        int grade2 = 11;
+        int term2 = 2;
+
 		Instances train = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade1, term1, subject), "root", "");
 		Instances train2 = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade2, term2, subject), "root", "");
 		
@@ -38,11 +42,11 @@ class JaccardIndex {
 		train.deleteAttributeAt(1);
 		general.deleteAttributeAt(0);
 		
-		JaccardIndex.getSimilarity(general,train);
+		return JaccardIndex.getSimilarity(general,train);
 		
     }
     
-    public static float getSimilarity(Instances general, Instances term){
+    public static double getSimilarity(Instances general, Instances term){
     	
 		int[] term_nominalCounts = term.attributeStats(0).nominalCounts;
 		int[] general_nominalCounts = general.attributeStats(0).nominalCounts;
@@ -56,7 +60,7 @@ class JaccardIndex {
 		int A = Math.min(term_nominalCounts[4], general_nominalCounts[4]);
 		
 		System.out.println(F + " " + S + " " + C + " " + B + " " + A );
-		float similiarity = (float)100 * (F + S + C + B + A)/term.attributeStats(0).totalCount;
+		double similiarity = (double)100 * (F + S + C + B + A)/term.attributeStats(0).totalCount;
 		System.out.println("Similarity is : " + similiarity);
 		
 		return similiarity;
@@ -75,45 +79,7 @@ class JaccardIndex {
 			String x = train1.instance(i).attribute(0).value(i);
 			String y = train2.instance(i).attribute(0).value(i);
 			System.out.println(x.equalsIgnoreCase(y));
-		} 
-
-//		
-//		int[] answer = new int[a.length + b.length];
-//	    int i = 0, j = 0, k = 0;
-//	    
-//		   while (i < train1.size() && j < train2.size())
-//		    {
-//		        if (a[i] < b[j])
-//		        {
-//		            answer[k] = a[i];
-//		            i++;
-//		        }
-//		        else
-//		        {
-//		            answer[k] = b[j];
-//		            j++;
-//		        }
-//		        k++;
-//		    }
-//
-//		    while (i < a.length)
-//		    {
-//		        answer[k] = a[i];
-//		        i++;
-//		        k++;
-//		    }
-//
-//		    while (j < b.length)
-//		    {
-//		        answer[k] = b[j];
-//		        j++;
-//		        k++;
-//		    }
-//
-//		    return answer;
-    	
-//    	System.out.println(data1);
-//    	System.out.println(data2);
+		}
     	return data1;
     }
 }
