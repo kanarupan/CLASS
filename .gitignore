@@ -15,3 +15,5 @@ Thumbs.db
 .sonar/
 build.properties
 sonar-project.properties
+Classifiers-Stats/
+Association Rules/
