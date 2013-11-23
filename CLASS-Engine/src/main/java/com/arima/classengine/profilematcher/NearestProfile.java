@@ -42,13 +42,15 @@ public class NearestProfile {
 //		System.out.println(Utils.prepareProfileMatcherData(11086, 11, 3, subjects));
 //		System.exit(0);
 
-		ArrayList<Integer> indexNumbers = getNearestProfiles(11089, 11, 3, subjects, marks);
+		ArrayList<Integer> indexNumbers = getNearestProfiles(11086, 11, 3, subjects, marks);
 		System.out.println(indexNumbers);
 	}
 	
 	public static ArrayList<Integer> getNearestProfiles(int schoolNo, int grade, int term, List<String> subjects, List<Integer> marks) throws Exception{
 		Instances inst = Utils.prepareProfileMatcherData(schoolNo, grade, term, subjects);
-		return getProfiles(inst, marks);
+//        System.out.println(inst);
+//        System.exit(0);
+        return getProfiles(inst, marks);
 	}
 	
 	public static ArrayList<Integer> getNearestProfiles(int grade, int term, List<String> subjects, List<Integer> marks) throws Exception{
@@ -110,7 +112,7 @@ public class NearestProfile {
 		ArrayList<Integer> profiles = new ArrayList<Integer>();
 		for (int i = 0; i < neighbors.numInstances(); i++) {
 			System.out.println(neighbors.instance(i));
-			profiles.add((int) neighbors.instance(i).value(0));
+			profiles.add(Integer.valueOf(neighbors.instance(i).stringValue(0)));
 		}
 		
 		
