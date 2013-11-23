@@ -790,3 +790,795 @@ Total Number of Instances              133
 
 ###################################################################
 
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 5
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 42.161441 ms
+
+
+Correctly Classified Instances          57               39.3103 %
+Incorrectly Classified Instances        88               60.6897 %
+Kappa statistic                          0.1155
+Mean absolute error                      0.2397
+Root mean squared error                  0.4114
+Relative absolute error                 84.3326 %
+Root relative squared error            109.356  %
+Coverage of cases (0.95 level)          75.1724 %
+Mean rel. region size (0.95 level)      43.3103 %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 5
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 37.17179 ms
+
+
+Correctly Classified Instances          94               48.9583 %
+Incorrectly Classified Instances        98               51.0417 %
+Kappa statistic                          0.1792
+Mean absolute error                      0.2048
+Root mean squared error                  0.3871
+Relative absolute error                 78.4624 %
+Root relative squared error            107.487  %
+Coverage of cases (0.95 level)          72.9167 %
+Mean rel. region size (0.95 level)      35.9375 %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 5
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 44.761465 ms
+
+
+Correctly Classified Instances          44               33.0827 %
+Incorrectly Classified Instances        89               66.9173 %
+Kappa statistic                          0.0334
+Mean absolute error                      0.2675
+Root mean squared error                  0.4556
+Relative absolute error                 94.6334 %
+Root relative squared error            121.4863 %
+Coverage of cases (0.95 level)          59.3985 %
+Mean rel. region size (0.95 level)      37.594  %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 5
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 14.615442 ms
+
+
+Correctly Classified Instances          68               46.8966 %
+Incorrectly Classified Instances        77               53.1034 %
+Kappa statistic                          0.2086
+Mean absolute error                      0.2505
+Root mean squared error                  0.3776
+Relative absolute error                 88.13   %
+Root relative squared error            100.3589 %
+Coverage of cases (0.95 level)          93.7931 %
+Mean rel. region size (0.95 level)      60.4138 %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 5
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 10.567729 ms
+
+
+Correctly Classified Instances         100               52.0833 %
+Incorrectly Classified Instances        92               47.9167 %
+Kappa statistic                          0.2423
+Mean absolute error                      0.2093
+Root mean squared error                  0.3592
+Relative absolute error                 80.1775 %
+Root relative squared error             99.7346 %
+Coverage of cases (0.95 level)          91.6667 %
+Mean rel. region size (0.95 level)      50.625  %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 5
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 12.457878 ms
+
+
+Correctly Classified Instances          61               45.8647 %
+Incorrectly Classified Instances        72               54.1353 %
+Kappa statistic                          0.1901
+Mean absolute error                      0.252 
+Root mean squared error                  0.3783
+Relative absolute error                 89.1637 %
+Root relative squared error            100.8743 %
+Coverage of cases (0.95 level)          96.2406 %
+Mean rel. region size (0.95 level)      60.6015 %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 5
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 152.815267 ms
+
+
+Correctly Classified Instances          53               36.5517 %
+Incorrectly Classified Instances        92               63.4483 %
+Kappa statistic                          0.0772
+Mean absolute error                      0.3037
+Root mean squared error                  0.3876
+Relative absolute error                106.8302 %
+Root relative squared error            103.0181 %
+Coverage of cases (0.95 level)         100      %
+Mean rel. region size (0.95 level)     100      %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 5
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 258.015316 ms
+
+
+Correctly Classified Instances          87               45.3125 %
+Incorrectly Classified Instances       105               54.6875 %
+Kappa statistic                          0.1379
+Mean absolute error                      0.241 
+Root mean squared error                  0.3574
+Relative absolute error                 92.3276 %
+Root relative squared error             99.2417 %
+Coverage of cases (0.95 level)         100      %
+Mean rel. region size (0.95 level)      94.8958 %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 5
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 83.506954 ms
+
+
+Correctly Classified Instances          44               33.0827 %
+Incorrectly Classified Instances        89               66.9173 %
+Kappa statistic                         -0.0024
+Mean absolute error                      0.3012
+Root mean squared error                  0.393 
+Relative absolute error                106.5631 %
+Root relative squared error            104.7854 %
+Coverage of cases (0.95 level)          98.4962 %
+Mean rel. region size (0.95 level)      92.9323 %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 4
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 27.89609 ms
+
+
+Correctly Classified Instances          82               56.5517 %
+Incorrectly Classified Instances        63               43.4483 %
+Kappa statistic                          0.2444
+Mean absolute error                      0.2509
+Root mean squared error                  0.3944
+Relative absolute error                 82.4072 %
+Root relative squared error            101.4282 %
+Coverage of cases (0.95 level)          86.8966 %
+Mean rel. region size (0.95 level)      50      %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 4
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 29.63058 ms
+
+
+Correctly Classified Instances          99               51.5625 %
+Incorrectly Classified Instances        93               48.4375 %
+Kappa statistic                          0.1469
+Mean absolute error                      0.2655
+Root mean squared error                  0.4015
+Relative absolute error                 89.4983 %
+Root relative squared error            104.5409 %
+Coverage of cases (0.95 level)          88.0208 %
+Mean rel. region size (0.95 level)      49.349  %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 4
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 21.5534 ms
+
+
+Correctly Classified Instances          73               54.8872 %
+Incorrectly Classified Instances        60               45.1128 %
+Kappa statistic                          0.2192
+Mean absolute error                      0.2607
+Root mean squared error                  0.4031
+Relative absolute error                 86.0743 %
+Root relative squared error            103.9279 %
+Coverage of cases (0.95 level)          87.218  %
+Mean rel. region size (0.95 level)      51.3158 %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 4
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 10.152637 ms
+
+
+Correctly Classified Instances          83               57.2414 %
+Incorrectly Classified Instances        62               42.7586 %
+Kappa statistic                          0.2827
+Mean absolute error                      0.2444
+Root mean squared error                  0.3759
+Relative absolute error                 80.2792 %
+Root relative squared error             96.6652 %
+Coverage of cases (0.95 level)          97.931  %
+Mean rel. region size (0.95 level)      59.8276 %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 4
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 9.137716 ms
+
+
+Correctly Classified Instances          76               39.5833 %
+Incorrectly Classified Instances       116               60.4167 %
+Kappa statistic                         -0.0406
+Mean absolute error                      0.2808
+Root mean squared error                  0.3936
+Relative absolute error                 94.6595 %
+Root relative squared error            102.4813 %
+Coverage of cases (0.95 level)          97.9167 %
+Mean rel. region size (0.95 level)      57.8125 %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 4
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 8.664466 ms
+
+
+Correctly Classified Instances          75               56.391  %
+Incorrectly Classified Instances        58               43.609  %
+Kappa statistic                          0.257 
+Mean absolute error                      0.2456
+Root mean squared error                  0.3795
+Relative absolute error                 81.0802 %
+Root relative squared error             97.8538 %
+Coverage of cases (0.95 level)          96.9925 %
+Mean rel. region size (0.95 level)      59.5865 %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 4
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 103.18959 ms
+
+
+Correctly Classified Instances          74               51.0345 %
+Incorrectly Classified Instances        71               48.9655 %
+Kappa statistic                          0.1396
+Mean absolute error                      0.3239
+Root mean squared error                  0.3934
+Relative absolute error                106.4033 %
+Root relative squared error            101.1638 %
+Coverage of cases (0.95 level)         100      %
+Mean rel. region size (0.95 level)     100      %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 4
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 94.788549 ms
+
+
+Correctly Classified Instances          93               48.4375 %
+Incorrectly Classified Instances        99               51.5625 %
+Kappa statistic                          0.0663
+Mean absolute error                      0.3396
+Root mean squared error                  0.4066
+Relative absolute error                114.4893 %
+Root relative squared error            105.8774 %
+Coverage of cases (0.95 level)          99.4792 %
+Mean rel. region size (0.95 level)      94.9219 %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 4
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 101.48133 ms
+
+
+Correctly Classified Instances          66               49.6241 %
+Incorrectly Classified Instances        67               50.3759 %
+Kappa statistic                          0.1013
+Mean absolute error                      0.33  
+Root mean squared error                  0.4011
+Relative absolute error                108.9365 %
+Root relative squared error            103.4139 %
+Coverage of cases (0.95 level)         100      %
+Mean rel. region size (0.95 level)     100      %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 3
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 17.936174 ms
+
+
+Correctly Classified Instances         118               81.3793 %
+Incorrectly Classified Instances        27               18.6207 %
+Kappa statistic                          0.0516
+Mean absolute error                      0.1695
+Root mean squared error                  0.3197
+Relative absolute error                 94.6016 %
+Root relative squared error            108.6032 %
+Coverage of cases (0.95 level)          95.8621 %
+Mean rel. region size (0.95 level)      63.908  %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 3
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 19.147237 ms
+
+
+Correctly Classified Instances         167               86.9792 %
+Incorrectly Classified Instances        25               13.0208 %
+Kappa statistic                          0.1137
+Mean absolute error                      0.1238
+Root mean squared error                  0.2775
+Relative absolute error                 87.6341 %
+Root relative squared error            106.3352 %
+Coverage of cases (0.95 level)          96.875  %
+Mean rel. region size (0.95 level)      61.6319 %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 3
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 19.757331 ms
+
+
+Correctly Classified Instances         112               84.2105 %
+Incorrectly Classified Instances        21               15.7895 %
+Kappa statistic                          0.1567
+Mean absolute error                      0.1468
+Root mean squared error                  0.3023
+Relative absolute error                 85.5508 %
+Root relative squared error            105.2028 %
+Coverage of cases (0.95 level)          96.9925 %
+Mean rel. region size (0.95 level)      65.1629 %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 3
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 11.303262 ms
+
+
+Correctly Classified Instances         118               81.3793 %
+Incorrectly Classified Instances        27               18.6207 %
+Kappa statistic                          0.1741
+Mean absolute error                      0.1437
+Root mean squared error                  0.3   
+Relative absolute error                 80.2427 %
+Root relative squared error            101.9167 %
+Coverage of cases (0.95 level)          97.2414 %
+Mean rel. region size (0.95 level)      48.2759 %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 3
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 8.966662 ms
+
+
+Correctly Classified Instances         165               85.9375 %
+Incorrectly Classified Instances        27               14.0625 %
+Kappa statistic                          0.2351
+Mean absolute error                      0.1086
+Root mean squared error                  0.2628
+Relative absolute error                 76.8692 %
+Root relative squared error            100.6752 %
+Coverage of cases (0.95 level)          98.4375 %
+Mean rel. region size (0.95 level)      44.6181 %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 3
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 11.004487 ms
+
+
+Correctly Classified Instances         110               82.7068 %
+Incorrectly Classified Instances        23               17.2932 %
+Kappa statistic                          0.2132
+Mean absolute error                      0.1329
+Root mean squared error                  0.2848
+Relative absolute error                 77.4171 %
+Root relative squared error             99.1422 %
+Coverage of cases (0.95 level)          96.9925 %
+Mean rel. region size (0.95 level)      47.3684 %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 3
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 123.722937 ms
+
+
+Correctly Classified Instances         121               83.4483 %
+Incorrectly Classified Instances        24               16.5517 %
+Kappa statistic                          0.0595
+Mean absolute error                      0.1668
+Root mean squared error                  0.31  
+Relative absolute error                 93.1461 %
+Root relative squared error            105.3274 %
+Coverage of cases (0.95 level)          93.7931 %
+Mean rel. region size (0.95 level)      61.3793 %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 3
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 161.141045 ms
+
+
+Correctly Classified Instances         168               87.5    %
+Incorrectly Classified Instances        24               12.5    %
+Kappa statistic                          0.2335
+Mean absolute error                      0.1179
+Root mean squared error                  0.2623
+Relative absolute error                 83.4514 %
+Root relative squared error            100.481  %
+Coverage of cases (0.95 level)          95.3125 %
+Mean rel. region size (0.95 level)      43.2292 %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 3
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 108.419859 ms
+
+
+Correctly Classified Instances         113               84.9624 %
+Incorrectly Classified Instances        20               15.0376 %
+Kappa statistic                          0.1729
+Mean absolute error                      0.1506
+Root mean squared error                  0.2931
+Relative absolute error                 87.7705 %
+Root relative squared error            102.004  %
+Coverage of cases (0.95 level)          93.985  %
+Mean rel. region size (0.95 level)      58.8972 %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 2
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 10.575711 ms
+
+
+Correctly Classified Instances         144               99.3103 %
+Incorrectly Classified Instances         1                0.6897 %
+Kappa statistic                          0     
+Mean absolute error                      0.0138
+Root mean squared error                  0.0834
+Relative absolute error                 65.2207 %
+Root relative squared error             99.6209 %
+Coverage of cases (0.95 level)          99.3103 %
+Mean rel. region size (0.95 level)      50      %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 2
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 9.701054 ms
+
+
+Correctly Classified Instances         191               99.4792 %
+Incorrectly Classified Instances         1                0.5208 %
+Kappa statistic                          0     
+Mean absolute error                      0.0104
+Root mean squared error                  0.0724
+Relative absolute error                 64.9701 %
+Root relative squared error             99.7076 %
+Coverage of cases (0.95 level)          99.4792 %
+Mean rel. region size (0.95 level)      50      %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.trees.J48
+
+Number of bins : 2
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 9.478114 ms
+
+
+Correctly Classified Instances         132               99.2481 %
+Incorrectly Classified Instances         1                0.7519 %
+Kappa statistic                          0     
+Mean absolute error                      0.015 
+Root mean squared error                  0.0871
+Relative absolute error                 65.2838 %
+Root relative squared error             99.5941 %
+Coverage of cases (0.95 level)          99.2481 %
+Mean rel. region size (0.95 level)      50      %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 2
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 7.799502 ms
+
+
+Correctly Classified Instances         144               99.3103 %
+Incorrectly Classified Instances         1                0.6897 %
+Kappa statistic                          0     
+Mean absolute error                      0.01  
+Root mean squared error                  0.0834
+Relative absolute error                 47.3299 %
+Root relative squared error             99.6417 %
+Coverage of cases (0.95 level)          99.3103 %
+Mean rel. region size (0.95 level)      50.6897 %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 2
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 9.575045 ms
+
+
+Correctly Classified Instances         191               99.4792 %
+Incorrectly Classified Instances         1                0.5208 %
+Kappa statistic                          0     
+Mean absolute error                      0.0075
+Root mean squared error                  0.0725
+Relative absolute error                 46.7268 %
+Root relative squared error             99.9202 %
+Coverage of cases (0.95 level)          99.4792 %
+Mean rel. region size (0.95 level)      50.5208 %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.bayes.NaiveBayes
+
+Number of bins : 2
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 7.668931 ms
+
+
+Correctly Classified Instances         132               99.2481 %
+Incorrectly Classified Instances         1                0.7519 %
+Kappa statistic                          0     
+Mean absolute error                      0.0113
+Root mean squared error                  0.0874
+Relative absolute error                 49.248  %
+Root relative squared error            100.021  %
+Coverage of cases (0.95 level)          99.2481 %
+Mean rel. region size (0.95 level)      51.5038 %
+Total Number of Instances              133     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 2
+
+Handling missing valuescom.arima.classengine.filter.CDefaultMissingValueHandler
+
+Time to build the model : 52.096269 ms
+
+
+Correctly Classified Instances         144               99.3103 %
+Incorrectly Classified Instances         1                0.6897 %
+Kappa statistic                          0     
+Mean absolute error                      0.012 
+Root mean squared error                  0.0862
+Relative absolute error                 56.6601 %
+Root relative squared error            102.9985 %
+Coverage of cases (0.95 level)          99.3103 %
+Mean rel. region size (0.95 level)      52.4138 %
+Total Number of Instances              145     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 2
+
+Handling missing valuescom.arima.classengine.filter.CReplaceMissingValuesByMean
+
+Time to build the model : 68.872126 ms
+
+
+Correctly Classified Instances         189               98.4375 %
+Incorrectly Classified Instances         3                1.5625 %
+Kappa statistic                         -0.007 
+Mean absolute error                      0.0107
+Root mean squared error                  0.09  
+Relative absolute error                 66.8533 %
+Root relative squared error            123.9383 %
+Coverage of cases (0.95 level)          99.4792 %
+Mean rel. region size (0.95 level)      50.5208 %
+Total Number of Instances              192     
+
+###################################################################
+
+Classifier : weka.classifiers.meta.AdaBoostM1
+
+Number of bins : 2
+
+Handling missing valuescom.arima.classengine.filter.CDiscardInstancesWithMissingValues
+
+Time to build the model : 49.048084 ms
+
+
+Correctly Classified Instances         130               97.7444 %
+Incorrectly Classified Instances         3                2.2556 %
+Kappa statistic                         -0.0101
+Mean absolute error                      0.0154
+Root mean squared error                  0.1081
+Relative absolute error                 67.22   %
+Root relative squared error            123.6403 %
+Coverage of cases (0.95 level)          99.2481 %
+Mean rel. region size (0.95 level)      50.7519 %
+Total Number of Instances              133     
+
+###################################################################
+

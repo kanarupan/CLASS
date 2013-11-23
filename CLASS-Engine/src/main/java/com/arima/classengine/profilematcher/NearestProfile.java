@@ -109,8 +109,8 @@ public class NearestProfile {
 		
 		ArrayList<Integer> profiles = new ArrayList<Integer>();
 		for (int i = 0; i < neighbors.numInstances(); i++) {
-			System.out.println(neighbors.instance(i));
-			profiles.add((int) neighbors.instance(i).value(0));
+//			System.out.println(neighbors.instance(i));
+			profiles.add(Integer.valueOf(neighbors.instance(i).toString(0)));
 		}
 		
 		
