@@ -400,7 +400,7 @@ public class CAnalyzer {
 		List<CClassifier> classifiers = new ArrayList<CClassifier>();
 		classifiers.add(new CJ48Classifier());
 		classifiers.add(new CNaiveBayesClassifier());
-		classifiers.add(new CMultiLayerPerceptronClassifier());
+//		classifiers.add(new CMultiLayerPerceptronClassifier());
 		classifiers.add(new CBaggingClassifier());
 
 		List<CMissingValuesHandler> missingValueHandlers = new ArrayList<CMissingValuesHandler>();
