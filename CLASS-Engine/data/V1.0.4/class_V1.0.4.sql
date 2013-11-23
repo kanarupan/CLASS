@@ -20,7 +20,6 @@ CREATE  TABLE IF NOT EXISTS `class`.`student` (
   `father` VARCHAR(45) NULL ,
   `mother` VARCHAR(45) NULL ,
   `siblings` INT NULL ,
-  `` VARCHAR(45) NULL ,
   PRIMARY KEY (`school_no`, `student_school_id`) ,
   INDEX `id` USING BTREE (`idstudent` ASC) )
 ENGINE = InnoDB;
@@ -210,13 +209,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `class`.`class_analyzer_classifier` (
   `idclass_analyzer_classifier` INT NOT NULL AUTO_INCREMENT ,
-  `year` INT NOT NULL DEFAULT NULL ,
-  `grade` INT NOT NULL DEFAULT NULL ,
-  `term` INT NOT NULL DEFAULT NULL ,
+  `year` INT NOT NULL ,
+  `grade` INT NOT NULL ,
+  `term` INT NOT NULL ,
   `subject` VARCHAR(100) NOT NULL ,
   `model` LONGBLOB NOT NULL ,
   `type` VARCHAR(500) NOT NULL ,
-  `bins` INT NOT NULL DEFAULT NULL ,
+  `bins` INT NOT NULL ,
   `modified_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
   PRIMARY KEY (`idclass_analyzer_classifier`) )
 ENGINE = InnoDB;
