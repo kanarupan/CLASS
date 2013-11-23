@@ -48,12 +48,12 @@ public class CAnalyzer {
 	private CEvaluator evaluatorType;
 	private  int binSize = 5;
 	private  Classifier model;
-	private  Instances train = null;;;
+	private  Instances train = null;
 	private Evaluation eval = null;	
 	private double accuracy = 0;
 	private final double accuracyThreshold = 75;
 	private CMissingValuesHandler missingValueHandlerType; 
-	private final boolean isTest = true;
+	private final boolean isTest = false;
 	private Classifier tempModel;
 	private double timeToBuild = 0;
 
@@ -265,8 +265,8 @@ public class CAnalyzer {
 		
 		String statFileName = "F:/Projects/CLASS/CLASS-Engine/data/Classifiers-Stats/"+ 
 								year + " " + subject + " grade " + grade + " term " + term +  ".txt";
-		
-		CAnalyzer analyzer = getModel(Utils.prepareStandardizedAndNormalizedTrainDataAcrossSchoolsAndTerms(11089, grade, term, subject), statFileName);
+
+		CAnalyzer analyzer = getModel(Utils.prepareTrainData(11089, grade, term, subject), statFileName);
 		
 		if(!analyzer.isTest()){
 			
@@ -404,7 +404,7 @@ public class CAnalyzer {
 		List<CClassifier> classifiers = new ArrayList<CClassifier>();
 		classifiers.add(new CJ48Classifier());
 		classifiers.add(new CNaiveBayesClassifier());
-		classifiers.add(new CMultiLayerPerceptronClassifier());
+//		classifiers.add(new CMultiLayerPerceptronClassifier());
 		classifiers.add(new CBaggingClassifier());
 
 		List<CMissingValuesHandler> missingValueHandlers = new ArrayList<CMissingValuesHandler>();
