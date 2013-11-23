@@ -26,29 +26,29 @@ public class NearestProfile {
 		subjects.add("TAMIL LANGUAGE");
 		subjects.add("ENGLISH LANGUAGE");
 		subjects.add("HISTORY");
-		subjects.add("INFORMATION AND COMMUNICATION TECHNOLOGY");
-		subjects.add("BUSSINESS AND ACCOUNTING");
+//		subjects.add("INFORMATION AND COMMUNICATION TECHNOLOGY");
+//		subjects.add("BUSSINESS AND ACCOUNTING");
 		
 		ArrayList<Integer> marks = new ArrayList<Integer>();
-		marks.add(90);
-		marks.add(90);
-		marks.add(90);
-		marks.add(90);
-		marks.add(90);
-		marks.add(90);
-		marks.add(90);
-		marks.add(90);
+//		marks.add(40);
+//		marks.add(30);
+		marks.add(20);
+		marks.add(25);
+		marks.add(35);
+		marks.add(45);
+		marks.add(40);
+		marks.add(26);
 //		
 //		System.out.println(Utils.prepareProfileMatcherData(11086, 11, 3, subjects));
 //		System.exit(0);
 
-		ArrayList<Integer> indexNumbers = getNearestProfiles(11089, 11, 3, subjects, marks);
+		ArrayList<Integer> indexNumbers = getNearestProfiles(11086, 11, 3, subjects, marks);
 		System.out.println(indexNumbers);
 	}
 	
 	public static ArrayList<Integer> getNearestProfiles(int schoolNo, int grade, int term, List<String> subjects, List<Integer> marks) throws Exception{
 		Instances inst = Utils.prepareProfileMatcherData(schoolNo, grade, term, subjects);
-		return getProfiles(inst, marks);
+        return getProfiles(inst, marks);
 	}
 	
 	public static ArrayList<Integer> getNearestProfiles(int grade, int term, List<String> subjects, List<Integer> marks) throws Exception{
@@ -109,7 +109,7 @@ public class NearestProfile {
 		
 		ArrayList<Integer> profiles = new ArrayList<Integer>();
 		for (int i = 0; i < neighbors.numInstances(); i++) {
-//			System.out.println(neighbors.instance(i));
+			System.out.println(neighbors.instance(i));
 			profiles.add(Integer.valueOf(neighbors.instance(i).toString(0)));
 		}
 		
