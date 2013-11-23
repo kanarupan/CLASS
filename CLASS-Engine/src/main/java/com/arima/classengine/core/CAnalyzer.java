@@ -49,7 +49,7 @@ public class CAnalyzer {
 	private double accuracy = 0;
 	private final double accuracyThreshold = 75;
 	private CMissingValuesHandler missingValueHandlerType; 
-	private final boolean isTest = false;
+	private final boolean isTest = true;
 	private Classifier tempModel;
 	private double timeToBuild = 0;
 

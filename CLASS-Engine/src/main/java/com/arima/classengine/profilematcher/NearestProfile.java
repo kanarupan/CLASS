@@ -96,7 +96,7 @@ public class NearestProfile {
 
 		try
 		{ 
-		    neighbors = tree.kNearestNeighbours(p, 10);
+		    neighbors = tree.kNearestNeighbours(p, 50);
 		} 
 		catch (Exception e) { 
 			e.printStackTrace();
