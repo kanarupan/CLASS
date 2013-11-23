@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import com.arima.classengine.classifier.*;
 import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
@@ -26,11 +27,6 @@ import weka.core.converters.DatabaseConnection;
 import weka.gui.treevisualizer.PlaceNode2;
 import weka.gui.treevisualizer.TreeVisualizer;
 
-import com.arima.classengine.classifier.CBaggingClassifier;
-import com.arima.classengine.classifier.CClassifier;
-import com.arima.classengine.classifier.CJ48Classifier;
-import com.arima.classengine.classifier.CMultiLayerPerceptronClassifier;
-import com.arima.classengine.classifier.CNaiveBayesClassifier;
 import com.arima.classengine.engine.Model;
 import com.arima.classengine.evaluator.CCrossValidateEvaluator;
 import com.arima.classengine.evaluator.CEvaluator;
@@ -53,7 +49,7 @@ public class CAnalyzer {
 	private double accuracy = 0;
 	private final double accuracyThreshold = 75;
 	private CMissingValuesHandler missingValueHandlerType; 
-	private final boolean isTest = false;
+	private final boolean isTest = true;
 	private Classifier tempModel;
 	private double timeToBuild = 0;
 
@@ -404,7 +400,7 @@ public class CAnalyzer {
 		List<CClassifier> classifiers = new ArrayList<CClassifier>();
 		classifiers.add(new CJ48Classifier());
 		classifiers.add(new CNaiveBayesClassifier());
-//		classifiers.add(new CMultiLayerPerceptronClassifier());
+		classifiers.add(new CMultiLayerPerceptronClassifier());
 		classifiers.add(new CBaggingClassifier());
 
 		List<CMissingValuesHandler> missingValueHandlers = new ArrayList<CMissingValuesHandler>();
@@ -428,7 +424,6 @@ public class CAnalyzer {
 						train = analyzer.missingValueHandlerType.handleMissingValues(train);
 
 						train = CFilter.numeric2nominal(train, "first-last",bins);
-						//			train = Utils.handleMissingValues(train);
 
 						//Changing nominal lables so that every attribute will have the same
 						train = Utils.changeAttributeNominalRange(train, Utils.getAttributeLables(bins, true));
@@ -495,6 +490,29 @@ public class CAnalyzer {
 				}
 
 			}
+
+        // default voting classifier, in case if there is no good classifier
+
+        if(!analyzer.isTest() && analyzer.getAccuracy() < analyzer.getAccuracyThreshold()){
+            int bin = 3;
+            train = analyzer.getTrain();
+            train = CFilter.removeAttributesByNames(train, "idstudent");
+
+            analyzer.setMissingValueHandlerType(new CDiscardInstancesWithMissingValues());
+            train = analyzer.missingValueHandlerType.handleMissingValues(train);
+
+            train = CFilter.numeric2nominal(train, "first-last",bin);
+
+            train = Utils.changeAttributeNominalRange(train, Utils.getAttributeLables(bin, true));
+
+            train = Utils.renameAttributes(train, bin);
+
+            analyzer.setClassifierType(new CVoteClassifier());
+
+            analyzer.setBinSize(bin);
+            analyzer.setModel(analyzer.classifierType.buildClassifier(train));
+
+        }
 
 		return analyzer;
 
