@@ -12,13 +12,18 @@ import org.junit.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class EngineTest {
-    private static final String actualHello = "HelloUser!";
+    private static final String actualHello = "HelloUserjj!";
 
+
+    public void tearup(){
+
+    }
     @Test
     public void sayHelloCLASSTest() {
         Engine engine = new Engine();
         String expectedHello = engine.sayHelloCLASS();
         Assert.assertEquals(actualHello, expectedHello);
+
     }
 
 }
