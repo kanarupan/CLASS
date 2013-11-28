@@ -6,13 +6,13 @@ import weka.core.DistanceFunction;
 import weka.core.EuclideanDistance;
 import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.neighboursearch.KDTree;
+import weka.core.neighboursearch.BallTree;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class NearestProfile {
+public class NearestProfileBallTree {
 
     public static void main(String[] args) throws Exception {
 
@@ -71,9 +71,10 @@ public class NearestProfile {
         for (int i = 0; i < inst.numAttributes(); i++) {
             inst.deleteWithMissing(i);
         }
-
-        KDTree tree = new KDTree();
+        BallTree tree = new BallTree();
         tree.setMeasurePerformance(true);
+
+
 
         try {
             tree.setInstances(inst);
