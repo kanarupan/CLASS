@@ -96,8 +96,16 @@ public class NearestProfile {
         Instance p = test.firstInstance();
 
         try {
+            double timeToBuild = System.nanoTime();
             neighbors = tree.kNearestNeighbours(p, 50);
+            timeToBuild = (System.nanoTime() - timeToBuild)/1e6;
+            System.out.println(tree.getPerformanceStats().getMaxPointsVisited());
             System.out.println(tree.getPerformanceStats().getTotalPointsVisited());
+            System.out.println(tree.getPerformanceStats().getMeanPointsVisited());
+            System.out.println(tree.getPerformanceStats().getMinPointsVisited());
+            System.out.println(tree.measureTreeSize());
+            System.out.println(tree.getPerformanceStats().getNumQueries());
+            System.out.println(timeToBuild);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,8 +116,8 @@ public class NearestProfile {
 
         ArrayList<Integer> profiles = new ArrayList<Integer>();
         for (int i = 0; i < neighbors.numInstances(); i++) {
-            System.out.println(neighbors.instance(i));
-            System.out.println("The distance between" + neighbors.instance(i) + " and " + p + " is " + df.distance(neighbors.instance(i), p));
+//            System.out.println(neighbors.instance(i));
+//            System.out.println("The distance between" + neighbors.instance(i) + " and " + p + " is " + df.distance(neighbors.instance(i), p));
             profiles.add(Integer.valueOf(neighbors.instance(i).toString(0)));
         }
 
