@@ -310,6 +310,20 @@ public static Instances prepareStandardizedAndNormalizedTrainDataAcrossSchoolsAn
 				"where ex.school_no = "+ school_no + " and ex.grade="+ grade+" and ex.term="+ term +" and sub.subject_name='"+subject+"' ";
 		return query;
 	}
+
+    public static String createPredictionQuery(int school_no, int year, int grade, int term, String subject){
+        //ex.school_no = 11089 and
+        String date = year+"-01-01";
+
+        String query = "select st.idstudent, mk.marks as " + subject.replaceAll(" ", "_") + "_" + grade + "_" + term +
+                " from " +
+                "(exam ex  join subject sub on (sub.idsubject=ex.subject_idsubject)) " +
+                "join marks mk on (mk.exam_idexam=ex.idexam) " +
+                "join student_performance stpe on (mk.student_performance_idstudent_performance=stpe.idstudent_performance) " +
+                "join student st on (st.idstudent=stpe.student_idstudent) " +
+                "where ex.school_no = "+ school_no + " and ex.date = '"+ date + "' and ex.grade="+ grade+" and ex.term="+ term +" and sub.subject_name='"+subject+"' ";
+        return query;
+    }
 	
 	public static String createComparisionQuery(int school_no, int grade, int term, String subject, int lower, int upper){
 		//ex.school_no = 11089 and
@@ -328,6 +342,25 @@ public static Instances prepareStandardizedAndNormalizedTrainDataAcrossSchoolsAn
 				"and mk.marks BETWEEN  "+lower+" AND "+upper;
 		return query;
 	}
+
+    public static String createComparisionQuery(int school_no, int year, int grade, int term, String subject, int lower, int upper){
+        //ex.school_no = 11089 and
+         String date = year+"-01-01";
+
+        String query = "select st.idstudent, mk.marks as " + subject.replaceAll(" ", "_") + "_" + grade + "_" + term +
+                " from " +
+                "(exam ex  join subject sub on (sub.idsubject=ex.subject_idsubject)) " +
+                "join marks mk on (mk.exam_idexam=ex.idexam) " +
+                "join student_performance stpe on (mk.student_performance_idstudent_performance=stpe.idstudent_performance) " +
+                "join student st on (st.idstudent=stpe.student_idstudent) " +
+                "where ex.school_no = "+ school_no +
+                " and ex.date='"+ date+
+                "' and ex.grade="+ grade+
+                " and ex.term="+ term +
+                " and sub.subject_name='"+subject+"' "+
+                "and mk.marks BETWEEN  "+lower+" AND "+upper;
+        return query;
+    }
 	
 	public static Instances prepareProfileMatcherData(int grade, int term, List<String> subjects) throws Exception{
 		
