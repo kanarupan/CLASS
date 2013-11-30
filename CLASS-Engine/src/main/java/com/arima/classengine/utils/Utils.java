@@ -404,7 +404,7 @@ public static Instances prepareStandardizedAndNormalizedTrainDataAcrossSchoolsAn
 	
 	public static String createProfileMatchingQuery(int school_no, int grade, int term, String subject){
 		//TODO: have to remove st.idstudent <= 406 condition after creating complete database
-
+               //st.idstudent <= 406 AND
 
 		String query = "select st.idstudent, st.student_school_id, mk.marks as " + subject.replaceAll(" ", "_") + "_" + grade + "_" + term +
 				" from " +
@@ -412,7 +412,7 @@ public static Instances prepareStandardizedAndNormalizedTrainDataAcrossSchoolsAn
 				"join marks mk on (mk.exam_idexam=ex.idexam) " +
 				"join student_performance stpe on (mk.student_performance_idstudent_performance=stpe.idstudent_performance) " +
 				"join student st on (st.idstudent=stpe.student_idstudent) " +
-				"where st.idstudent <= 406 AND ex.school_no = "+ school_no + " and ex.grade="+ grade+" and ex.term="+ term +" and sub.subject_name='"+subject+"' ";
+				"where  ex.school_no = "+ school_no + " and ex.grade="+ grade+" and ex.term="+ term +" and sub.subject_name='"+subject+"' ";
 		return query;
 	}
 	
