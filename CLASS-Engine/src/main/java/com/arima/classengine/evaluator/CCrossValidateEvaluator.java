@@ -15,6 +15,7 @@ public class CCrossValidateEvaluator implements CEvaluator {
 		
 		Evaluation eval = new Evaluation(inst);
 		eval.crossValidateModel(cls, inst, fold, new Random(seed));
+
 		
 		double accuracy = 100 * (eval.correct())/(eval.correct()+eval.incorrect());
 //		System.out.println("Fucking Accuracy is : " + accuracy);

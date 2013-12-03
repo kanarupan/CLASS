@@ -95,8 +95,8 @@ public class NearestProfile {
 
         ArrayList<Integer> profiles = new ArrayList<Integer>();
         for (int i = 0; i < neighbors.numInstances(); i++) {
-//            System.out.println(neighbors.instance(i));
-//            System.out.println("The distance between" + neighbors.instance(i) + " and " + p + " is " + df.distance(neighbors.instance(i), p));
+            System.out.println(neighbors.instance(i));
+            System.out.println("The distance between" + neighbors.instance(i) + " and " + p + " is " + df.distance(neighbors.instance(i), p));
             profiles.add(Integer.valueOf(neighbors.instance(i).toString(0)));
         }
 
