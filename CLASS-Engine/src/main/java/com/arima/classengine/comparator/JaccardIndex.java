@@ -14,7 +14,7 @@ import com.arima.classengine.utils.Utils;
 public class JaccardIndex {
     
     public static void main(String[] args) throws Exception {
-    			getJaccardIndexSimilarity(11089, 2008, 11, "HISTORY");
+    			getJaccardIndexSimilarity(11089, 2008, 11, "SCIENCE AND TECHNOLOGY");
     }
     
     public static double getJaccardIndexSimilarity(int schoolNo, int year, int grade, String subject) throws Exception{
@@ -24,8 +24,8 @@ public class JaccardIndex {
         int grade2 = 11;
         int term2 = 2;
 
-		Instances train = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade1, term1, subject), "root", "");
-		Instances train2 = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade2, term2, subject), "root", "");
+		Instances train = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, year, grade1, term1, subject), "root", "");
+		Instances train2 = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, year, grade2, term2, subject), "root", "");
 		
 		train2 = CFilter.removeAttributesByIndices(train2, "1");
 		train = Instances.mergeInstances(train, train2);
@@ -41,8 +41,12 @@ public class JaccardIndex {
 		Instances general = new Instances(train);
 		train.deleteAttributeAt(1);
 		general.deleteAttributeAt(0);
-		
-		return JaccardIndex.getSimilarity(general,train);
+
+
+        CFilter.saveARFF(train,"F:\\Projects\\FYP Docs\\train.arff");
+        CFilter.saveARFF(general,"F:\\Projects\\FYP Docs\\general.arff");
+
+        return JaccardIndex.getSimilarity(general,train);
 		
     }
     

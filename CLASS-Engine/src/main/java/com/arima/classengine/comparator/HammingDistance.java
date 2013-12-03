@@ -38,7 +38,7 @@ public class HammingDistance {
 	public static void main(String args[]) throws Exception{
 
 
-		getHammingSimilarity(11089, 2008, 11, "HISTORY");
+		getHammingSimilarity(11086, 2009, 11, "SCIENCE AND TECHNOLOGY");
 	}
 
 	public HammingDistance(String s1, String s2) throws Exception{
@@ -59,8 +59,8 @@ public class HammingDistance {
         int term2 = 2;
 
 
-		Instances train = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade1, term1, subject), "root", "");
-		Instances train2 = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, grade2, term2, subject), "root", "");
+		Instances train = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, year, grade1, term1, subject), "root", "");
+		Instances train2 = CFilter.retrieveDatasetFromDatabase(Utils.createPredictionQuery(schoolNo, year, grade2, term2, subject), "root", "");
 		
 		
 		
@@ -194,23 +194,23 @@ public class HammingDistance {
 
 		  double A = CFilter.retrieveDatasetFromDatabase(
 				Utils.createComparisionQuery(
-						schoolNo, 11, 3, subject, 75, 100), "root", "").attributeStats(1).numericStats.mean;
+						schoolNo, year, 11, 3, subject, 75, 100), "root", "").attributeStats(1).numericStats.mean;
 
 		  double B = CFilter.retrieveDatasetFromDatabase(
 				Utils.createComparisionQuery(
-						schoolNo, 11, 3, subject, 65, 74), "root", "").attributeStats(1).numericStats.mean;
+						schoolNo, year, 11, 3, subject, 65, 74), "root", "").attributeStats(1).numericStats.mean;
 
 		  double C = CFilter.retrieveDatasetFromDatabase(
 				Utils.createComparisionQuery(
-						schoolNo, 11, 3, subject, 55, 64), "root", "").attributeStats(1).numericStats.mean;
+						schoolNo, year, 11, 3, subject, 55, 64), "root", "").attributeStats(1).numericStats.mean;
 
 		  double S = CFilter.retrieveDatasetFromDatabase(
 				Utils.createComparisionQuery(
-						schoolNo, 11, 3, subject, 35, 54), "root", "").attributeStats(1).numericStats.mean;
+						schoolNo, year, 11, 3, subject, 35, 54), "root", "").attributeStats(1).numericStats.mean;
 
 		  double F = CFilter.retrieveDatasetFromDatabase(
 				Utils.createComparisionQuery(
-						schoolNo, 11, 3, subject, 0, 34), "root", "").attributeStats(1).numericStats.mean;
+						schoolNo, year, 11, 3, subject, 0, 34), "root", "").attributeStats(1).numericStats.mean;
 
 			
 							

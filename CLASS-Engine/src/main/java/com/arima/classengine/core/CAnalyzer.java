@@ -209,13 +209,13 @@ public class CAnalyzer {
 		updateModel(2008, 11, 1, "SAIVISM");
 		updateModel(2008, 11, 2, "SAIVISM");
 		updateModel(2008, 11, 3, "SAIVISM");
-		
+
 		updateModel(2008, 10, 2, "TAMIL LANGUAGE");
 		updateModel(2008, 10, 3, "TAMIL LANGUAGE");
 		updateModel(2008, 11, 1, "TAMIL LANGUAGE");
 		updateModel(2008, 11, 2, "TAMIL LANGUAGE");
 		updateModel(2008, 11, 3, "TAMIL LANGUAGE");
-		
+
 		updateModel(2008, 10, 2, "ENGLISH LANGUAGE");
 		updateModel(2008, 10, 3, "ENGLISH LANGUAGE");
 		updateModel(2008, 11, 1, "ENGLISH LANGUAGE");
@@ -227,7 +227,7 @@ public class CAnalyzer {
 		updateModel(2008, 11, 1, "MATHEMATICS");
 		updateModel(2008, 11, 2, "MATHEMATICS");
 		updateModel(2008, 11, 3, "MATHEMATICS");
-
+//
 		updateModel(2008, 10, 2, "HISTORY");
 		updateModel(2008, 10, 3, "HISTORY");
 		updateModel(2008, 11, 1, "HISTORY");
@@ -245,7 +245,7 @@ public class CAnalyzer {
 		updateModel(2008, 11, 1, "INFORMATION AND COMMUNICATION TECHNOLOGY");
 		updateModel(2008, 11, 2, "INFORMATION AND COMMUNICATION TECHNOLOGY");
 		updateModel(2008, 11, 3, "INFORMATION AND COMMUNICATION TECHNOLOGY");
-
+//
 		//		saveModelToDatabase("jdbc:mysql://localhost:3306/class", "root", "", 2009, 9, 2, "fuck", CFilter.loadModel("some.model"), "J48", 4);
 
 
@@ -262,7 +262,7 @@ public class CAnalyzer {
 		String statFileName = "F:/Projects/CLASS/CLASS-Engine/data/Classifiers-Stats/"+ 
 								year + " " + subject + " grade " + grade + " term " + term +  ".txt";
 
-		CAnalyzer analyzer = getModel(Utils.prepareTrainData(11089, grade, term, subject), statFileName);
+		CAnalyzer analyzer = getModel(Utils.prepareTrainData(grade, term, subject), statFileName);
 		
 		if(!analyzer.isTest()){
 			
@@ -400,8 +400,9 @@ public class CAnalyzer {
 		List<CClassifier> classifiers = new ArrayList<CClassifier>();
 		classifiers.add(new CJ48Classifier());
 		classifiers.add(new CNaiveBayesClassifier());
-//		classifiers.add(new CMultiLayerPerceptronClassifier());
-		classifiers.add(new CBaggingClassifier());
+		classifiers.add(new CMultiLayerPerceptronClassifier());
+		classifiers.add(new CBoostJ48());
+//        classifiers.add(new CBoostNaiveBayes());
 
 		List<CMissingValuesHandler> missingValueHandlers = new ArrayList<CMissingValuesHandler>();
 		missingValueHandlers.add(new CDefaultMissingValueHandler());

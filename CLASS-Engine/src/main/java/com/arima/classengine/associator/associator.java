@@ -5,18 +5,10 @@ import java.util.List;
 
 import weka.associations.Apriori;
 import weka.associations.AssociationRule;
-import weka.associations.AssociationRules;
 import weka.core.Instances;
 
-import com.arima.classengine.classifier.CBaggingClassifier;
-import com.arima.classengine.classifier.CClassifier;
-import com.arima.classengine.classifier.CJ48Classifier;
-import com.arima.classengine.classifier.CMultiLayerPerceptronClassifier;
-import com.arima.classengine.classifier.CNaiveBayesClassifier;
-import com.arima.classengine.core.CAnalyzer;
 import com.arima.classengine.filter.CFilter;
 import com.arima.classengine.utils.Utils;
-import com.mysql.jdbc.Util;
 
 public class associator {
 	
