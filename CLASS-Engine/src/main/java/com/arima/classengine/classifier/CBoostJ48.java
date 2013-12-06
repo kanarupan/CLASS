@@ -16,6 +16,9 @@ import weka.classifiers.trees.J48;
 import weka.classifiers.trees.M5P;
 import weka.core.Instances;
 
+/**
+ * class for boosting C4.5
+ */
 public class CBoostJ48 implements CClassifier {
 
     public static void main(String[] args) throws Exception {
@@ -59,6 +62,12 @@ public class CBoostJ48 implements CClassifier {
         System.out.println(eval.pctCorrect());
     }
 
+    /**
+     * build boosted C4.5 classifier
+     * @param subject the training instances to build the model
+     * @return the trained boosted C4.5 classifier
+     * @throws Exception
+     */
 	public Classifier buildClassifier(Instances subject) throws Exception {
 		
 		if (subject.classIndex() == -1)

@@ -2,6 +2,9 @@ package com.arima.classengine.engine;
 
 import weka.classifiers.Classifier;
 
+/**
+ * class that encapsulates a classifier info
+ */
 public class Model {
 
 	public int year;

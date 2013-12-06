@@ -14,14 +14,20 @@ import weka.core.Instances;
 import weka.gui.treevisualizer.PlaceNode2;
 import weka.gui.treevisualizer.TreeVisualizer;
 
-
+/**
+ * class for building a C4.5 classifier
+ */
 public class CJ48Classifier implements CClassifier {
 
-
+    /**
+     * build the C4.5 classifier on the given train data
+     * @param subject the training instances to build the model
+     * @return the trained C4.5 classifier
+     * @throws Exception
+     */
 	public Classifier  buildClassifier(Instances subject) throws Exception {
 
-//		subject = CFilter.removeAttributesByIndices(subject, indices);
-
+        //set the last attributes as class attribute if not set
 		if (subject.classIndex() == -1)
 			subject.setClassIndex(subject.numAttributes() - 1);
 		
@@ -30,17 +36,6 @@ public class CJ48Classifier implements CClassifier {
 		J48 j48 = new J48();
 		j48.setUnpruned(true);
 		j48.buildClassifier(subject);
-		
-//		CAnalyzer.selectAttributes(subject);
-
-//		Evaluation eval = new Evaluation(subject);
-//		eval.crossValidateModel(j48, subject, 10, new Random(1));
-//		
-//		double accuracy = 100 * (eval.correct())/(eval.correct()+eval.incorrect());
-//		System.out.println("Fucking Accuracy is : " + accuracy);
-//
-//		System.out.println(eval.toSummaryString("\nResults\nn8888", true));
-////		System.out.println(eval.fMeasure(1) + " " + eval.precision(1) + " ");
 
 		return j48;
 
