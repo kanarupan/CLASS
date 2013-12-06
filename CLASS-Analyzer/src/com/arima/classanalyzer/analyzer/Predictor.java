@@ -39,12 +39,12 @@ public class Predictor {
         //       subjects.add("BUSSINESS AND ACCOUNTING");
 
         marks.add(90);
-        marks.add(82);
+        marks.add(null);
 //        marks.add(96);
         marks.add(90);
         marks.add(82);
         marks.add(96);
-        marks.add(82);
+        marks.add(null);
 //        marks.add(96);
 
         EngineService engineService = new EngineService();

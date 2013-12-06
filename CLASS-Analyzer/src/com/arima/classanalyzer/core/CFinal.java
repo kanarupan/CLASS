@@ -18,10 +18,10 @@ public class CFinal {
 
         ArrayList<Integer> marks = new ArrayList<Integer>();
         marks.add(0);
-        marks.add(8);
+        marks.add(0);
         marks.add(56);
         marks.add(2);
-        marks.add(2);
+        marks.add(0);
 
         System.out.println(predictNextTermAsResults(null, 2008, 11, 3, "MATHEMATICS", 4545, marks));
 

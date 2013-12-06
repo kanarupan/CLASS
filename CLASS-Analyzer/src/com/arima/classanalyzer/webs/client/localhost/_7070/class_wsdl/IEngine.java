@@ -27,6 +27,19 @@ public interface IEngine {
 
 
     /**
+     * @param arg0
+     * @return returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "insertExamPerformance", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertExamPerformance")
+    @ResponseWrapper(localName = "insertExamPerformanceResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertExamPerformanceResponse")
+    @Action(input = "http://webs.classengine.arima.com/IEngine/insertExamPerformanceRequest", output = "http://webs.classengine.arima.com/IEngine/insertExamPerformanceResponse")
+    public String insertExamPerformance(
+            @WebParam(name = "arg0", targetNamespace = "")
+            String arg0);
+
+    /**
      * @return returns java.lang.String
      */
     @WebMethod
@@ -46,19 +59,6 @@ public interface IEngine {
     @ResponseWrapper(localName = "insertStudentsResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertStudentsResponse")
     @Action(input = "http://webs.classengine.arima.com/IEngine/insertStudentsRequest", output = "http://webs.classengine.arima.com/IEngine/insertStudentsResponse")
     public String insertStudents(
-            @WebParam(name = "arg0", targetNamespace = "")
-            String arg0);
-
-    /**
-     * @param arg0
-     * @return returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "insertExamPerformance", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertExamPerformance")
-    @ResponseWrapper(localName = "insertExamPerformanceResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertExamPerformanceResponse")
-    @Action(input = "http://webs.classengine.arima.com/IEngine/insertExamPerformanceRequest", output = "http://webs.classengine.arima.com/IEngine/insertExamPerformanceResponse")
-    public String insertExamPerformance(
             @WebParam(name = "arg0", targetNamespace = "")
             String arg0);
 

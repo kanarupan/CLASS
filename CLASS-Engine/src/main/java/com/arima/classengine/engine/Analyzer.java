@@ -39,4 +39,7 @@ public class Analyzer {
         return HammingDistance.getHammingSimilarity(schoolNo, year, grade, subject);
     }
 
+
+
+
 }

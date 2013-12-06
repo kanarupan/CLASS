@@ -57,5 +57,27 @@ public class Engine implements IEngine {
 
     }
 
+    public double getOverallStandard(int schoolNo, int year, int grade, String subject) {
+        try {
+            return Analyzer.getOverallStandard(schoolNo, year, grade, subject);
+        } catch (Exception e) {
+            return -1;
+
+
+        }
+
+    }
+
+    public double getStudentBasedStandard(int schoolNo, int year, int grade, String subject) {
+        try {
+            return Analyzer.getStudentBasedStandard(schoolNo, year, grade, subject);
+        } catch (Exception e) {
+            return -1;
+
+
+        }
+
+
+    }
 
 }
