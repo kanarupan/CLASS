@@ -1,5 +1,6 @@
 package com.arima.classengine.comparator;
 
+import com.arima.classengine.engine.ExamStandard;
 import weka.core.Instances;
 
 import com.arima.classengine.filter.CFilter;
@@ -38,7 +39,7 @@ public class HammingDistance {
 	public static void main(String args[]) throws Exception{
 
 
-		getHammingSimilarity(11086, 2009, 11, "SCIENCE AND TECHNOLOGY");
+//		getHammingSimilarity(11086, 2009, 11, "SCIENCE AND TECHNOLOGY");
 	}
 
 	public HammingDistance(String s1, String s2) throws Exception{
@@ -48,7 +49,7 @@ public class HammingDistance {
 		}
 
 	
-	public static double getHammingSimilarity(int schoolNo, int year, int grade, String subject) throws Exception {
+	public static ExamStandard getHammingSimilarity(int schoolNo, int year, int grade, String subject, ExamStandard examStandard) throws Exception {
 
         initializeMeans(schoolNo, year, subject);
 
@@ -88,12 +89,17 @@ public class HammingDistance {
 		
 		System.out.println(term_sequence);
 		System.out.println(general_sequence);
+
+        examStandard.setTerm(term_sequence);
+        examStandard.setGeneral(general_sequence);
 		
 		HammingDistance hd = new HammingDistance(term_sequence, general_sequence);
 		System.out.println("Distance is : " + hd.getDistance());
 		System.out.println("Similarity is : " + (hd.getSimilarity()));
 
-        return hd.getSimilarity();
+        examStandard.setSequenceAlignmentScore(hd.getSimilarity());
+
+        return examStandard;
 	}
 	
 	

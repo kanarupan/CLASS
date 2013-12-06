@@ -3,6 +3,8 @@ package com.arima.classengine.engine;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.arima.classengine.comparator.SimilarityMeasure;
+import com.arima.classengine.comparator.SimilarityMeasures;
 import com.arima.classengine.core.CAnalyzer;
 import com.arima.classengine.profilematcher.NearestProfile;
 import com.arima.classengine.comparator.JaccardIndex;
@@ -29,14 +31,9 @@ public class Analyzer {
 		return NearestProfile.getNearestProfiles(grade, term, subjects, marks);
 	}
 
-    //it will return the Jaccard index of the given subject for given school
-     public static double getOverallStandard(int schoolNo, int year, int grade, String subject) throws Exception {
-         return JaccardIndex.getJaccardIndexSimilarity(schoolNo, year, grade, subject);
-     }
 
-    //it will return the sequence alignment score of the given subject for given school
-    public static double getStudentBasedStandard(int schoolNo, int year, int grade, String subject) throws Exception {
-        return HammingDistance.getHammingSimilarity(schoolNo, year, grade, subject);
+    public static ExamStandard getExamStandard(int schoolNo, int year, int grade, String subject) throws Exception {
+        return SimilarityMeasures.getExamStandard(schoolNo, year, grade, subject);
     }
 
 }

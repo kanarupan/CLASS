@@ -2,6 +2,7 @@ package com.arima.classengine.comparator;
 
 import java.util.Arrays;
 
+import com.arima.classengine.engine.ExamStandard;
 import weka.core.Instance;
 import weka.core.InstanceComparator;
 import weka.core.Instances;
@@ -14,10 +15,10 @@ import com.arima.classengine.utils.Utils;
 public class JaccardIndex {
     
     public static void main(String[] args) throws Exception {
-    			getJaccardIndexSimilarity(11089, 2008, 11, "SCIENCE AND TECHNOLOGY");
+    			//getJaccardIndexSimilarity(11089, 2008, 11, "SCIENCE AND TECHNOLOGY");
     }
     
-    public static double getJaccardIndexSimilarity(int schoolNo, int year, int grade, String subject) throws Exception{
+    public static ExamStandard getJaccardIndexSimilarity(int schoolNo, int year, int grade, String subject, ExamStandard examStandard) throws Exception{
 
         int grade1 = grade;
         int term1 = 3;
@@ -46,16 +47,19 @@ public class JaccardIndex {
         CFilter.saveARFF(train,"F:\\Projects\\FYP Docs\\train.arff");
         CFilter.saveARFF(general,"F:\\Projects\\FYP Docs\\general.arff");
 
-        return JaccardIndex.getSimilarity(general,train);
+        return JaccardIndex.getSimilarity(general,train,examStandard);
 		
     }
     
-    private static double getSimilarity(Instances general, Instances term){
+    private static ExamStandard getSimilarity(Instances general, Instances term, ExamStandard examStandard){
     	
 		int[] term_nominalCounts = term.attributeStats(0).nominalCounts;
 		int[] general_nominalCounts = general.attributeStats(0).nominalCounts;
 		System.out.println(Arrays.toString(term_nominalCounts));
 		System.out.println(Arrays.toString(general_nominalCounts));
+
+        examStandard.setTermCount(term_nominalCounts);
+        examStandard.setGeneralCount(general_nominalCounts);
 	
 		int F = Math.min(term_nominalCounts[0], general_nominalCounts[0]);
 		int S = Math.min(term_nominalCounts[1], general_nominalCounts[1]);
@@ -66,8 +70,10 @@ public class JaccardIndex {
 		System.out.println(F + " " + S + " " + C + " " + B + " " + A );
 		double similiarity = (double)100 * (F + S + C + B + A)/term.attributeStats(0).totalCount;
 		System.out.println("Similarity is : " + similiarity);
+
+        examStandard.setJaccardIndex(similiarity);
 		
-		return similiarity;
+		return examStandard;
     }
     
     private static Instances validate(Instances data1, Instances data2){
