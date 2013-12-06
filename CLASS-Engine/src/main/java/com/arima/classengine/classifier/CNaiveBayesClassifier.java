@@ -9,12 +9,21 @@ import weka.classifiers.bayes.NaiveBayes;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
 
-
+/**
+ * class for building Naive Bayes classifier
+ */
 public class CNaiveBayesClassifier implements CClassifier {
 
+    /**
+     * build the Naive Bayes classifier on the given train data
+     * @param subject the training instances to build the model
+     * @return the trained Naive Bayes classifier
+     * @throws Exception
+     */
 	public Classifier buildClassifier(Instances subject)
 			throws Exception {
-		
+
+        //set the last attributes as class attribute if not set
 		if (subject.classIndex() == -1)
 			subject.setClassIndex(subject.numAttributes() - 1);
 		
@@ -22,15 +31,6 @@ public class CNaiveBayesClassifier implements CClassifier {
 
 		NaiveBayes nb = new NaiveBayes();
 		nb.buildClassifier(subject);
-//		CAnalyzer.selectAttributes(subject);
-//		
-//		Evaluation eval = new Evaluation(subject);
-//		eval.crossValidateModel(nb, subject, 10, new Random(1));
-//
-//		//selectAttributes(subject);
-//
-//		System.out.println(eval.toSummaryString("\nResults\nn8888", true));
-//		System.out.println(eval.fMeasure(1) + " " + eval.precision(1) + " ");
 
 		return nb;
 	}

@@ -1,6 +1,7 @@
 
 package com.arima.classanalyzer.webs.client.localhost._7070.class_wsdl;
 
+import com.arima.classanalyzer.core.ExamStandard;
 import com.arima.classanalyzer.webs.client.ObjectFactory;
 
 import javax.jws.WebMethod;
@@ -32,10 +33,10 @@ public interface IEngine {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "insertExamPerformance", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertExamPerformance")
-    @ResponseWrapper(localName = "insertExamPerformanceResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertExamPerformanceResponse")
-    @Action(input = "http://webs.classengine.arima.com/IEngine/insertExamPerformanceRequest", output = "http://webs.classengine.arima.com/IEngine/insertExamPerformanceResponse")
-    public String insertExamPerformance(
+    @RequestWrapper(localName = "insertStudents", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertStudents")
+    @ResponseWrapper(localName = "insertStudentsResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertStudentsResponse")
+    @Action(input = "http://webs.classengine.arima.com/IEngine/insertStudentsRequest", output = "http://webs.classengine.arima.com/IEngine/insertStudentsResponse")
+    public String insertStudents(
             @WebParam(name = "arg0", targetNamespace = "")
             String arg0);
 
@@ -55,10 +56,10 @@ public interface IEngine {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "insertStudents", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertStudents")
-    @ResponseWrapper(localName = "insertStudentsResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertStudentsResponse")
-    @Action(input = "http://webs.classengine.arima.com/IEngine/insertStudentsRequest", output = "http://webs.classengine.arima.com/IEngine/insertStudentsResponse")
-    public String insertStudents(
+    @RequestWrapper(localName = "insertExamPerformance", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertExamPerformance")
+    @ResponseWrapper(localName = "insertExamPerformanceResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.InsertExamPerformanceResponse")
+    @Action(input = "http://webs.classengine.arima.com/IEngine/insertExamPerformanceRequest", output = "http://webs.classengine.arima.com/IEngine/insertExamPerformanceResponse")
+    public String insertExamPerformance(
             @WebParam(name = "arg0", targetNamespace = "")
             String arg0);
 
@@ -108,5 +109,27 @@ public interface IEngine {
             List<String> arg2,
             @WebParam(name = "arg3", targetNamespace = "")
             List<Integer> arg3);
+
+    /**
+     * @param arg3
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return returns com.arima.classengine.webs.ExamStandard
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getStudentBasedStandard", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.GetStudentBasedStandard")
+    @ResponseWrapper(localName = "getStudentBasedStandardResponse", targetNamespace = "http://webs.classengine.arima.com/", className = "com.arima.classengine.webs.GetStudentBasedStandardResponse")
+    @Action(input = "http://webs.classengine.arima.com/IEngine/getStudentBasedStandardRequest", output = "http://webs.classengine.arima.com/IEngine/getStudentBasedStandardResponse")
+    public ExamStandard getStudentBasedStandard(
+            @WebParam(name = "arg0", targetNamespace = "")
+            int arg0,
+            @WebParam(name = "arg1", targetNamespace = "")
+            int arg1,
+            @WebParam(name = "arg2", targetNamespace = "")
+            int arg2,
+            @WebParam(name = "arg3", targetNamespace = "")
+            String arg3);
 
 }

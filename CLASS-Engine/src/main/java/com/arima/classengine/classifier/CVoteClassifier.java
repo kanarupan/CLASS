@@ -10,6 +10,9 @@ import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.core.SelectedTag;
 
+/**
+ * class for building a vote classifier using C4.5, Naive Bayes, MLP and AdaBoostM1
+ */
 public class CVoteClassifier implements CClassifier {
 
     public static void main(String[] args) throws Exception {
@@ -26,6 +29,12 @@ public class CVoteClassifier implements CClassifier {
 //        System.exit(0);
     }
 
+    /**
+     * build the vote classifier on the given train data using C4.5, Naive Bayes, MLP and AdaBoostM1
+     * @param subject the training instances to build the model
+     * @return the trained vote classifier
+     * @throws Exception
+     */
 	public Classifier buildClassifier(Instances subject) throws Exception {
 		
 		if (subject.classIndex() == -1)

@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * class implementing nearest profile matching based on k-d tree
+ */
 public class NearestProfile {
 
     public static void main(String[] args) throws Exception {
